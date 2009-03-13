@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <description>Language labels for pt_tools objects</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="msgbox_error">Error</label>
+            <label index="msgbox_warning">Warning</label>
+            <label index="msgbox_question">Question</label>
+            <label index="msgbox_info">Info</label>
+            <label index="formchecker_wrong_method">Application error: Formchecker method %s does not exist</label>
+            <label index="formchecker_entry_required">The entry for %s is required.</label>
+            <label index="formchecker_entry_wrong_chars">The entry for %s contains wrong characters.</label>
+            <label index="formchecker_entry_too_long">The entry for %1$s is too long (max. %2$s chars, you've entered %3$s).</label>
+            <label index="formchecker_entry_too_many_decplaces">The entry for %1$s must not contain more than %2$s decimal places.</label>
+            <label index="formchecker_entry_numbers_decplaces_only">The entry for %1$s must contain only numbers and not more than one decimal separator '%2$s'.</label>
+            <label index="formchecker_entry_numbers_only">The entry for %s must contain only numbers.</label>
+            <label index="formchecker_entry_digits_constraint">The entry for %1$s must contain %2$s to %3$s digits.</label>
+            <label index="formchecker_entry_invalid_email">The entry for %s is not a valid email address.</label>
+            <label index="formchecker_entry_domain_pos1">The entry for %s must not begin with &amp;quot;-&amp;quot;.</label>
+            <label index="formchecker_entry_chars_constraint">The entry for %1$s must contain %2$s to %3$s characters.</label>
+            <label index="formchecker_entry_date_format">The entry for %1$s must contain a valid date in the format %2$s.</label>
+            <label index="formchecker_selection_required">A selection for %s is required.</label>
+            <label index="fileupload_error">File upload error.</label>
+            <label index="fileupload_error_size">File size too big! Max. file size is %s byte.</label>
+            <label index="fileupload_error_mime">File name extension (%s) not allowed!</label>
+            <label index="fileupload_error_ext">Mime type (%s) not allowed!</label>
+            <label index="fileupload_error_overwrite">File already exists on server. Overwriting is not allowed.</label>
+        </languageKey>
+        <languageKey index="de" type="array">
+            <label index="msgbox_error">Fehler</label>
+            <label index="msgbox_warning">Warnung</label>
+            <label index="msgbox_question">Frage</label>
+            <label index="msgbox_info">Info</label>
+            <label index="formchecker_wrong_method">Softwarefehler: Formchecker-Methode %s existiert nicht</label>
+            <label index="formchecker_entry_required">Das Feld %s muss noch ausgef&amp;uuml;llt werden.</label>
+            <label index="formchecker_entry_wrong_chars">Das Feld %s enth&amp;auml;lt ung&amp;uuml;ltige Zeichen.</label>
+            <label index="formchecker_entry_too_long">Die Eingabe f&amp;uuml;r %1$s ist zu lang (max. %2$s Zeichen, Eingabe war %3$s).</label>
+            <label index="formchecker_entry_too_many_decplaces">Das Feld %1$s darf max. %2$s Nachkommastellen haben.</label>
+            <label index="formchecker_entry_numbers_decplaces_only">Das Feld %1$s darf nur Ziffern und max. einen Dezimal-Separator '%2$s' haben.</label>
+            <label index="formchecker_entry_numbers_only">Das Feld %s darf nur Ziffern enthalten.</label>
+            <label index="formchecker_entry_digits_constraint">Das Feld %1$s muss %2$s bis %3$s Ziffern enthalten.</label>
+            <label index="formchecker_entry_invalid_email">Das Feld %s enth&amp;auml;lt keine g&amp;uuml;ltige E-Mail-Adresse.</label>
+            <label index="formchecker_entry_domain_pos1">Im Feld %s darf das erste Zeichen kein &amp;quot;-&amp;quot; sein.</label>
+            <label index="formchecker_entry_chars_constraint">Das Feld %1$s muss %2$s bis %3$s Zeichen enthalten.</label>
+            <label index="formchecker_entry_date_format">Das Feld %1$s muss ein g&amp;uuml;ltiges Datum im Format %2$s enthalten.</label>
+            <label index="formchecker_selection_required">F&amp;uuml;r das Feld %s muss eine Auswahl getroffen werden.</label>
+            <label index="fileupload_error">Fehler beim Datei-Upload.</label>
+            <label index="fileupload_error_size">Datei zu gro&amp;szlig;! Die max. zul&amp;auml;ssige Dateigr&amp;ouml;&amp;szlig;e ist %s Byte.</label>
+            <label index="fileupload_error_mime">Dateinamenserweiterung (%s) nicht erlaubt!</label>
+            <label index="fileupload_error_ext">Mime-Typ (%s) nicht erlaubt!</label>
+            <label index="fileupload_error_overwrite">Datei auf Server schon vorhanden. &amp;Uuml;berschreiben ist nicht erlaubt.</label>
+        </languageKey>
+        <languageKey index="fi" type="array">
+            <label index="msgbox_error">Virhe</label>
+            <label index="msgbox_app_error">Sovellutusvirhe</label>
+            <label index="msgbox_wrong_param">Virheellinen parametri %s MessageBoxiin</label>
+            <label index="formchecker_entry_required">%s tieto on pakollinen.</label>
+            <label index="formchecker_entry_wrong_chars">%s tiedossa on virheellisiä merkkejä.</label>
+            <label index="formchecker_entry_too_long">%1$s tieto on liian pitkä (max. %2$s merkkiä, annoit %3$s).</label>
+            <label index="formchecker_entry_numbers_only">%s tiedossa saa olla vain numeroita.</label>
+            <label index="formchecker_entry_digits_constraint">%1$s tiedon tulee sisältää %2$s - %3$s numeerista merkkiä.</label>
+            <label index="formchecker_entry_invalid_email">%s tieto ei ole kelvollinen email osoite.</label>
+            <label index="formchecker_entry_domain_pos1">%s tieto ei saa alkaa &amp;quot;-&amp;quot;.</label>
+            <label index="formchecker_entry_chars_constraint">%1$s tiedon täytyy sisältää %2$s - %3$s merkkiä.</label>
+            <label index="formchecker_entry_date_format">%1$s tiedon tulee sisältää kelvollinen päiväys muotoa %2$s.</label>
+            <label index="formchecker_selection_required">%s tiedon valinta on pakollinen.</label>
+            <label index="fileupload_error">Virhe tiedoston viennissä.</label>
+            <label index="fileupload_error_size">Tiedosto liiaan suuri! Tiedoston maksimi koko on %s tavua.</label>
+            <label index="fileupload_error_mime">Tiedosotn tyyppi (%s) EI ole sallittu!</label>
+            <label index="fileupload_error_ext">Mimetyyppi (%s) EI ole sallittu!</label>
+            <label index="fileupload_error_overwrite">Tiedosto on jo olemassa. Päälle kirjoittaminen EI ole sallittua!</label>
+        </languageKey>
+        <languageKey index="fr" type="array">
+            <label index="formchecker_entry_required">Veuillez saisir le champ %s.</label>
+            <label index="formchecker_selection_required">Veuillez saisir le champ %s.</label>
+            <label index="formchecker_entry_wrong_chars">Le champ %s contient des caractères invalides.</label>
+        </languageKey>
+    </data>
+</T3locallang>

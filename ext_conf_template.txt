@@ -1,0 +1,26 @@
+/* 
+possible subcategories: 
+----------------------
+basic        Extension configuration in Extension Manager
+
+possible data types (type=):
+---------------------------
+int [low-high]              integer, opt. in range "low" to "high"
+int+                        positive integer
+offset [L1,L2,...L6]        comma-separated integers. Default is "x,y", but as comma separated parameters in brackets you can specify up to 6 labels being comma separated! If you wish to omit one of the last 4 fields, just don't enter a label for that element.
+color                       HTML color
+wrap                        HTML-code that is wrapped around some content.
+options [item1,item2,...]   Selectbox with values/labels item1, item2 etc. Commaseparated. Split by "=" also and in that case, first part is label, second is value
+boolean [truevalue]         Boolean, opt. you can define the value of "true", def.=1
+comment                     Boolean, checked= "", not-checked = "#".
+file [ext-list/IMAGE_EXT]   Selectorbox with resources. Opt. list allowed extensions (no space in list!), eg. "[ttf]" or "[txt,html,htm]". You can also enter "[IMAGE_EXT]" in which case the default image-extensions are listed. (used for datatype "imgResouce")
+string (the default)        Just a string value
+*/
+
+
+
+# cat=basic; type=boolean; label=Convert errors to exceptions: Convert errors to exceptions by using set_error_handler(). Errors will be logged as defined in the php.ini (log_errors, error_log) anyhow. Be careful with this options in production environment! You can set which errors to convert by adding "$GLOBALS['tx_pttools_debug']['errors']['FE']" or "$GLOBALS['tx_pttools_debug']['errors']['BE']" to your localconf.php. By default all errors defined in "error_reporting" will be logged in the frontend and all errors defined in "error_reporting" without E_WARNINGS will be logged in the backend. Be sure to catch all exceptions, e.g by switching on the option "catchUncaughtExceptions" below.
+convertErrorsToExceptions = 
+
+# cat=basic; type=boolean; label=Catch uncaught exceptions: Catch uncaught exceptions (by using set_exception_handler()) and display them with a nice backtrace if IP matches the devIPmask respective display only the message if not. If "convertErrorsToExceptions" is set to true, this option should be set as well, as there might be exceptions (coming from errors) which would not be caught otherwise. In combination with TYPO3's "systemLog" this can be a mighty tool for developing and monitoring.  
+catchUncaughtExceptions = 

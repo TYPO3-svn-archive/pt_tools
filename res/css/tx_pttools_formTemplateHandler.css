@@ -1,0 +1,64 @@
+div.tx-ptgsauserreg-pi1 form, 
+div.tx-ptgsauserreg-pi2 form, 
+div.tx-ptgsauserreg-pi4 form, 
+div.tx-pthostingdomain-pi1 form, 
+div.tx-pthostingftp-pi1 form,
+div.tx-pthostingdomain-pi2 form {
+	min-width: 550px;
+}
+
+.formRow {
+	clear: both;
+}
+.formLabel {
+	float: left;
+	width: 30%;
+}
+.formField {
+	margin-left: 30%;
+}
+.formField img {
+	position: relative;
+	top: 0.3em;
+	width: 15px; height: 16px;
+}
+fieldset {
+	margin:0; padding:0;
+	border: none;
+}
+fieldset fieldset {
+	margin:0;  padding:0;
+   border: none;
+}
+legend {
+	background-color: transparent;
+	color: #333333;
+	padding: 0.1em 0.2em;
+	margin:0.3em;
+	font-weight: bold;
+	border: none;
+	font-size: 110%;
+}
+fieldset fieldset legend {
+	background-color: transparent;
+	color: #666666;
+	font-weight: normal;
+	text-decoration: underline;
+	padding-left: 0.5em;
+	font-size: 100%;
+}
+select {
+	margin:0; padding:0;
+}
+div.formRow {
+	margin: 0.2em 1em;
+}
+div.tx_pttoolsButton input {
+	margin: 0.8em 1em 0 0;
+	background-color: #EFEFEF;
+	color: #000000;
+	cursor: pointer;
+}
+
+
+@import url(ie6_txpttools_formTemplateHandler.css);

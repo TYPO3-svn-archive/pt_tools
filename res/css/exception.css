@@ -1,0 +1,106 @@
+/**
+ * Styling the main window
+ */
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.info {
+	display: block;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.label {
+	display:block;
+	font-weight: bold;
+}
+
+.value {
+	display: block;
+	margin-left: 20px;
+}
+
+h1.exceptionmessage {
+	font-family: Arial, Helvetica, sans-serif;
+	color: red;
+}
+
+h2.exceptionclass {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+/**
+ * Styling the backtrace
+ */
+
+div.step {
+	display: block;
+	border: 3px solid #ccc;
+	font-family: Consolas, "Courier New",Courier,monospace;
+}
+div.step:hover {
+	border: 3px solid #000;
+}
+.php a {
+	text-decoration: none;
+}
+.php ol {
+	margin: 0 0 0 15px;
+}
+pre {
+	margin: 0;
+	padding: 0;
+}
+.stepname {
+	padding: 3px;
+	font-family: Arial;
+	display: block;
+	background-color: #ccc;
+	font-weight: bold;
+}
+.arguments {
+	color: #999;
+}
+.filename {
+	display: block;
+	background-color: #eee;
+	color: #888;
+	font-size: small;
+	text-align: right;
+}
+.classname {
+	color: #000;
+}
+.codestep {
+	display: block;
+}
+.step0 {
+	background-color: #EEE;
+}
+.extension {
+	font-weight: bold;
+	color: red;
+}
+.linenumber {
+	color: #FFF;
+}
+.step0 .linenumber {
+	color: #000;
+}
+.istype, .isobject {
+	font-style: italic;
+}
+div.exceptioninfo {
+	margin-bottom: 15px;
+}
+li.codeline {
+	font-family: Consolas, 'Courier New',Courier,monospace; 
+	color: black; 
+	font-weight: normal; 
+	font-style: normal;	
+}
+li.current {
+	background-color: #eee; 
+	font-weight: bold;
+}

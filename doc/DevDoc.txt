@@ -1,0 +1,52 @@
+********************************************************************************
+DevDoc.txt: Development notes for EXT pt_tools
+Author: Rainer Kuhn, Fabrizio Branca, Wolfgang Zenker
+
+Legend:
+
+FIX: fixes a bug
+CHG: inform about changed items
+ADD: added feature
+RMV: removed Item
+RFT: refactoring / code cleanup
+********************************************************************************
+
+
+ToDo: Stand 13.03.2009
+====
+
+v0.4.2dev2:
+----------
++ (rk) ADD: ext_emconf.php: added extension suggestions for development
++ (mk) ADD: exceptionNotYetImplemented for marking non-finished methods etc.
++ (mk) ADD: iSingletonCollection interface for singleton collections
++ (fb) ADD: tx_pttools_div::quoteStr() for use as typoscript userFunction. See phpdoc for an example
++ (fb) ADD: Smarty modifier: modifier.explodeAndPrint.php
++ (rk) CHG: tx_pttools_debug: ignores tx_pttools_exception inclusion in non TYPO3-mode now (allows to use the base class functions in any arbitrary context)
++ (fb) CHG: tx_pttools_collection::getItemById() and ::getItemByIndex() return elements by reference
+
+
+v0.4.2dev1: [Online f. T3DD09 16.02.09]
+----------
++ (rk) ADD: tx_pttools_paymentReturnInformation: added this new class to 'objects' => ***** MANUAL *****
++ (rk) ADD: tx_pttools_paymentRequestInformation: added this new class to 'objects' => ***** MANUAL *****
++ (rk) ADD: tx_pttools_sessionStorageAdapter::delete(): key deletion and logging is only performed if the requested key is not empty
++ (mk) RFT: tx_pttools_beSubmodule::init() using assertions to check prefix and extkey 
++ (uk) FIX: tx_pttools_assert::isNotEmptyString() funktionierte nicht bei '0'
++ (rk) class.tx_pttools_collection.php, class.tx_pttools_objectCollection.php: xclassing korrigiert
++ (fb) modifier.ll.php: added optional parameter "$throwExceptionOnTranslationUnavailable"
++ (fb) tx_pttools_iSettableByArray: added this interface  => ***** MANUAL *****
++ (fb) tx_pttools_div: added hasGroupAccess() method
++ (fb) added smarty modifier: stdWrap   => ***** MANUAL ***** ??
++ (fb) tx_pttools_collection: addItems error message
++ (fb) tx_pttools_sessionStorageAdapter: added additional optional parameter "allow(un)serialize" to prevent automatical (un)serializing of objects while storing or reading
++ (rk) added new interface tx_pttools_iPageable [ACHTUNG: ***** MANUAL ***** oder ggf. noch nicht einchecken/ListGenerator abwarten!]
+   + (fb) changed the order of parameters in tx_pttools_iPageable interface
+   + (fb) removed where and oderBy parameters of getTotalItemCount() and getItems() methods
++ (rk) added new interface tx_pttools_iTemplateable [ACHTUNG: ***** MANUAL ***** oder ggf. noch nicht einchecken/ListGenerator abwarten!]
++ (wz) bugfix: formTemplateHandler: wrong helptext for password repeat field
++ (wz) docs: added description for password repeat label/help texts.
++ (rk) ext_emconf.php: adapted extension description
+
+
+

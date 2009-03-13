@@ -1,0 +1,127 @@
+###############################################################################
+pt_tools collectionElementSelector Manual
+Author: Wolfgang Zenker (zenker@punkt.de)
+###############################################################################
+
+Introduction
+------------
+
+The collectionElementSelector in pt_tools can be used to build web forms
+in TYPO3 frontend plugins where elements of an object collection are
+displayed as a list together with buttons or other form elements that
+would perform an operation on the related single collection element.
+It provides also a possibility to add an additional form block for
+operations on the collection as a whole, e.g. add an additional element.
+The collectionElementSelector is especially usefull when used in combination
+with pt_tools' formTemplateHandler but can be used independent of it.
+
+What it does is basically loop through all collection elements and
+create an individual form for each element. To differentiate the 
+returns from the forms of different elements, the collectionElementSelector
+puts metadata into the individual fields (as hidden forms) that will be
+used in identifying which form sent a given input.
+All the forms for the individual elements are concatenated together in
+the so called "element list"; in addition a so called "extra block" can
+be generated that is not related to a single element but to the collection
+as a whole.
+
+Requirements
+------------
+
+The collectionElementSelector only works on object collections that implement
+pt_tools' abstract class.tx_pttools_objectCollection.php
+
+API
+---
+
++ Constructor
+
+  $cesObject = new tx_pttools_collectionElementSelector($this, $templates, $wrapperDesc);
+
+  Instantiate a collectionElementSelector Object that will provide the
+  methods described below; usually you would do that near the start of
+  your plugins main() method.
+  The first parameter is your plugin object (in the normal case of using this
+  directly in a frontend plugin $this would be used).
+  The second and third parameters are optional and would only be used if you
+  want to use special templates to wrap individual collection elements and/or
+  the extra block for the collection as a whole or you want to wrap the
+  element list together with the extra block in a nonstandard way.
+
++ Generating form output
+
+  $content = $cesObject->displayCES($selectorName, $objCollection, $elementDisplay, $extraDisplay);
+
+  This method collects output from methods provided by you to generate forms
+  for single collection elements and the extra block and wraps them all
+  together in a common html-string; also metadata is inserted in the forms
+  so the other methods can identify user input from one of these forms.
+  The first parameter is a simple string used to identify the selector form
+  that is built here. It is most useful if your plugin generates more then
+  one selection form; so the input handler can use getCESName() to find out
+  which form generated a given input.
+  The second parameter is the object collection that you want to select/display
+  elements of.
+  The third paramater is the name of a public method provided by yourn plugin;
+  this method will be called once for every collection element with this element
+  as its only parameter and has to return a filled in form for this element.
+  The optional fourth parameter is likewise the name of a public mthod in your
+  plugin; this one is called with the whole collection as its single argument
+  and must return a filled in form for the "extra" block.
+
++ check if we are called from a collection element selector form
+
+  $cesObject->isCESReturn();
+
+  Method to be called from the plugin; this one checks piVars for the
+  presence of CES metadata and returns true if found.
+
++ get name of selector form we were called from
+
+  $selectorName = $cesObject->getCESName();
+
+  Can be called by plugin if isCESReturn() returned true: Returns the
+  selector name found in CES metadata.
+
++ get Id of collection element that was in the form we were called from
+
+  $elementId = $cesObject->getCESId($objCollection);
+
+  Can be called by plugin if isCESReturn() returned true: Returns the
+  Id of the collection element whose form was submitted by the user
+  or an empty string if the user submitted the "extra" block form.
+
++ process input from a collection element selector form
+
+  $msg = $cesObject->processCESInput($objCollection, $elementProcess, $extraProcess);
+
+  Can be called by plugin if isCESReturn() returned true: Processes
+  user input from a CES form and return html error message if there
+  was a problem.
+  The first parameter is the object collection to work on.
+  The second parameter is the name of a public method from your plugin that
+  will be called if the user submitted a single element form from the
+  collection with the collection element as its sole parameter.
+  It should return a html string that can be displayed to the user in
+  case of processing errors or an empty string if no errors were found.
+  Prior to calling your method the element on the form that the user
+  submitted will be made the "selected element" in the collection.
+  The third (optional) parameter is also the name of a public method in
+  your plugin that will be called with the whole collection as parameter
+  the user submitted the "extra" block form; prior to calling the
+  clear_selectedId() method of the collection will be called.
+  
+
+Templates
+---------
+
+  The collection Element Selector makes heavy use of the TYPO3 templating
+  engine. For it to work, your methods have to return html that follows
+  a few constraints:
+  - Your method for creating a form for a single element has to deliver
+    at least a complete html form (from "<form .." to "</form>")
+  - Inside the form you have to have the placeholder
+    "###tx_pttools_collectionElementSelector_MetaData###" (without the '"');
+    it will be replaced with several hidden fields containing the CES Metadata.
+  - This also pertains to the "extra" block, if you provide one.
+

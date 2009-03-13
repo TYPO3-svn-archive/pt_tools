@@ -1,0 +1,503 @@
+###############################################################################
+pt_tools formTemplateHandler Manual
+Author: Wolfgang Zenker (zenker@punkt.de)
+###############################################################################
+
+The following text is currently available in german language only.
+
+
+Einführung
+----------
+
+Der formTemplateHandler in pt_tools ermöglicht es, sehr einfach mehrsprachige
+Formulare zu bauen und verarbeiten, deren Felder direkt mit den Eigenschaften
+eines Datenobjekts verbunden sind. Ein Frontend-plugin, welches den Handler
+benutzen will, muss im wesentlichen folgendes Bereitstellen:
+- eine Formularbeschreibung: Dies ist ein Array, der für alle Formulare
+  dieses Plugins eine Zuordnung zwischen Feldnamen und -Eigenschaften
+  enthält. Ein Feldname entspricht dabei immer dem Namen einer Objekt-
+  eigenschaft, für welche das Datenobjekt getter- und setter-Methoden
+  der Form get_<name>() bzw. set_<name>($wert) bereitstellen muss.
+  Abhängig vom Datentyp der Objekteigenschaft kann ein dazu passender
+  Feldtyp gewählt werden.
+- eine locallang-Datei, welche einem Feldnamen bestimmte Texte zuordnet;
+  z.B. bezeichnet "fl_<name>" immer das Label zum Feld "<name>".
+- ein html-template, in dem für alle Formulare des Plugins die Anordnung
+  der einzelnen Felder auf der Seite festgelegt wird. Für das Eingabefeld
+  "<name>" steht dabei der Platzhalter "###ITEM<NAME>###".
+- ein Datenobjekt mit den benötigten getter-/setter-Methoden.
+
+Voraussetzung:
+--------------
+
+Für den Einsatz des formTemplateHandlers ist zwingend PHP 5 erforderlich.
+
+API:
+----
+
+Der formTemplateHandler stellt zahlreiche Funktionen zur Verfügung; für
+die meisten Anwendungen sind jedoch die im folgenden beschriebenen fünf
+Methoden der "High-level Schnittstelle" völlig ausreichend.
+
+a) Constructor:
+
+   $fthObject = new tx_pttools_formTemplateHandler($this, $formDesc);
+
+   Hiermit wird ein formTemplateHandler Objekt instanziiert, das für die
+   nachfolgenden Operationen benutzt wird.
+   Der erste Parameter ist das aufrufende Frontend-plugin-objekt; dieses
+   muss übergeben werden, damit der formTemplateHandler auf die locallang-
+   Dateien im Kontext des Plugins zugreifen kann und damit er die prefixId
+   des Plugins kennt.
+   Der zweite Parameter ist der Beschreibungsarray für die Formulare,
+   die bearbeitet werden sollen.
+   Randbemerkung (erstmal unwichtig):
+   Ein von mir arglistig verschwiegener dritter Parameter erlaubt optional
+   die Angabe eines Templatefiles mit Templates für die einzelnen Feldtypen.
+   In der Regel wird man jedoch entweder das in pt_tools enthaltene default-
+   template benutzen oder über die typoscript-konfig ein anderes Template
+   angeben (...setup['config.']['pt_tools.']['fthElementTemplatesFilePath']).
+   Über die Konfig kann bei Bedarf auch eine Abweichende Hilfsdatei für
+   die verwendeten Javascriptfunktionen ebenso wie ein abweichendes css-file
+   angegeben werden.
+
+b) Formularerzeugung:
+
+   $formMarkerArray = $fthObject->prepareConfSubst($formname, $dataObject, $choiceArray, $disableArray, $hideArray, $relaxArray, $urlParams);
+
+   Diese Methode liefert ein Ersetzungsarray mit HTML-Code für die einzelnen
+   Felder des angegebenen Formulars zurück. Diesen Array kann man dann an
+   die Standard-template-engine von TYPO3 verfüttern wie folgt:
+   $content = $this->cObj->substituteMarkerArray($template, $formMarkerArray);
+   Die Inhalte der Felder werden dabei über die getter-Methoden aus dem
+   Datenobjekt entnommen.
+
+   Der erste Parameter ist ein String, welcher das zu bearbeitende Formular
+   kennzeichnet; $dataObject ist ein Objekt, welches für alle Felder in diesem
+   Formular die zugehörigen getter-Methoden bereitstellt.
+   Die weiteren Parameter sind optional:
+   $choiceArray erlaubt es, für Auswahlen (select, combo-box, radio-button,
+   multi-checkbox) eine Liste der möglichen Auswahlen bereitzustellen und
+   auch einzelne dieser Auswahlmöglichkeiten als disabled zu markieren.
+   Ist für das entsprechende Feld kein Eintrag in $choiceArray, werden die
+   möglichen Auswahlwerte aus Einträgen in der locallang generiert.
+   $disableArray enthält eine Liste aller Felder, für welche die Eingabe
+   disabled sein soll.
+   $hideArray ist entsprechend eine Liste von Feldern, die gar nicht
+   ausgewertet weden sollen, sondern deren Platzhalter durch einen
+   Leerstring ersetzt werden. Somit verschwinden diese Felder ganz aus
+   dem Formular.
+   $relaxArray enthält eine Liste von Feldern, die NICHT als Pflichtfelder
+   gewertet werden, obwohl sie in der Formularbeschreibung als Pflichtfeld
+   drinstehen. Damit kann man also im Einzelfall die "Ausfüllpflicht" über-
+   steuern.
+   Der Array $urlParams erlaubt es, zusätzliche GET-Parameter für den
+   action-Link des Formulars anzugeben.
+
+c) Anzeigeformularerzeugung:
+
+   $formMarkerArray = $fthObject->prepareDisplaySubst($formname, $dataObject, $choiceArray, $hideArray);
+
+   Entspricht der Methode zur normalen Formularerzeugung, nur werden
+   alle Feldtypen ausser "hidden" und "button" in einer reinen "Anzeige-
+   darstellung" erzeugt (also entweder als Textausgabe oder disabled).
+   Da man in den Feldern soweiso nichts eingeben kann, entfällt der
+   Parameter $disableArray.
+
+d) Formular auslesen:
+
+   $failArray = $fthObject->fillFormIntoObject($formname, $dataObject, $choicesArray, $disableArray, $hideArray);
+
+   Sucht die in der Formularbeschreibung angegebenen Felder in piVars und
+   trägt die Feldinhalte über die entsprechenden setter-Methoden in das 
+   angegebene Datenobjekt ein. Zurückgegeben wird ein array mit den Namen
+   aller Felder, bei denen dies fehlgeschlagen ist. Das kann in der jetzigen
+   Implementierung bei Passwort-feldern passieren (nämlich wenn die
+   Originaleingabe und die Kontrolleingabe nicht übereinstimmen) sowie
+   bei text/passwd/combo-Feldern, wenn der erhaltene string länger ist als
+   die maximale Länge aus der Formularbeschreibung; ausserdem kann es noch
+   bei select/radio/multicheckbox-feldern passieren, wenn der erhaltene
+   Eingabewert gar nicht in der erlaubten Auswahl enthalten war.
+
+   Parameter entsprechen denen von prepareDisplaySubst().
+
+e) Datenobjekt auf Formularbedingungen überprüfen:
+
+   $msg = $fthObject->checkObjectInForm($formname, $dataObject, $msgArray, $hideArray, $relaxArray);
+
+   Prüft, ob die im Datenobjekt enthaltenen Werte den Randbedingungen aus
+   der Formularbeschreibung entsprechen. Dazu verwendet der formTemplateHandler
+   den pt_tools formChecker. In der Formularbeschreibung wird dazu für jedes
+   Feld angegeben, welchen "Typ" ein einzelnes Feld hat und ob es sich um ein
+   Pflichtfeld handelt.
+   ACHTUNG: Diese Methode prüft NICHT die Werte in piVars, sondern holt die
+   zu überprüfenden Werte mittels der getter-Methoden aus dem Datenobjekt.
+   Diese Funktion wird also sinnvoller Weise NACH fillFormIntoObject()
+   angewendet.
+
+   Parameter sind die bekannten Formularname und Datenobjekt; der optionale
+   Wert $msgArray kann Fehlermeldungen enthalten, welche die Anwendung selbst
+   erzeugt hat. Diese werden dann ggf. der Meldung des formCheckers voran-
+   gestellt.
+   $hideArray ist wie gehabt eine Liste nicht zu berücksichtigender Felder,
+   $relaxArray eine Liste der "ausnahmsweise doch nicht Pflicht"-felder.
+
+   Rückkehrwert ist im Fehlerfall der HTML-Code einer MsgBox mit den
+   Fehlermeldungen und im OK-Fall ein Leerstring.
+
+Formularbeschreibung:
+---------------------
+
+Eine Formularbeschreibung für ein Plugin sieht etwa so aus:
+
+protected $formdesc = array(
+	'formName' => array(
+		'fieldtype' => array(
+			'fieldname' => array( .. fielddesc .. ),
+			'nextfieldname' => array( .. fielddesc .. ),
+			...
+		),
+		'differentFieldtype' => array(
+		),
+		...
+	),
+	'anotherFormName' => array(
+		...
+	),
+	...
+);
+
+Wie man sieht, ist $formdesc ein vierfach geschachtelter Array:
+$formdesc ist ein Array der einzelnen Formularbeschreibungen, wobei ein
+einzelnes Formular über seinen Namen angesprochen wird.
+Die Beschreibung eines Formulars ist ein Array der in diesem Formular
+verwendeten Feldtypen, diese werden über ihren Typnamen angesprochen.
+Die Beschreibung eines einzelnen Feldtyps im Formular enthält eine
+Liste aller Felder dieses Typs mit ihren zugehörigen Eigenschaften,
+die Felder werden über ihren Feldnamen adressiert.
+Die Beschreibung eines einzelnen Feldes ist ein Array mit den zugehörigen
+Feldeigenschaften; die Bedeutung dieser Eigenschaften hängt vom Feldtyp ab.
+
+Feldtypen:
+
+a) 'itemshidden' - versteckte Felder:
+
+   Eignen sich für Objekteigenschaften vom Typ "string" oder "integer".
+
+   In diesem Sonderfall sind die Eigenschaften der einzelnen Felder leer,
+   der entsprechende Abschnitt der Formularbeschreibung sieht also wie
+   folgt aus:
+   ...
+   'itemshidden' => array(
+     'fieldname',
+     'otherfieldname',
+     ...
+   ),
+   ...
+
+b) 'itemstextarea' - mehrzeilige Texteingabe:
+
+   Eignen sich für Objekteigenschaften vom Typ "string".
+
+   Die Feldbeschreibung sieht wie folgt aus:
+
+   ...
+   'itemstextarea' => array(
+     'fieldname' => array(<required>, <checktype>, <rows>, <cols>, <script>),
+     ...
+   ),
+   ...
+
+   Alle Werte der Beschreibung sind optional und bedeuten:
+   <required> (boolean) Feld ist Pflichtfeld (default: false)
+   <checktype> (string) Feldtyp für Überprüfung im formChecker (default: None)
+   <rows> (integer) Anzahl Zeilen für Eingabefeld (default: 5)
+   <cols> (integer) Anzahl Spalten für Eingabefeld (default: 30)
+   <script> ein Array von Javascript Eventhandlern und dem
+            jeweils zugehörigen Programm, also z.B.
+            array('onClick' => "echo 'hallo'", 'onDblClick' => "echo 'HALLO'")
+
+c) 'itemstext' - einzeilige Texteingabe:
+
+   Eignen sich für Objekteigenschaften vom Typ "string" oder "integer".
+
+   Das sieht dann so aus:
+
+   ...
+   'itemstext' => array(
+     'fieldname' => array(<required>, <checktype>, <len>, <maxlen>, <script>),
+     ...
+   ),
+   ...
+
+   <required> (boolean) Feld ist Pflichtfeld (default: false)
+   <checktype> (string) Feldtyp für Überprüfung im formChecker (default: Text)
+   <len> (integer) Länge des Eingabefeldes (default: 30)
+   <maxlen> (integer) maximale Länge der Eingabe in diesem Feld (default: 80)
+   <script> (array) (optional) JavaScript EventHandler
+
+d) 'itemspasswd' - Kennworteingabe mit Gegenprüfung:
+
+   Eignen sich für Objekteigenschaften vom Typ "string" oder "integer".
+
+   Bei Feldern dieses Typs werden zu einem Feldnamen ZWEI Eingabefelder
+   mit verdeckter Eingabe erzeugt; der formTemplateHandler überprüft
+   hier, ob die Eingabe in beiden Feldern übereinstimmt.
+
+   Die Beschreibung sieht genauso aus wie bei itemstext; wenn <script>
+   angegeben wurde, werden diese EventHandler allerdings nur an das zweite
+   Eingabefeld angebunden.
+
+e) 'itemsselect' - Auswahlliste:
+
+   Eignen sich für Objekteigenschaften vom Typ "string" oder "integer"
+   bei Einfachauswahl bzw. für Eigenschaften vom Typ "array" bei Mehrfach-
+   auswahl.
+
+   Feldbeschreibung wie folgt:
+
+   ...
+   'itemsselect' => array(
+     'fieldname' => array(<required>, <multi>, <size>, <emptyok>, <script>),
+     ...
+   ),
+   ...
+
+   <required> ist wie gehabt,
+   <multi> (boolean) Mehrfachauswahl erlaubt
+   <size> (integer) Anzahl anzuzeigender Zeilen
+   <emptyok> (boolean) ein leeres Auswahlfeld wird am Anfang hinzugefügt.
+   <script> wie gehabt
+
+f) 'itemscombo' - einzeilige Texteingabe mit Vorschlagsliste:
+
+   Eignen sich für Objekteigenschaften vom Typ "string" oder "integer".
+
+   Dieser Feldtyp entspricht eigentlich 'itemstext', jedoch wird hier
+   zusätzlich eine Vorschlagsliste angezeigt. Wenn JavaScript aktiv ist,
+   kann man durch Klick auf ein Element der Vorschlagsliste dieses direkt
+   ins Eingabefeld übernehmen, es ist jedoch immer auch Freitexteingabe
+   möglich.
+
+   Die Feldbeschreibung sieht so aus:
+
+   ...
+   'itemscombo' => array(
+     'fieldname' => array(<required>, <checktype>, <emptyok>, <len>, <maxlen>, <script>),
+     ...
+   ),
+   ...
+
+   Die Beschreibungsparameter sind bekannt, <emptyok> bezieht sich hier auf
+   die Vorschlagsliste, <script> wird nur an das Texteingabefeld angebunden.
+
+g) 'itemsradio' - Radiobuttons:
+
+   Eignen sich für Objekteigenschaften vom Typ "string" oder "integer".
+
+   Die Feldbeschreibung ist hier sehr einfach:
+
+   ...
+   'itemsradio' => array(
+     'fieldname' => array(<required>, <script>),
+     ...
+   ),
+   ...
+
+   Wenn <script> angegeben ist, werden diese Handler für jeden RadioButton
+   input aus der Gruppe eingebunden
+
+h) 'itemscheckbox' - die Felder zum Abhaken:
+
+   Eignen sich für Objekteigenschaften vom Typ "boolean".
+
+   Wie bei Radiobuttons ist die Feldbeschreibung sehr schlicht:
+
+   ...
+   'itemscheckbox' => array(
+     'fieldname' => array(<required>, <script>),
+     ...
+   ),
+   ...
+
+i) 'itemsmulticheckbox' - Mehrfach-Checkboxen:
+
+   Eignen sich für Objekteigenschaften vom Typ "array".
+
+   Die Feldbeschreibung sieht genauso aus wie bei 'itemscheckbox',
+   <script> wird wenn angegeben an alle Checkboxen der Gruppe angebunden.
+
+j) 'itemsbutton' - submit/reset/image-buttons:
+
+   Diese Felder sind NICHT mit einer Objekteigenschaft verknüpft, sondern
+   erzeugen Bedienelemente des Formulars. Dabei werden Eingaben für den
+   Feldnamen '<fieldname>_<formname>' erzeugt.
+
+   Die Feldbeschreibung hat folgende Gestalt:
+
+   ...
+   'itemsbutton' => array(
+     'fieldname' => array(<type>, <src>, <script>),
+     ...
+   ),
+   ...
+
+   Dabei sind
+   <type> ('submit'|'reset'|'image'|'click') Typ des Buttons
+   <src> (string) nur bei image: Pfad für src-tag im button
+   <script> (optional): ein Array von Javascript Eventhandlern und dem
+            jeweils zugehörigen Programm, also z.B.
+            array('onClick' => "echo 'hallo'", 'onDblClick' => "echo 'HALLO'")
+            Aus Gründen der Kompatibilität mit vorherigen Versionen wird
+            geprüft, ob <script> ein einfacher string statt einem array
+            ist; in diesem Fall wird script als Programm für onClick verwendet.
+
+k) 'itemssplitdate' - Datumseingabefelder:
+
+	Eignen sich für Feldeigenschaften, die ein Datum im Format "JJJJ-MM-TT"
+	enthalten. Diese werden auf drei getrennte Eingabefelder für Jahr, Monat
+	und Tag abgebildet und bei Eingabe wieder zusammengefügt. Andere Datums-
+	formate im Feldinhalt werden teilweise verstanden; nach der Eingabe liegt
+	aber auf jeden Fall das Format "JJJJ-MM-TT" vor.
+
+	Die Feldbeschreibung sieht aus wie folgt:
+
+   ...
+   'itemssplitdate' => array(
+     'fieldname' => array(<required>, <script>),
+     ...
+   ),
+   ...
+
+   <script> wird an alle drei Eingabefelder angebunden.
+
+Hilfselemente:
+--------------
+
+Ausser den oben genannten Feldtypen kann die Formularbeschreibung noch
+Hilfselemente enthalten, die hier beschrieben sind:
+
++) 'statictexts' - normale Textausgabe:
+
+   Wird benutzt, um normalen Text im Formular automatisch über locallang
+   zu belegen.
+
+   Die Feldbeschreibung
+   ...
+   'statictexts' => array(
+     'textname',
+     'otherTextname',
+     ...
+   ),
+   ...
+
+   bewirkt, dass der Platzhalter ###STATICTEXT<TEXTNAME>### durch das
+   locallang-Feld 'st_textname' ersetzt wird.
+
++) 'sections' - Abschnittstitel:
+
+   Wird benutzt, wenn das Formular in mehrere Abschnitte unterteilt ist,
+   um den Abschnittstitel über locallang zu belegen.
+
+   Die Feldbeschreibung
+   ...
+   'sections' => array(
+     'sectionname',
+     'otherSectionname',
+     ...
+   ),
+   ...
+
+   führt zur Ersetzung von ###SECTIONLABEL<SECTIONNAME>### durch den
+   Inhalt von 'sl_sectionname'.
+   Alternativ kann im Template der jeweilige Abschnitt in
+   ###SECTIONSTART<SECTIONNAME>### und ###SECTIONEND<SECTIONNAME>###
+   eingeschlossen werden.
+
+Zusätzliche Ersetzungen im Formulartemplate:
+--------------------------------------------
+
+Unabhängig von der Formularbeschreibung werden immer noch Ersetzungsstrings
+für folgende Formularplatzhalter geliefert:
+
+'###FORMACTION###' wird durch einen link auf die aktuelle Seite ersetzt;
+wird normalerweise im action-tag des form-elements benutzt, um Eingaben
+wieder auf das aktuelle Plugin zu lenken.
+
+Wenn in locallang ein text für 'msg_explain_required' hinterlegt ist,
+dann wird ###FORMEXPLANATION### durch einen Text ersetzt, der aus der
+Markierung für Pflichtfelder und dem Text aus locallang besteht.
+Ist kein Text hinterlegt, erfolgt eine Ersetzung durch Leerstring.
+
+
+Einträge in locallang:
+----------------------
+
+Alle Texte im Formular, die nicht aus dem Datenobject stammen, können
+über locallang gesteuert werden, und zwar wie folgt:
+
+Alle Eingabefelder:
+'fl_<fieldname>': Labeltext für dieses Feld, also die Feldbeschriftung.
+'el_<fieldname>': optional; Feldbezeichnung in Fehlermeldungen zu diesem Feld
+                  (wenn nicht definiert, wird 'fl_<fieldname>' benutzt).
+'fh_<fieldname>': Hilfetext für dieses Feld, wird nur auf Verlangen angezeigt.
+'ft_<fieldname>': Feld-Info für Titletag (und mit JS als Mustertext in leeren Feldern).
+
+Password-Eingabefelder:
+'cl_<fieldname>': Labeltext für das Eingabe-Wiederholungsfeld.
+'ch_<fieldname>': Hilfetext für das Eingabe-Wiederholungsfeld.
+
+Vorschlagsliste ('itemscombo'):
+Hier werden keine key => value Paare gebraucht, daher sieht es da so aus:
+'fc_<fieldname>_count': (integer) Anzahl der Vorschläge für dieses Feld.
+'fc_<fieldname>_<nr>: Text für Vorschlag <nr>.
+
+Auswahlen (z.B. 'itemsselect', 'itemsmulticheckbox', ...):
+Eine Auswahlliste ist immer ein Array aus key => value - Paaren, hierbei
+ist "value" der Text, der dem Benutzer angezeigt wird und "key" der Wert,
+der ggf. an die setter-Methode des Objekts übergeben bzw. vom getter ange-
+fordert wird.
+'fc_<fieldname>_count': (integer) Anzahl der Auswahlmöglichkeiten für dieses
+                         Feld.
+'fc_<fieldname>_key<nr>': key für Auswahl <nr>, wobei <nr> bei 1 beginnt
+                          und bis einschliesslich 'fc_<fieldname>_count' geht.
+'fc_<fieldname>_val<nr>: value für Auswahl <nr>.
+Wenn key und value immer identisch sind, kann auch einfach fc_<fieldname>_<nr>
+wie bei der Vorschlagsliste definiert werden.
+
+Buttonbeschriftung:
+'bl_<fieldname>_<formname>': Text für diesen Button auf Formular <formname>, bei Image-buttons alt-text.
+Wenn dieser Wert nicht gesetzt ist, gilt statt dessen
+'bl_<fieldname>': Text für diesen Button, bei Image-buttons alt-text.
+
+Gruppierung (sections):
+'sl_<sectionname>': Beschriftung für die Zwischenüberschrift der Feldgruppe.
+
+
+Javascript Hilfsfunktionen:
+---------------------------
+
+Das standardmässig enthaltene Javascript-Modul enthält Funktionen zur
+Implementierung der Comboboxen sowie drei Hilfsfunktionen, die z.B. im
+script oder dcscript Parameter von Buttons genutzt werden können.
+Alle drei erwarten als Aufrufparameter ein "Button"-Objekt, beim einbinden
+über script oder dcscript also einfach "this".
+
+Dies sind:
+
+tx_pttools_formTemplateHandler_resetForm:
+Diese Funktion löscht alle freigeschalteten Eingabefelder des eigenen
+Formulars. Bei "reset"-Buttons wird diese Funktion defaultmässig an
+den DoubleClick-Handler des Buttons angebunden. Bitte beachten: Standard-
+mässig stellt ein _Einfach_klick auf einen Reset-Button die Vorbelegung
+eines Formulars wieder her, dies _kann_ anders aussehen als alle Felder
+zu löschen.
+
+tx_pttools_formTemplateHandler_setCheckboxes:
+Diese Funktion selektiert alle im eigenen Formular befindlichen und
+freigeschalteten Checkboxen.
+
+tx_pttools_formTemplateHandler_invertCheckboxes:
+Diese Funktion invertiert alle im eigenen Formular befindlichen und
+freigeschalteten Checkboxen, aus angehakt wird also nicht angehakt
+und umgekehrt.

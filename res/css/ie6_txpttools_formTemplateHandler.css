@@ -1,0 +1,11 @@
+* html legend {
+    margin:0.3em 0;
+}
+div.tx-ptgsauserreg-pi1 form, 
+div.tx-ptgsauserreg-pi2 form, 
+div.tx-ptgsauserreg-pi4 form, 
+div.tx-pthostingdomain-pi1 form,
+div.tx-pthostingftp-pi1 form,
+div.tx-pthostingdomain-pi2 form {
+        width:expression(document.body.clientWidth < 575? "550px": "auto" );
+}

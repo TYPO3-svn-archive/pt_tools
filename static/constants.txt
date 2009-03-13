@@ -1,0 +1,120 @@
+/* 
+possible subcategories: 
+----------------------
+enable      Used for options that enable or disable primary functions of a template
+dims        Dimensions of all kinds; pixels, widths, heights of images, frames, cells and so on.
+file        Files like background images, fonts and so on. Other options related to the file may also enter
+typo        Typography and related constants
+color       Color setup. Many colors will be found with related options in other categories though.
+links       Links: Targets typically
+language    Language specific options.
+Subcategories based on the default content elements:
+cheader,cheader_g,ctext,ctextpic,cimage,cbullets,ctable,cuploads,cmultimedia,cmailform,csearch,clogin,csplash,cmenu,cshortcut,clist,cscript,chtml
+These are all categories reserved for options that relate to content rendering for each type of tt_content element. See static_template "content (default)" and "styles.content (default)" for examples.
+
+possible data types (type=):
+---------------------------
+int [low-high]              integer, opt. in range "low" to "high"
+int+                        positive integer
+offset    [L1,L2,...L6]     comma-separated integers. Default is "x,y", but as comma separated parameters in brackets you can specify up to 6 labels being comma separated! If you wish to omit one of the last 4 fields, just don't enter a label for that element.
+color                       HTML color
+wrap                        HTML-code that is wrapped around some content.
+options [item1,item2,...]   Selectbox with values/labels item1, item2 etc. Commaseparated. Split by "=" also and in that case, first part is label, second is value
+boolean [truevalue]         Boolean, opt. you can define the value of "true", def.=1
+comment                     Boolean, checked= "", not-checked = "#".
+file [ext-list/IMAGE_EXT]   Selectorbox with resources. Opt. list allowed extensions (no space in list!), eg. "[ttf]" or "[txt,html,htm]". You can also enter "[IMAGE_EXT]" in which case the default image-extensions are listed. (used for datatype "imgResouce")
+string (the default)        Just a string value
+*/
+
+
+// Configuration for pt_tools, accesible through BE constant editor
+config.pt_tools {
+    
+  // ***** GENERAL PT_TOOLS SETTINGS ***** 
+    
+    // Enable Features
+    
+    # cat=pt_tools/enable/10; type=string; label=Admin email for system mails: Email address for auto-generated admin mails of pt_tools extension (e.g. trace logging errors).
+    adminMail = 
+    
+    # cat=pt_tools/enable/20; type=string; label=Cookie Error Page: Required for cookie check in tx_pttools_div::checkCookies() only - PID or alias of the page to redirect when cookies are disabled. If the page is not set or does not exist, an exception is thrown instaed of a redirect.
+    cookieErrorPage = cookieError 
+    
+    # cat=pt_tools/enable/30; type=string; label=Currency format: Required for tx_pttools_finance::getFormattedPriceString() only - Currency format to be used in this method, noted in PHP's sprintf syntax (%1$s is the value and %2$s is the currency code)
+    currencyFormat = %1$s %2$s 
+    
+    // File settings
+    
+    # cat=pt_tools/file/10; type=string; label=Trace log output directory: Directory path for generated debugging trace logs if $trace is set to '2' (absolute server path, don't forget the prefacing and closing slashes "/"). If not set, no trace log is written. 
+    traceLogDir = 
+    
+    
+  // *****  MESSAGE BOX SETTINGS ***** 
+    
+    // File settings
+    
+    # cat=pt_tools::msgBox/file/10; type=string; label=MessageBox template file path: Path to the HTML template file for Message Boxes
+    msgboxTemplate = EXT:pt_tools/res/tmpl/tx_pttools_msgBox.html
+
+    # cat=pt_tools::msgBox/file/20; type=string; label=MessageBox icon directory: Directory path for icons used in MessageBoxes (relative path based on document root, like "fileadmin/...").
+    msgboxIconDir = EXT:pt_tools/res/img/
+    
+    
+  // *****  FORMCHECKER SETTINGS ***** 
+    
+    // Enable Features
+    
+    # cat=pt_tools::formchecker/enable/010; type=string; label=RegEx for checkText(): Regular expression pattern (PCRE for preg_match_all()) to be used in tx_pttools_formchecker::checkText() (if the preg_match_all() expression returns not 0, the formchecker will throw an error message). WARNING: An incorrect pattern entry will result in PHP errors in the frontend! [PHP's Perl-Compatible Regular Expression Patterns see http://www.php.net/manual/en/reference.pcre.pattern.syntax.php]
+    fcRegex_checkText = /\pC/
+    
+    # cat=pt_tools::formchecker/enable/020; type=string; label=RegEx for checkDigit(): Regular expression pattern (PCRE for preg_match()) to be used in tx_pttools_formchecker::checkDigit() (if the preg_match() expression returns not 0, the formchecker will throw an error message). WARNING: An incorrect pattern entry will result in PHP errors in the frontend! [PHP's Perl-Compatible Regular Expression Patterns see http://www.php.net/manual/en/reference.pcre.pattern.syntax.php]
+    fcRegex_checkDigit = /\PN/
+    
+    # cat=pt_tools::formchecker/enable/025; type=string; label=RegEx for checkFloat(): Regular expression pattern (PCRE for preg_match()) to be used in tx_pttools_formchecker::checkFloat() (if the preg_match() expression returns not 0, the formchecker will throw an error message). Note: The decimal separator is not checked by RegEx here, but passed by param to checkFloat(). WARNING: An incorrect pattern entry will result in PHP errors in the frontend! [PHP's Perl-Compatible Regular Expression Patterns see http://www.php.net/manual/en/reference.pcre.pattern.syntax.php]
+    fcRegex_checkFloat = /\PN/
+    
+    # cat=pt_tools::formchecker/enable/030; type=string; label=RegEx for checkTel(): Regular expression pattern (PCRE for preg_match_all()) to be used in tx_pttools_formchecker::checkTel() (if the preg_match_all() expression returns not 0, the formchecker will throw an error message). WARNING: An incorrect pattern entry will result in PHP errors in the frontend! [PHP's Perl-Compatible Regular Expression Patterns see http://www.php.net/manual/en/reference.pcre.pattern.syntax.php]
+    fcRegex_checkTel = /[^\pN.+ \-\/]/
+    
+    # cat=pt_tools::formchecker/enable/040; type=string; label=RegEx for checkZip(): Regular expression pattern (PCRE for preg_match_all()) to be used in tx_pttools_formchecker::checkZip() (if the preg_match_all() expression returns not 0, the formchecker will throw an error message). WARNING: An incorrect pattern entry will result in PHP errors in the frontend! [PHP's Perl-Compatible Regular Expression Patterns see http://www.php.net/manual/en/reference.pcre.pattern.syntax.php]
+    fcRegex_checkZip = /\PN/
+    
+    # cat=pt_tools::formchecker/enable/050; type=string; label=RegEx for checkLogin(): Regular expression pattern (PCRE for preg_match_all()) to be used in tx_pttools_formchecker::checkLogin() (if the preg_match_all() expression returns not 0, the formchecker will throw an error message). WARNING: An incorrect pattern entry will result in PHP errors in the frontend! [PHP's Perl-Compatible Regular Expression Patterns see http://www.php.net/manual/en/reference.pcre.pattern.syntax.php]
+    fcRegex_checkLogin = /[^a-z0-9!_\-]/
+    
+    # cat=pt_tools::formchecker/enable/060; type=string; label=RegEx for checkPwd(): Regular expression pattern (PCRE for preg_match_all()) to be used in tx_pttools_formchecker::checkPwd() (if the preg_match_all() expression returns not 0, the formchecker will throw an error message). WARNING: An incorrect pattern entry will result in PHP errors in the frontend! [PHP's Perl-Compatible Regular Expression Patterns see http://www.php.net/manual/en/reference.pcre.pattern.syntax.php]
+    fcRegex_checkPwd = /[^a-z0-9!_\-]/
+    
+    # cat=pt_tools::formchecker/enable/070; type=string; label=RegEx for checkEmail(): Regular expression pattern (*POSIX* Extended RE for !eregi()) to be used for *negated*(!) regex check in tx_pttools_formchecker::checkEmail() (if the '!eregi()' expression returns 1, the formchecker will throw an error message) - this setting has no effect if the method is called with the MX check param. WARNING: An incorrect pattern entry will result in PHP errors in the frontend! [POSIX Extended Regular Expressions see http://www.tin.org/bin/man.cgi?section=7&topic=regex]
+    fcRegex_checkEmail = ^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$
+    
+    # cat=pt_tools::formchecker/enable/080; type=string; label=RegEx for checkDomain(): Regular expression pattern (PCRE for preg_match_all()) to be used in tx_pttools_formchecker::checkDomain() (if the preg_match_all() expression returns not 0, the formchecker will throw an error message). WARNING: An incorrect pattern entry will result in PHP errors in the frontend! [PHP's Perl-Compatible Regular Expression Patterns see http://www.php.net/manual/en/reference.pcre.pattern.syntax.php]
+    fcRegex_checkDomain = /[^a-z0-9-]/
+    
+    # cat=pt_tools::formchecker/enable/090; type=string; label=RegEx for checkFtp(): Regular expression pattern (PCRE for preg_match_all()) to be used for regex check in tx_pttools_formchecker::checkFtp() (if the preg_match_all() expression returns not 0, the formchecker will throw an error message) - note that the hardcoded strings '..' and './' will be checked independently of this regex. WARNING: An incorrect pattern entry will result in PHP errors in the frontend! [PHP's Perl-Compatible Regular Expression Patterns see http://www.php.net/manual/en/reference.pcre.pattern.syntax.php]
+    fcRegex_checkFtp = /[^a-z0-9!._#:\-]/
+    
+    # cat=pt_tools::formchecker/enable/100; type=string; label=RegEx for checkUserdefined1(): Optional user defined regular expression pattern (PCRE for preg_match_all()) to be used in tx_pttools_formchecker::checkUserdefined1() (no regex check will be executed for the method if this value is left blank - if the regex is set and the preg_match_all() expression returns 1, the formchecker will throw an error message). WARNING: An incorrect pattern entry will result in PHP errors in the frontend! [PHP's Perl-Compatible Regular Expression Patterns see http://www.php.net/manual/en/reference.pcre.pattern.syntax.php]
+    fcRegex_checkUserdefined1 = 
+    
+    # cat=pt_tools::formchecker/enable/110; type=string; label=RegEx for checkUserdefined2(): Optional user defined regular expression pattern (PCRE for preg_match_all()) to be used in tx_pttools_formchecker::checkUserdefined2() (no regex check will be executed for the method if this value is left blank - if the regex is set and the preg_match_all() expression returns 1, the formchecker will throw an error message). WARNING: An incorrect pattern entry will result in PHP errors in the frontend! [PHP's Perl-Compatible Regular Expression Patterns see http://www.php.net/manual/en/reference.pcre.pattern.syntax.php]
+    fcRegex_checkUserdefined2 = 
+    
+    # cat=pt_tools::formchecker/enable/120; type=string; label=RegEx for checkUserdefined3(): Optional user defined regular expression pattern (PCRE for preg_match_all()) to be used in tx_pttools_formchecker::checkUserdefined3() (no regex check will be executed for the method if this value is left blank - if the regex is set and the preg_match_all() expression returns 1, the formchecker will throw an error message). WARNING: An incorrect pattern entry will result in PHP errors in the frontend! [PHP's Perl-Compatible Regular Expression Patterns see http://www.php.net/manual/en/reference.pcre.pattern.syntax.php]
+    fcRegex_checkUserdefined3 = 
+    
+    
+  //  ***** FORM TEMPLATE HANDLER SETTINGS ***** 
+
+    // File settings
+    
+    # cat=pt_tools::formTemplateHandler/file/10; type=string; label=Form element templates file: Path to the file containing templates for the different form element types.
+    fthElementTemplatesFilePath = EXT:pt_tools/res/tmpl/tx_pttools_formTemplateHandler.html
+    
+    # cat=pt_tools::formTemplateHandler/file/20; type=string; label=Javascript helper functions file: Path to the Javascript file with helper functions for form handling.
+    fthJsHelperFilePath = EXT:pt_tools/res/js/tx_pttools_formTemplateHandler.js
+
+    # cat=pt_tools::formTemplateHandler/file/30; type=string; label=Css file: Path to the file with css definitions for form handling.
+    fthCssFilePath = EXT:pt_tools/res/css/tx_pttools_formTemplateHandler.css
+
+}

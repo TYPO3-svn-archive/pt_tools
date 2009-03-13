@@ -1,0 +1,81 @@
+// all settings assigned like {$config.pt_tools.val} originate from /static/constants.txt
+
+config.pt_tools {
+
+    adminMail = {$config.pt_tools.adminMail}
+    cookieErrorPage = {$config.pt_tools.cookieErrorPage}
+    currencyFormat = {$config.pt_tools.currencyFormat}
+    traceLogDir = {$config.pt_tools.traceLogDir}
+    
+    msgboxTemplate = {$config.pt_tools.msgboxTemplate}
+    msgboxIconDir = {$config.pt_tools.msgboxIconDir}
+    
+    fcRegex_checkText = {$config.pt_tools.fcRegex_checkText}
+    fcRegex_checkDigit = {$config.pt_tools.fcRegex_checkDigit}
+    fcRegex_checkFloat = {$config.pt_tools.fcRegex_checkFloat}
+    fcRegex_checkTel = {$config.pt_tools.fcRegex_checkTel}
+    fcRegex_checkZip = {$config.pt_tools.fcRegex_checkZip}
+    fcRegex_checkLogin = {$config.pt_tools.fcRegex_checkLogin}
+    fcRegex_checkPwd = {$config.pt_tools.fcRegex_checkPwd}
+    fcRegex_checkEmail = {$config.pt_tools.fcRegex_checkEmail}
+    fcRegex_checkDomain = {$config.pt_tools.fcRegex_checkDomain}
+    fcRegex_checkFtp = {$config.pt_tools.fcRegex_checkFtp}
+    fcRegex_checkUserdefined1 = {$config.pt_tools.fcRegex_checkUserdefined1}
+    fcRegex_checkUserdefined2 = {$config.pt_tools.fcRegex_checkUserdefined2}
+    fcRegex_checkUserdefined3 = {$config.pt_tools.fcRegex_checkUserdefined3}
+    
+    fthElementTemplatesFilePath = {$config.pt_tools.fthElementTemplatesFilePath}
+    fthJsHelperFilePath = {$config.pt_tools.fthJsHelperFilePath}
+    fthCssFilePath = {$config.pt_tools.fthCssFilePath}
+    
+}
+
+plugin.pt_tools._CSS_DEFAULT_STYLE (
+
+    .tx-pttools-msgbox {
+        font-family: Verdana,Arial,sans-serif; 
+        width: auto; 
+        float: left; 
+        border: 1px solid #9999cc;
+    }
+    
+    .tx-pttools-msgbox-header {
+        padding: 10px; 
+        background-color: #e4e4e4; 
+        white-space: nowrap; 
+        border-bottom: 1px solid #9999cc;
+    }
+    
+    .tx-pttools-msgbox-icon {
+        vertical-align: middle;
+        width: 27px;
+        height: 27px;
+    }
+    
+    .tx-pttools-msgbox-headline {
+        vertical-align: middle;
+        font-size: 13px; 
+        font-weight: bold; 
+        color: #333366;
+        margin-left: 5px;
+    }
+    
+    .tx-pttools-msgbox-content {
+        padding: 10px; 
+        background-color: #ffffff;
+    }
+    
+    .tx-pttools-msgbox-message {
+        font-size: 11px; 
+        font-weight: normal; 
+        color:#333366;
+    }
+    
+    .tx-pttools-msgbox-clearer {
+        clear: both; 
+        height: 1px; 
+        font-size: 1px; 
+        visibility: hidden; 
+        margin-top: -1px;
+    }
+)
