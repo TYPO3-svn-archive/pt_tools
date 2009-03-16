@@ -33,11 +33,17 @@ require_once t3lib_extMgm::extPath('pt_tools').'res/staticlib/class.tx_pttools_d
  * @param   string      original date string to convert
  * @param   boolean     (optional) flag for conversion direction: 0 (default) = converts DD.MM.YYYY/DD-MM-YYYY to YYYY-MM-DD, 1 = converts YYYY-MM-DD to DD.MM.YYYY
  * @return  string      converted date (YYYY-MM-DD by default, if 2. param is set to true DD.MM.YYYY)
+ * @throws  tx_pttools_exceptionAssertion   if non-empty date param is not a string
  * @author	Rainer Kuhn <kuhn@punkt.de>
  * @since	2009-03-16
  */
 function smarty_modifier_convertDate($dateOrig, $reverse=0) {
 	
+    if (empty($dateOrig)) {
+        return $dateOrig;
+    }
+    tx_pttools_assert::isString($dateOrig, array('message'=>'No string given for data conversion.'));
+    
 	return tx_pttools_div::convertDate($dateOrig, $reverse);
 	
 }
