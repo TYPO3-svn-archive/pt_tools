@@ -12,13 +12,19 @@ RFT: refactoring / code cleanup
 ********************************************************************************
 
 
-ToDo: Stand 16.03.2009
+ToDo: As of 16.03.2009
 ====
 
-v0.4.2dev2:
+
+v0.4.2dev3:
 ----------
-+ (fb) ADD: modifier.urlencode.php: added a smarty modifier for urlencoding
-+ (fb) RFT: modifier.formatsize.php: Corrected code comments
++ (rk) ADD: res/smarty_plugins/modifier.convertDate.php: added a smarty modifier for date format conversion
++ (fb) ADD: res/smarty_plugins/modifier.urlencode.php: added a smarty modifier for urlencoding
++ (fb) RFT: res/smarty_plugins/modifier.formatsize.php: Corrected code comments
+
+
+v0.4.2dev2: [Initial commit to SVN at forge.typo3.org]
+----------
 + (rk) ADD: ext_emconf.php: added extension suggestions for development
 + (mk) ADD: exceptionNotYetImplemented for marking non-finished methods etc.
 + (mk) ADD: iSingletonCollection interface for singleton collections
