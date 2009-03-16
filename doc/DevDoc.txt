@@ -18,6 +18,11 @@ ToDo: As of 16.03.2009
 
 v0.4.2dev3:
 ----------
++ (rk) ADD: added templatable Quickform form renderer
+       + added PEAR HTML_QuickForm as suggestion to ext_emconf.php
+       + added renderer interface res/abstract/class.tx_pttools_iQuickformRenderer.php
+       + added renderer class res/objects/class.tx_pttools_qfDefaultRenderer.php
+       + added renderer templates res/tmpl/tx_pttools_quickformRendererDefault.html and tx_pttools_quickformRendererMinimal.html
 + (mk) ADD: res/staticlib/class.tx_pttools_assert.php: added assertion, for checking, whether array is associative
 + (mk) ADD: res/staticlib/class.tx_pttools_div.php: added method to check, whether an array is associative or not
 + (rk) ADD: res/smarty_plugins/modifier.convertDate.php: added a smarty modifier for date format conversion
