@@ -18,6 +18,8 @@ ToDo: As of 16.03.2009
 
 v0.4.2dev3:
 ----------
++ (mk) ADD: res/staticlib/class.tx_pttools_assert.php: added assertion, for checking, whether array is associative
++ (mk) ADD: res/staticlib/class.tx_pttools_div.php: added method to check, whether an array is associative or not
 + (rk) ADD: res/smarty_plugins/modifier.convertDate.php: added a smarty modifier for date format conversion
 + (fb) ADD: res/smarty_plugins/modifier.urlencode.php: added a smarty modifier for urlencoding
 + (fb) RFT: res/smarty_plugins/modifier.formatsize.php: Corrected code comments
@@ -27,7 +29,7 @@ v0.4.2dev2: [Initial commit to SVN at forge.typo3.org]
 ----------
 + (rk) ADD: ext_emconf.php: added extension suggestions for development
 + (mk) ADD: exceptionNotYetImplemented for marking non-finished methods etc.
-+ (mk) ADD: iSingletonCollection interface for singleton collections
++ (mk) ADD: iSingletonCollection interface for singleton collections (returning singleton by an id)
 + (fb) ADD: tx_pttools_div::quoteStr() for use as typoscript userFunction. See phpdoc for an example
 + (fb) ADD: Smarty modifier: modifier.explodeAndPrint.php
 + (rk) CHG: tx_pttools_debug: ignores tx_pttools_exception inclusion in non TYPO3-mode now (allows to use the base class functions in any arbitrary context)

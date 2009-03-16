@@ -454,15 +454,31 @@ class tx_pttools_assert {
 
         return self::test(is_array($val), true, $info);
     }
+    
+    
+    
+    /**
+     * Test if value is an associative array
+     * 
+     * @param 	mixed	$val	Value to be tested
+     * @param 	array	$info	Array of information
+     * @return  void
+     * @throws  tx_pttools_exceptionAssertion   if assertion fails
+     */
+    public static function isAssociativeArray($val, array $info = array()) {
+        
+        return self::test(tx_pttools_div::isAssociativeArray($val), true, $info);
+        
+    }
 
 
 
     /**
      * Test if value is not an array
      *
-     * @param	mixed	value
-     * @param 	array	(optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
-     * @return 	void
+     * @param    mixed    value
+     * @param     array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
+     * @return     void
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
     public static function isNotArray($val, array $info = array()) {
@@ -491,12 +507,12 @@ class tx_pttools_assert {
     /**
      * Test if a value is in an array
      *
-     * @param 	mixed	value
-     * @param 	array 	array
-     * @param 	array	(optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
-     * @return 	void
-     * @author	Fabrizio Branca <branca@punkt.de>
-     * @since	2008-05-17
+     * @param     mixed    value
+     * @param     array     array
+     * @param     array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
+     * @return     void
+     * @author    Fabrizio Branca <branca@punkt.de>
+     * @since    2008-05-17
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
     public static function isInArray($val, array $array, array $info = array()) {
@@ -509,12 +525,12 @@ class tx_pttools_assert {
     /**
      * Test if a value is in a comma separated list
      *
-     * @param 	string	value
-     * @param 	string 	list
-     * @param 	array	(optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
-     * @return 	void
-     * @author	Fabrizio Branca <branca@punkt.de>
-     * @since	2008-05-17
+     * @param     string    value
+     * @param     string     list
+     * @param     array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
+     * @return     void
+     * @author    Fabrizio Branca <branca@punkt.de>
+     * @since    2008-05-17
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
     public static function isInList($val, $list, array $info = array()) {
@@ -527,13 +543,13 @@ class tx_pttools_assert {
     /**
      * Test if a value is in a range
      *
-     * @param 	mixed	value
-     * @param 	mixed 	lower boundary
-     * @param 	mixed 	higher boundary
-     * @param 	array	(optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
-     * @return 	void
-     * @author	Fabrizio Branca <branca@punkt.de>
-     * @since	2008-07-01
+     * @param     mixed    value
+     * @param     mixed     lower boundary
+     * @param     mixed     higher boundary
+     * @param     array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
+     * @return     void
+     * @author    Fabrizio Branca <branca@punkt.de>
+     * @since    2008-07-01
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
     public static function isInRange($val, $low, $high, array $info = array()) {
@@ -548,12 +564,12 @@ class tx_pttools_assert {
     /**
      * Test if a value is a valid uid for TYPO3 records. (positive integer)
      *
-     * @param 	mixed	value
-     * @param 	bool	(optional) allow "0", default is false
-     * @param 	array	(optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
-     * @return 	void
-     * @author	Fabrizio Branca <branca@punkt.de>
-     * @since	2008-06-02
+     * @param     mixed    value
+     * @param     bool    (optional) allow "0", default is false
+     * @param     array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
+     * @return     void
+     * @author    Fabrizio Branca <branca@punkt.de>
+     * @since    2008-06-02
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
     public static function isValidUid($val, $allowZero = false, array $info = array()) {
@@ -570,12 +586,12 @@ class tx_pttools_assert {
     /**
      * Test if value is a valid mysql ressource
      *
-     * @param 	mixed		value
-     * @param 	t3lib_DB	(optional) t3lib_DB used, default is NULL, then $GLOBALS['TYPO3_DB'] will be used
-     * @param 	array		(optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
-     * @return 	void
-     * @author	Fabrizio Branca <branca@punkt.de>
-     * @since	2008-06-08
+     * @param     mixed        value
+     * @param     t3lib_DB    (optional) t3lib_DB used, default is NULL, then $GLOBALS['TYPO3_DB'] will be used
+     * @param     array        (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
+     * @return     void
+     * @author    Fabrizio Branca <branca@punkt.de>
+     * @since    2008-06-08
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
     public static function isMySQLRessource($res, t3lib_DB $dbObj = NULL, array $info = array()) {
@@ -587,9 +603,9 @@ class tx_pttools_assert {
         // append sql_error to info array
         $info['sql_error'] = $dbObj->sql_error();
 
-		if (empty($info['message'])) {
-			$info['message'] = $info['sql_error'];
-		}
+        if (empty($info['message'])) {
+            $info['message'] = $info['sql_error'];
+        }
         
         // append debug_lastBuiltQuery to info array
         if (!empty($dbObj->debug_lastBuiltQuery)) {
@@ -604,13 +620,13 @@ class tx_pttools_assert {
     /**
      * Test if an object is instance of a class or interface
      *
-     * @deprecated 	use self::isInstanceOf instead!
-     * @param 	mixed	value
-     * @param 	string	type
-     * @param 	array	(optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
-     * @return 	void
-     * @author	Fabrizio Branca <branca@punkt.de>
-     * @since	2008-06-10
+     * @deprecated     use self::isInstanceOf instead!
+     * @param     mixed    value
+     * @param     string    type
+     * @param     array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
+     * @return     void
+     * @author    Fabrizio Branca <branca@punkt.de>
+     * @since    2008-06-10
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
     public static function isType($val, $type, array $info = array()) {
@@ -624,11 +640,11 @@ class tx_pttools_assert {
     /**
      * Test if the value is a string that is not empty
      *
-     * @param 	mixed	value
-     * @param 	array	(optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
-     * @return 	void
-     * @author	Fabrizio Branca <branca@punkt.de>
-     * @since	2008-06-10
+     * @param     mixed    value
+     * @param     array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
+     * @return     void
+     * @author    Fabrizio Branca <branca@punkt.de>
+     * @since    2008-06-10
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
     public static function isNotEmptyString($val, array $info = array()) {
@@ -641,11 +657,11 @@ class tx_pttools_assert {
     /**
      * Test if a value is a valid and existing file
      *
-     * @param 	string	value
-     * @param 	array	(optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
-     * @return 	void
-     * @author	Fabrizio Branca <branca@punkt.de>
-     * @since	2008-06-10
+     * @param     string    value
+     * @param     array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
+     * @return     void
+     * @author    Fabrizio Branca <branca@punkt.de>
+     * @since    2008-06-10
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
     public static function isFilePath($val, array $info = array()) {
@@ -660,11 +676,11 @@ class tx_pttools_assert {
     /**
      * Test if a value is a valid and existing directory
      *
-     * @param 	string	value
-     * @param 	array	(optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
-     * @return 	void
-     * @author	Fabrizio Branca <branca@punkt.de>
-     * @since	2008-06-10
+     * @param     string    value
+     * @param     array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
+     * @return     void
+     * @author    Fabrizio Branca <branca@punkt.de>
+     * @since    2008-06-10
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
     public static function isDir($val, array $info = array()) {
@@ -679,21 +695,21 @@ class tx_pttools_assert {
     /**
      * Test for two variables being references to each other
      *
-     * @param 	mixed 	first variable
-     * @param 	mixed 	second variable
-     * @param 	array	(optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
-     * @author	Fabrizio Branca <branca@punkt.de>
-     * @since	2008-06-21
+     * @param     mixed     first variable
+     * @param     mixed     second variable
+     * @param     array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
+     * @author    Fabrizio Branca <branca@punkt.de>
+     * @since    2008-06-21
      */
     public static function isReference(&$a, &$b, array $info = array()) {
         
         if (is_object($a)) {
             $is_ref = ($a === $b);
         } else {
-	        $temp = $a;
-	        $a = uniqid('test');
-	        $is_ref = ($a === $b);
-	        $a = $temp;
+            $temp = $a;
+            $a = uniqid('test');
+            $is_ref = ($a === $b);
+            $a = $temp;
         }
         return self::test($is_ref, true, $info);
     }
@@ -703,11 +719,11 @@ class tx_pttools_assert {
     /**
      * Test if an object is instance of a given class/interface
      *
-     * @param 	mixed	object
-     * @param 	mixed	class name
-     * @param 	array	(optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
-     * @author	Fabrizio Branca <branca@punkt.de>
-     * @since	2008-06-21
+     * @param     mixed    object
+     * @param     mixed    class name
+     * @param     array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
+     * @author    Fabrizio Branca <branca@punkt.de>
+     * @since    2008-06-21
      */
     public static function isInstanceOf($object, $class, array $info = array()) {
         self::isObject($object, $info);
@@ -743,11 +759,11 @@ class tx_pttools_assert {
     /**
      * Test if a variable is not null
      *
-     * @param 	mixed	value 
-     * @param 	array	(optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
-     * @return 	void
-     * @author	Fabrizio Branca <branca@punkt.de>
-     * @since	2008-11-10
+     * @param    mixed    value 
+     * @param    array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
+     * @return   void
+     * @author   Fabrizio Branca <branca@punkt.de>
+     * @since    2008-11-10
      */
     public static function isNotNull($val, array $info = array()) {
         return self::test(is_null($val), false, $info);
@@ -786,7 +802,7 @@ class tx_pttools_assert {
 
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/pt_tools/res/staticlib/class.tx_pttools_assert.php'])	{
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/pt_tools/res/staticlib/class.tx_pttools_assert.php'])    {
     include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/pt_tools/res/staticlib/class.tx_pttools_assert.php']);
 }
 ?>

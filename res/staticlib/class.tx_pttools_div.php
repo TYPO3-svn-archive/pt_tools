@@ -436,6 +436,25 @@ class tx_pttools_div  {
         return $GLOBALS['TYPO3_DB']->quoteStr($content, $conf['table']);
     }
     
+    
+    
+	/**
+	 * Checks, whether a given array is an associative array
+	 * 
+	 * @param 	array	$array	Array to be checked
+	 * @return  bool			True, if Array is associative
+	 * @author  Michael Knoll <knoll@punkt.de>
+ 	 * @since   2009-03-15
+ 	 * @see 	http://de.php.net/is_array
+	 */
+	public static function isAssociativeArray($array) {
+  		foreach (array_keys($array) as $k => $v) {
+    		if ($k !== $v)
+      			return true;
+  		}
+  		return false;
+	}
+    
     /***************************************************************************
         SECTION: DATE/TIME METHODS
     ***************************************************************************/
