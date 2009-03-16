@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *  
-*  (c) 2008 Fabrizio Branca (branca@punkt.de)
+*  (c) 2009 Fabrizio Branca (branca@punkt.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is 
@@ -24,18 +24,19 @@
 	
 	
 /**
- * Smarty modifier "formatsize"
- * Usage {"1132456"|formatsize:" | KB| MB| GB"}
- *
+ * Smarty modifier "urlencode"
+ * Usage {'Hello World'|urlencode}
+ * Reults in Hello%20World
+ * 
  * @param 	string	content
- * @param 	string	wrap
- * @return 	string	wrapped content or empty string
+ * @return 	string	content
  * @author	Fabrizio Branca <branca@punkt.de>
- * @since	2008-06-16
+ * @since	2009-03-09
  */
-function smarty_modifier_formatsize($sizeInBytes, $labels = '') {
+function smarty_modifier_urlencode($content) {
+    
+    return urlencode($content);
 	
-	return t3lib_div::formatSize($sizeInBytes, $labels);
 }
 
 ?>
