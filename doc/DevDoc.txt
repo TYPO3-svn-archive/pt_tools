@@ -12,12 +12,13 @@ RFT: refactoring / code cleanup
 ********************************************************************************
 
 
-ToDo: As of 16.03.2009
+ToDo: As of 17.03.2009
 ====
 
 
 v0.4.2dev3:
 ----------
++ (fb) RFT: res/objects/class.tx_pttools_qfDefaultRenderer.php: corrected some access modifiers and phpdoc comments
 + (rk) ADD: added templatable Quickform form renderer
        + added PEAR HTML_QuickForm as suggestion to ext_emconf.php
        + added renderer interface res/abstract/class.tx_pttools_iQuickformRenderer.php

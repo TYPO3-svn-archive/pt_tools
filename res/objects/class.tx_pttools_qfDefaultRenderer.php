@@ -127,7 +127,6 @@ class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default imple
      * @param   object     An HTML_QuickForm_group object being visited
      * @param   bool       Whether a group is required
      * @param   string     An error message associated with a group
-     * @access  public
      * @return  void
      * @author  Fabrizio Branca <branca@punkt.de>
      */
@@ -152,7 +151,6 @@ class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default imple
      *
      * @param       string      The HTML surrounding an element 
      * @param       string      Name of the group to apply template for
-     * @access      public
      * @return      void
      * @author      Fabrizio Branca <branca@punkt.de>
      */
@@ -175,7 +173,6 @@ class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default imple
      *
      * @param       string      The HTML surrounding group elements
      * @param       string      Name of the group to apply template for
-     * @access      public
      * @return      void
      * @author      Fabrizio Branca <branca@punkt.de>
      */
@@ -197,12 +194,11 @@ class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default imple
      * @param   bool        Whether an element is required
      * @param   string      Error message associated with the element
      * @param   string        (optional) id of the element that will replace {id}, default is ''
-     * @access  private
      * @see     renderElement()
      * @return  string      Html for element
      * @author  Fabrizio Branca <branca@punkt.de>
      */
-    public function _prepareTemplate($name, $label, $required, $error, HTML_QuickForm_element $element = null) {
+    private function _prepareTemplate($name, $label, $required, $error, HTML_QuickForm_element $element = null) {
         
         if ($element instanceof HTML_QuickForm_static) {
             $html = '{element}';
@@ -231,7 +227,6 @@ class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default imple
      * @param   HTML_QuickForm_element form element being visited
      * @param   bool                   Whether an element is required
      * @param   string                 An error message associated with an element
-     * @access  public
      * @return  void
      * @author  Fabrizio Branca <branca@punkt.de>
      */
