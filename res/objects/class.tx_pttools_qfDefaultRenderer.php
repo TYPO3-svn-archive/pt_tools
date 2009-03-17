@@ -198,7 +198,7 @@ class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default imple
      * @return  string      Html for element
      * @author  Fabrizio Branca <branca@punkt.de>
      */
-    private function _prepareTemplate($name, $label, $required, $error, HTML_QuickForm_element $element = null) {
+    public function _prepareTemplate($name, $label, $required, $error, HTML_QuickForm_element $element = null) {
         
         if ($element instanceof HTML_QuickForm_static) {
             $html = '{element}';
