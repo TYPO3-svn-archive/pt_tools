@@ -18,6 +18,7 @@ ToDo: As of 18.03.2009
 
 v0.4.2dev3:
 ----------
++ (mk) CHG: Added code example for iSingletonCollection interface
 + (fb) CHG: made tx_pttools_singletonCollection::getInstanceById() static
 + (fb) RMV: .cvsignore file
 + (fb) RFT: res/objects/class.tx_pttools_qfDefaultRenderer.php: corrected some access modifiers and phpdoc comments

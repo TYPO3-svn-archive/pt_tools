@@ -38,6 +38,39 @@
  * Singleton Collections are collections of objects that should be instantiated only once
  * and can be referenced by an ID
  * 
+ * Here is an example of a implementation:
+ *
+ * <code>
+ * class singletonCollection implements iSingletonCollection {
+ * 
+ *     protected static $iniqueInstances = array();
+ *     
+ *     public static function getInstanceById($objectId) {
+ *             
+ *          if (array_key_exists($objectId, self::$uniqueInstances)) {
+ *	            return self::$uniqueInstances[$objectId];
+ *	        } else {
+ *              $instance = new className();
+ *	            self::$uniqueInstances[$objectId] = $instance;
+ *	            return self::$uniqueInstances[$objectId];
+ *	        }
+ *	        
+ *	    }
+ *	
+ *	    
+ *	    public function __clone() {
+ *	        throw new tx_pttools_exceptionInternal('Cannot instantiate static class!');
+ *	    }
+ *	    
+ *	    
+ *	    public function __construct() {
+ *	        throw new tx_pttools_exceptionInternal('Cannot instantiate static class!');
+ *	    }
+ *	    
+ * }
+ * </code>
+ *
+ * 
  * @author Michael Knoll <knoll@punkt.de>
  * @package TYPO3
  * @subpackage tx_pttools
