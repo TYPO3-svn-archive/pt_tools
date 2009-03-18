@@ -56,7 +56,7 @@ interface tx_pttools_iSingletonCollection {
 	 * @author	Michael Knoll <knoll@punkt.de>
 	 * @since	2009-03-09
 	 */
-	public function getInstanceById($objectId);
+	public static function getInstanceById($objectId);
 	
 	
 	
