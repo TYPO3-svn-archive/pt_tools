@@ -26,7 +26,7 @@
 /** 
  * Interface definition file for a Singleton Collection interface
  *
- * $Id: class.tx_pttools_iSingletonCollection.php,v 1.2 2009/03/11 09:48:44 ry21 Exp $
+ * $Id$
  *
  * @author  Michael Knoll <knoll@punkt.de>
  * @since   2009-03-09

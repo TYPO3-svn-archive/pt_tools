@@ -24,7 +24,7 @@
 /** 
  *  "Authentication error" exception class (part of the library extension 'pt_tools')
  *
- * $Id: class.tx_pttools_exceptionAuthentication.php,v 1.1 2008/06/17 13:00:56 ry37 Exp $
+ * $Id$
  *
  * @author  Rainer Kuhn <kuhn@punkt.de>
  * @since   2008-06-17

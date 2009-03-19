@@ -24,7 +24,7 @@
 /** 
  * Interface for templateable classes (part of the 'pt_tools' extension)
  *
- * $Id: class.tx_pttools_iTemplateable.php,v 1.3 2009/01/19 17:13:35 ry37 Exp $
+ * $Id$
  *
  * @author      Rainer Kuhn <kuhn@punkt.de>
  * @since       2009-01-14

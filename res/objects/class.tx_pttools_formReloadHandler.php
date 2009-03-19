@@ -24,7 +24,7 @@
 /** 
  * Web form reload handler (part of the library extension 'pt_tools')
  *
- * $Id: class.tx_pttools_formReloadHandler.php,v 1.7 2008/06/26 21:13:57 ry44 Exp $
+ * $Id$
  *
  * @author  Rainer Kuhn <kuhn@punkt.de>
  * @since   2005-12-01

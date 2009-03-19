@@ -23,7 +23,7 @@
 /** 
  * Javascript functions for web form template handler (part of the library extension 'pt_tools')
  *
- * $Id: tx_pttools_formTemplateHandler.js,v 1.4 2008/08/15 16:20:53 ry96 Exp $
+ * $Id$
  *
  * @author  Wolfgang Zenker <zenker@punkt.de>
  * @since   2006-05-18

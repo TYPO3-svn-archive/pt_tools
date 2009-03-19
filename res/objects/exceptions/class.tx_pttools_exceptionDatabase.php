@@ -24,7 +24,7 @@
 /** 
  *  "Database error" exception class (part of the library extension 'pt_tools')
  *
- * $Id: class.tx_pttools_exceptionDatabase.php,v 1.3 2008/11/11 11:29:43 ry44 Exp $
+ * $Id$
  *
  * @author  Rainer Kuhn <kuhn@punkt.de>
  * @since   2008-06-17

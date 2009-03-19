@@ -24,7 +24,7 @@
 /** 
  * Helper methods library (part of the library extension 'pt_tools') to use in combination with the TYPO3 extension 'Static info tables' (static_info_tables)
  *
- * $Id: class.tx_pttools_staticInfoTables.php,v 1.14 2008/01/31 18:29:41 ry96 Exp $
+ * $Id$
  *
  * @author      Rainer Kuhn <kuhn@punkt.de>, Wolfgang Zenker <zenker@punkt.de>
  * @since       2005-08-18

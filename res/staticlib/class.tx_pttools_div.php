@@ -24,7 +24,7 @@
 /** 
  * General helper methods library (part of the library extension 'pt_tools')
  *
- * $Id: class.tx_pttools_div.php,v 1.96 2009/03/05 16:44:08 ry44 Exp $
+ * $Id$
  *
  * @author      Rainer Kuhn <kuhn@punkt.de>
  * @since       2005-08-19

@@ -23,7 +23,7 @@
 /** 
  * Creates a fake TSFE environment
  *
- * $Id: faketsfe.inc.php,v 1.5 2008/10/22 07:50:24 ry44 Exp $
+ * $Id$
  *
  * @author      Fabrizio Branca <branca@punkt.de>
  * @since       2007-10-08

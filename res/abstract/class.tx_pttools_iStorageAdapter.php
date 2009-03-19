@@ -24,7 +24,7 @@
 /** 
  * Storage adapter interface (part of the 'pt_tools' extension)
  *
- * $Id: class.tx_pttools_iStorageAdapter.php,v 1.3 2007/09/13 11:45:23 ry37 Exp $
+ * $Id$
  *
  * @author      Rainer Kuhn <kuhn@punkt.de>
  * @since       2005-09-23

@@ -25,7 +25,7 @@
 /**
  * Abstract object collection class for pt_tools
  *
- * $Id: class.tx_pttools_objectCollection.php,v 1.27 2009/02/03 10:07:44 ry37 Exp $
+ * $Id$
  *
  * @author      Wolfgang Zenker <zenker@punkt.de>, Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <branca@punkt.de>
  * @since       2006-10-24

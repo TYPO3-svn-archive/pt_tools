@@ -24,7 +24,7 @@
 /** 
  * General debugging class and non-OO function shortcut 'trace()' (part of the library extension 'pt_tools')
  *
- * $Id: class.tx_pttools_debug.php,v 1.32 2009/02/24 13:31:13 ry37 Exp $
+ * $Id$
  *
  * @author      Rainer Kuhn <kuhn@punkt.de>
  * @since       2005-08-18

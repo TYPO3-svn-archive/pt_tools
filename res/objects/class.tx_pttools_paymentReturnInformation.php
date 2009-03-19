@@ -24,7 +24,7 @@
 /**
  * Payment return information class for pt_tools
  *
- * $Id: class.tx_pttools_paymentReturnInformation.php,v 1.4 2009/02/13 13:52:17 ry37 Exp $
+ * $Id$
  *
  * @author      Rainer Kuhn <kuhn@punkt.de>
  * @since       2009-02-04

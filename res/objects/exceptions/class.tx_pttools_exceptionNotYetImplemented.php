@@ -24,7 +24,7 @@
 /** 
  *  "Not yet implemented" exception class (part of the library extension 'pt_tools')
  *
- * $Id: class.tx_pttools_exceptionNotYetImplemented.php,v 1.1 2009/03/11 08:57:35 ry21 Exp $
+ * $Id$
  *
  * @author  Michael Knoll <knoll@punkt.de>
  * @since   2009-02-18

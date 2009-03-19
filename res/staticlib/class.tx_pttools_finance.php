@@ -25,7 +25,7 @@
  * General finance related methods library (part of the library extension 'pt_tools')
  * IMPORTANT: This class requires PHP to be configured with '--enable-bcmath'!
  *
- * $Id: class.tx_pttools_finance.php,v 1.19 2008/09/19 11:52:38 ry37 Exp $
+ * $Id$
  *
  * @author      Rainer Kuhn <kuhn@punkt.de>
  * @since       2005-08-19

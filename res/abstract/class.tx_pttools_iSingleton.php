@@ -24,7 +24,7 @@
 /** 
  * Interface for Singleton design pattern (part of the 'pt_tools' extension)
  *
- * $Id: class.tx_pttools_iSingleton.php,v 1.6 2007/10/15 13:19:07 ry37 Exp $
+ * $Id$
  *
  * @author      Rainer Kuhn <kuhn@punkt.de>
  * @since       2005-09-27

@@ -24,7 +24,7 @@
 /** 
  * Web form template handler (part of the library extension 'pt_tools')
  *
- * $Id: class.tx_pttools_formTemplateHandler.php,v 1.59 2008/12/29 11:38:12 ry96 Exp $
+ * $Id$
  *
  * @author  Wolfgang Zenker <zenker@punkt.de>
  * @since   2006-04-20

@@ -24,7 +24,7 @@
 /** 
  * Session Storage Adapter for TYPO3 FE _browser_ sessions and BE user sessions (part of the library extension 'pt_tools')
  *
- * $Id: class.tx_pttools_sessionStorageAdapter.php,v 1.16 2009/02/09 17:11:25 ry37 Exp $
+ * $Id$
  *
  * @author  Rainer Kuhn <kuhn@punkt.de>
  * @since   2005-09-23

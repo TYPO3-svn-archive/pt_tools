@@ -27,7 +27,7 @@
  * 
  * Abstract class for Singleton design pattern (part of the 'pt_tools' extension). 
  *
- * $Id: class.tx_pttools_singleton.php,v 1.7 2008/03/14 16:27:02 ry37 Exp $
+ * $Id$
  *
  * @author      Rainer Kuhn <kuhn@punkt.de>
  * @since       2005-09-15

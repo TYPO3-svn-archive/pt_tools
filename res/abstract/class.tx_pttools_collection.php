@@ -25,7 +25,7 @@
 /**
  * Abstract item collection class for pt_tools
  *
- * $Id: class.tx_pttools_collection.php,v 1.7 2009/02/18 11:04:41 ry44 Exp $
+ * $Id$
  *
  * @author      Rainer Kuhn <kuhn@punkt.de>, Wolfgang Zenker <zenker@punkt.de>, Fabrizio Branca <branca@punkt.de>
  * @since       2008-10-16 (based on code from former tx_pttools_objectCollection and tx_ptgsashop_*Collection, since 2005)

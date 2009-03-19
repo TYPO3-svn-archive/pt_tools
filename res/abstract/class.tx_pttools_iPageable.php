@@ -24,7 +24,7 @@
 /** 
  * Interface for pageable classes (part of the 'pt_tools' extension)
  *
- * $Id: class.tx_pttools_iPageable.php,v 1.3 2009/01/15 16:55:07 ry44 Exp $
+ * $Id$
  *
  * @author      Rainer Kuhn <kuhn@punkt.de>
  * @since       2009-01-14

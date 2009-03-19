@@ -24,7 +24,7 @@
 /** 
  * Interface for templateable classes (part of the 'pt_tools' extension)
  *
- * $Id: class.tx_pttools_iSettableByArray.php,v 1.1 2009/01/22 16:40:25 ry44 Exp $
+ * $Id$
  *
  * @author      Fabrizio Branca <branca@punkt.de>
  * @since       2009-01-22

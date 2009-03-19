@@ -24,7 +24,7 @@
 /** 
  * CLI script handler (part of the library extension 'pt_tools')
  *
- * $Id: class.tx_pttools_cliHandler.php,v 1.6 2008/09/23 14:27:24 ry37 Exp $
+ * $Id$
  *
  * @author  Rainer Kuhn <kuhn@punkt.de>
  * @since   2007-08-23

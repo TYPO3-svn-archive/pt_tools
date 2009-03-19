@@ -26,7 +26,7 @@
  *
  * Contains a class for frontend use, including methods for checking input content, usually originating from web forms.
  *
- * $Id: class.tx_pttools_formchecker.php,v 1.27 2008/09/19 11:52:38 ry37 Exp $
+ * $Id$
  *
  * @author  Rainer Kuhn <kuhn@punkt.de> (thanks to Tino Bickel for spadework and inspiration :)
  * @since   2005-09-12 (based on original code from 2003-05)

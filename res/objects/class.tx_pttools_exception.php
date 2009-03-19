@@ -24,7 +24,7 @@
 /** 
  * General exception class (part of the library extension 'pt_tools')
  *
- * $Id: class.tx_pttools_exception.php,v 1.28 2009/03/11 08:57:35 ry21 Exp $
+ * $Id$
  *
  * @author  Rainer Kuhn <kuhn@punkt.de>
  * @since   2005-08-12

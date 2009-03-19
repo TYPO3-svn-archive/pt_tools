@@ -24,7 +24,7 @@
 /** 
  * Adapter for the Smarty Templating engine (requires the TYPO3 extension 'smarty', replaces class.tx_smarty.php)
  *
- * $Id: class.tx_pttools_smartyAdapter.php,v 1.21 2008/11/03 08:41:48 ry44 Exp $
+ * $Id$
  *
  * @author  Rainer Kuhn <kuhn@punkt.de>, completely rewritten by Fabrizio Branca <branca@punkt.de> 2008-06-20
  * @since   2006-03-20

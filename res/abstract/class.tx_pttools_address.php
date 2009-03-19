@@ -24,7 +24,7 @@
 /** 
  * General address class (part of the library extension 'pt_tools')
  *
- * $Id: class.tx_pttools_address.php,v 1.13 2007/11/20 12:34:01 ry44 Exp $
+ * $Id$
  *
  * @author      Rainer Kuhn <kuhn@punkt.de>
  * @since       2005-08-05

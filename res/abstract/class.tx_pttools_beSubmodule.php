@@ -25,7 +25,7 @@
  * Abstract backend submodules parent class
  * IMPORTANT: This class is experimental and still under development. Implementation is not final, APIs may change anytime - so don't use this class for your extensions yet!
  *
- * $Id: class.tx_pttools_beSubmodule.php,v 1.6 2009/02/09 15:29:03 ry21 Exp $
+ * $Id$
  *
  * @author  Rainer Kuhn <kuhn@punkt.de>
  * @since   2008-02-06 (based on class.tx_ptgsaadmin_submodules.php, since 2007-08-24)

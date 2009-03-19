@@ -24,7 +24,7 @@
 /** 
  * Collection element selector (part of the library extension 'pt_tools')
  *
- * $Id: class.tx_pttools_collectionElementSelector.php,v 1.3 2008/05/20 12:16:07 ry96 Exp $
+ * $Id$
  *
  * @author  Wolfgang Zenker <zenker@punkt.de>
  * @since   2008-05-19

@@ -26,7 +26,7 @@
  *
  * Provides methods for displaying information and messages in a HTML-Messagebox.
  *
- * $Id: class.tx_pttools_msgBox.php,v 1.12 2008/06/20 09:43:40 ry37 Exp $
+ * $Id$
  *
  * @author   Rainer Kuhn <kuhn@punkt.de> (thanks to Tino Bickel for inspiration :)
  * @since    2005-09-12

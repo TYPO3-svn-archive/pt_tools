@@ -24,7 +24,7 @@
 /** 
  *  "Assertion failed" exception class (part of the library extension 'pt_tools')
  *
- * $Id: class.tx_pttools_exceptionAssertion.php,v 1.1 2008/06/17 13:00:56 ry37 Exp $
+ * $Id$
  *
  * @author  Fabrizio Branca <branca@punkt.de>
  * @since   2008-06-11

@@ -26,7 +26,7 @@
  * 
  * Session Storage Adapter for TYPO3 FRONTEND _user_ sessions 
  *
- * $Id: class.tx_pttools_usersessStorageAdapter.php,v 1.9 2007/10/19 16:14:01 ry37 Exp $
+ * $Id$
  *
  * @author  Rainer Kuhn <kuhn@punkt.de>
  * @since   2005-09-23

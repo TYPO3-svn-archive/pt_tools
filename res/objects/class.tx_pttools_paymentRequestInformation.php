@@ -24,7 +24,7 @@
 /**
  * Payment request information class for pt_tools
  *
- * $Id: class.tx_pttools_paymentRequestInformation.php,v 1.4 2009/02/13 13:51:12 ry37 Exp $
+ * $Id$
  *
  * @author      Rainer Kuhn <kuhn@punkt.de>
  * @since       2009-02-03

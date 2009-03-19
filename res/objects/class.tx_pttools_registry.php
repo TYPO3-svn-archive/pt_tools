@@ -37,7 +37,7 @@ require_once t3lib_extMgm::extPath('pt_tools').'res/staticlib/class.tx_pttools_d
 /**
  * Singleton registry
  * 
- * $Id: class.tx_pttools_registry.php,v 1.4 2008/10/16 11:52:40 ry37 Exp $
+ * $Id$
  * 
  * @author	Fabrizio Branca <branca@punkt.de>
  * @since	2008-05-27

@@ -34,7 +34,7 @@ require_once t3lib_extMgm::extPath('pt_tools').'res/staticlib/class.tx_pttools_d
 /**
  * Testcase for class "tx_pttools_div"
  * 
- * $Id: class.tx_pttools_div_testcase.php,v 1.3 2008/10/22 07:25:17 ry44 Exp $
+ * $Id$
  * 
  * @author      Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <branca@punkt.de>
  * @since       2008-10-09
