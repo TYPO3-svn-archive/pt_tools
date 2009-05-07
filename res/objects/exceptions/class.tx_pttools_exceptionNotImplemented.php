@@ -22,7 +22,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 /** 
- *  "Not yet implemented" exception class (part of the library extension 'pt_tools')
+ *  "Not implemented" exception class (part of the library extension 'pt_tools')
  *
  * $Id$
  *
@@ -40,14 +40,14 @@ require_once t3lib_extMgm::extPath('pt_tools').'res/objects/class.tx_pttools_exc
 
 
 /** 
- * "Not yet implemented" exception class
+ * "Not implemented" exception class
  *
  * @author  Michael Knoll <knoll@punkt.de>
  * @since   2009-02-18
  * @package     TYPO3
  * @subpackage  tx_pttools
  */ 
-class tx_pttools_exceptionNotYetImplemented extends tx_pttools_exception {
+class tx_pttools_exceptionNotImplemented extends tx_pttools_exception {
     
     /***************************************************************************
      *   CONSTRUCTOR
@@ -61,7 +61,7 @@ class tx_pttools_exceptionNotYetImplemented extends tx_pttools_exception {
  	 * @author  Michael Knoll <knoll@punkt.de>
  	 * @since   2009-02-18
      */
-    public function __construct($errMsg='Not yet implemented!', $debugMsg='Not yet implemented!') {
+    public function __construct($errMsg='Not implemented!', $debugMsg='Not implemented!') {
         
         parent::__construct($errMsg, 3, $debugMsg);
         
@@ -76,8 +76,8 @@ class tx_pttools_exceptionNotYetImplemented extends tx_pttools_exception {
 /*******************************************************************************
  *   TYPO3 XCLASS INCLUSION (for class extension/overriding)
  ******************************************************************************/
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/pt_tools/res/objects/exceptions/class.tx_pttools_exceptionConfiguration.php']) {
-    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/pt_tools/res/objects/exceptions/class.tx_pttools_exceptionConfiguration.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/pt_tools/res/objects/exceptions/class.tx_pttools_exceptionNotImplemented.php']) {
+    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/pt_tools/res/objects/exceptions/class.tx_pttools_exceptionNotImplemented.php']);
 }
 
 ?>

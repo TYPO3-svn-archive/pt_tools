@@ -49,7 +49,7 @@ require_once t3lib_extMgm::extPath('pt_tools').'res/objects/exceptions/class.tx_
 require_once t3lib_extMgm::extPath('pt_tools').'res/objects/exceptions/class.tx_pttools_exceptionAuthentication.php';
 require_once t3lib_extMgm::extPath('pt_tools').'res/objects/exceptions/class.tx_pttools_exceptionWebservice.php';
 require_once t3lib_extMgm::extPath('pt_tools').'res/objects/exceptions/class.tx_pttools_exceptionAssertion.php'; // used in tx_pttools_assert when assertions fails
-require_once t3lib_extMgm::extPath('pt_tools').'res/objects/exceptions/class.tx_pttools_exceptionNotYetImplemented.php';
+require_once t3lib_extMgm::extPath('pt_tools').'res/objects/exceptions/class.tx_pttools_exceptionNotImplemented.php';
 
 
 /**
