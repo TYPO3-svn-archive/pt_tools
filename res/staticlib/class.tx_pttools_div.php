@@ -892,49 +892,134 @@ class tx_pttools_div  {
      **************************************************************************/
     
     /**
-     * Filters a given value for HTML output on web pages to prevent XSS attacks and similar hacks. Should be used instead of htmlspecialchars() for any output value in FE plugins.
+     * Filters a given scalar value for HTML output on web pages to prevent XSS attacks and similar hacks. 
+     * Should be used instead of htmlspecialchars() for any output value in FE plugins.
+     * Use tx_pttools_div::htmlOutputArray() for arrays or tx_pttools_div::htmlOutputArrayAccess() for ArrayAccess objects
      *
-     * @param   mixed       output value to be filtered (mixed type string/integer/double; use tx_pttools_div::htmlOutputArray() for arrays)
-     * @return  void
+     * @param   mixed           string or scalar value to be filtered (mixed type string/integer/float/boolean)
+     * @return  string|NULL     filtered value string (empty string if input value was no scalar and not NULL) or NULL if input value was NULL
      * @see     tx_pttools_div::htmlOutputArray()
+     * @see     tx_pttools_div::htmlOutputArrayAccess()
      * @see     http://www.cgisecurity.com/articles/xss-faq.shtml#vendor  
      * @author  Rainer Kuhn <kuhn@punkt.de>
-     * @since   2006-05-16
+     * @since   2006-05-16, re-written 2009-05-08
      */
      public static function htmlOutput($value) {
         
-        // default PHP special char conversion with double AND single quotes translated (translates: & " ' < >)
-        $filteredValue = htmlspecialchars($value, ENT_QUOTES);
+        $filteredValue = '';
+            
+        // scalars: convert HTML special chars in filtered value
+        if (is_scalar($value)) {
+            $filteredValue = htmlspecialchars((string)$value, ENT_QUOTES); // default PHP special char conversion with double AND single quotes translated (translates: & " ' < >)
+        // NULL: keep NULL as filtered value
+        } elseif (is_null($value)) {
+            $filteredValue = NULL;
+        // all other values (including objects and arrays): set filtered value to empty string
+        } else {
+            if (TYPO3_DLOG) t3lib_div::devLog(__METHOD__.'(): unfilterable value has been converted to empty string', 'pt_tools', 2, array('original value' => $value));
+        }
         
         return $filteredValue;
     
     }
+    
      
     /**
-     * Filters the elements of a given array for HTML output on web pages to prevent XSS attacks and similar hacks. Should be used instead of htmlspecialchars() for any output array in FE plugins.
+     * Filters the elements of a given array for HTML output on web pages to prevent XSS attacks and similar hacks. 
+     * Should be used instead of htmlspecialchars() for any array  intended for output in FE plugins.
      *
-     * @param   array       array with output values to be filtered
-     * @param   boolean     (optional) flag wether the array keys should be filtered, too (default=1). This is useful if the array keys will be used for HTML output, e.g. in selectorboxes.
-     * @return  void
+     * @param   array       array with values to be filtered for output
+     * @param   boolean     (optional) flag whether the array keys should be filtered, too (default=1). This is useful if the array keys will be used for HTML output, e.g. in selectorboxes.
+     * @return  array       array copy with filtered values (or empty array if given input param was no array)
      * @see     tx_pttools_div::htmlOutput()
      * @author  Rainer Kuhn <kuhn@punkt.de>
-     * @since   2006-05-16
+     * @since   2006-05-16, re-written 2009-05-08
      */
      public static function htmlOutputArray($array, $filterKeys=1) {
      
         $filteredArray = array();
         
-        foreach ($array as $key=>$value) {
-            $newKey = ($filterKeys == 1 ? tx_pttools_div::htmlOutput($key) : $key);
-            if (!is_array($value)) {
-                $filteredArray[$newKey] = tx_pttools_div::htmlOutput($value);
-            } else {
-                // recursive function call for nested arrays
-                $filteredArray[$newKey] = tx_pttools_div::htmlOutputArray($value, $filterKeys);
+        if (is_array($array)) {
+            
+            foreach ($array as $key=>$value) {
+                
+            // array key conversion (if requested)
+                $newKey = ($filterKeys == 1 ? tx_pttools_div::htmlOutput($key) : $key);
+                
+            // array value conversion
+                // scalars: use default htmlOutput()
+                if (is_scalar($value)) {
+                    $filteredArray[$newKey] = tx_pttools_div::htmlOutput($value);
+                // nested arrays: recursive function call 
+                } elseif (is_array($value)) {
+                    $filteredArray[$newKey] = tx_pttools_div::htmlOutputArray($value, $filterKeys);
+                // objects implementing the ArrayAccess interface: use htmlOutputArrayAccess()
+                } elseif ($value instanceof ArrayAccess) {
+                    $filteredArray[$newKey] = tx_pttools_div::htmlOutputArrayAccess($value, $filterKeys);
+                // NULL: keep NULL as filtered value
+                } elseif (is_null($value)) {
+                    $filteredArray[$newKey] = NULL;
+                // all other values (including non-ArrayAccess objects): set filtered value to empty string
+                } else {
+                    $filteredArray[$newKey] = '';
+                    if (TYPO3_DLOG) t3lib_div::devLog(__METHOD__.'(): unfilterable array value of key "'.$key.'" has been converted to empty string', 'pt_tools', 2, array('original value' => $value));
+                }
             }
+            
+        } else {
+            if (TYPO3_DLOG) t3lib_div::devLog(__METHOD__.'(): given parameter was no array', 'pt_tools', 2, array('original parameter' => $array));
         }
         
         return $filteredArray;
+    
+    }
+     
+    /**
+     * Filters the elements of a given ArrayAccess object for HTML output on web pages to prevent XSS attacks and similar hacks. 
+     * Should be used instead of htmlspecialchars() for any ArrayAccess object intended for output in FE plugins.
+     * IMPORTANT: since the object will be cloned internally, this method does not work for non-clonable objects (e.g. Singletons). In this case you could implement the tx_pttools_iTemplateable interface to your object and sent the return of the getMarkerArray() method through tx_pttools_div::htmlOutputArray. 
+     *
+     * @param   ArrayAccess     object implementing the ArrayAccess interface containing property values to be filtered for output
+     * @param   boolean         (optional) flag whether keys of eventually contained nested arrays should be filtered, too. See comment of $filterKeys in htmlOutputArray.
+     * @return  ArrayAccess     cloned object (implementing the ArrayAccess interface) containing filtered property values
+     * @see     tx_pttools_div::htmlOutput()
+     * @see     tx_pttools_div::htmlOutputArray()
+     * @author  Rainer Kuhn <kuhn@punkt.de>
+     * @since   2009-05-08
+     */
+     public static function htmlOutputArrayAccess(ArrayAccess $arrayObject, $filterNestedArrayKeys=1) {
+        
+        // prevent endless recursion loop for nested objects
+        static $loopCounter = 0; 
+        $loopCounter += 1;
+        if ($loopCounter > 99) {  
+            throw new tx_pttools_exceptionInternal('Recursion break', 'Max. recursion depth of 99 exceeded in '.__METHOD__);
+        }
+         
+        $filteredObject = clone($arrayObject);
+         
+        foreach ($filteredObject as $key=>$value) {
+            
+            // scalars: use default htmlOutput()
+            if (is_scalar($value)) {
+                $filteredObject[$key] = tx_pttools_div::htmlOutput($value);
+            // arrays: use htmlOutputArray()
+            } elseif (is_array($value)) {
+                $filteredObject[$key] = tx_pttools_div::htmlOutputArray($value, $filterNestedArrayKeys);
+            // objects implementing the ArrayAccess interface: recursive function call
+            } elseif ($value instanceof ArrayAccess) {
+                $filteredObject[$key] = tx_pttools_div::htmlOutputArrayAccess($value, $filterNestedArrayKeys);
+            // NULL: keep NULL as filtered value
+            } elseif (is_null($value)) {
+                $filteredArray[$newKey] = NULL;
+            // all other values (including non-ArrayAccess objects): set filtered value to empty string
+            } else {
+                $filteredObject[$key] = '';
+                if (TYPO3_DLOG) t3lib_div::devLog(__METHOD__.'(): unfilterable ArrayAccess object property "'.$key.'" has been converted to empty string', 'pt_tools', 2, array('original value' => $value));
+            }
+        }
+        
+        return $filteredObject;
     
     }
      

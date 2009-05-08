@@ -12,12 +12,15 @@ RFT: refactoring / code cleanup
 ********************************************************************************
 
 
-ToDo: As of 07.05.2009
+ToDo: As of 08.05.2009
 ====
 
 
 v0.4.2dev3:
 ----------
++ (rk) ADD/CHG: extendend XSS prevention tools
+       - tx_pttools_div: added new method htmlOutputArrayAccess()
+       - tx_pttools_div: extended and improved existing methods htmlOutput() and htmlOutputArray()
 + (rk) CHG: renamed exceptionNotYetImplemented to exceptionNotImplemented (class.tx_pttools_exceptionNotYetImplemented.php, class.tx_pttools_exception.php)
 + (rk) ADD: res/smarty_plugins/modifier.trace.php: added a smarty modifier for tracing/debugging output
 + (mk) CHG: Added code example for iSingletonCollection interface
