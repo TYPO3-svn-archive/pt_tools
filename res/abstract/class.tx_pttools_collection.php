@@ -3,7 +3,7 @@
 *  Copyright notice
 *
 *  (c) 2005-2008 Rainer Kuhn <kuhn@punkt.de>, Wolfgang Zenker <zenker@punkt.de>, 
-*                Fabrizio Branca <branca@punkt.de>
+*                Fabrizio Branca <mail@fabrizio-branca.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -27,7 +27,7 @@
  *
  * $Id$
  *
- * @author      Rainer Kuhn <kuhn@punkt.de>, Wolfgang Zenker <zenker@punkt.de>, Fabrizio Branca <branca@punkt.de>
+ * @author      Rainer Kuhn <kuhn@punkt.de>, Wolfgang Zenker <zenker@punkt.de>, Fabrizio Branca <mail@fabrizio-branca.de>
  * @since       2008-10-16 (based on code from former tx_pttools_objectCollection and tx_ptgsashop_*Collection, since 2005)
  */
 
@@ -44,7 +44,7 @@ require_once t3lib_extMgm::extPath('pt_tools').'res/objects/exceptions/class.tx_
 /**
  * Abstract item collection class
  *
- * @author      Rainer Kuhn <kuhn@punkt.de>, Wolfgang Zenker <zenker@punkt.de>, Fabrizio Branca <branca@punkt.de>
+ * @author      Rainer Kuhn <kuhn@punkt.de>, Wolfgang Zenker <zenker@punkt.de>, Fabrizio Branca <mail@fabrizio-branca.de>
  * @since       2008-10-16 (based on code from former tx_pttools_objectCollection and tx_ptgsashop_*Collection, since 2005)
  * @package     TYPO3
  * @subpackage  tx_pttools
@@ -130,7 +130,7 @@ abstract class tx_pttools_collection implements IteratorAggregate, Countable, Ar
      *
      * @param 	mixed	offset
      * @return 	bool
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2008-05-29
      */
     public function offsetExists($offset) {
@@ -144,7 +144,7 @@ abstract class tx_pttools_collection implements IteratorAggregate, Countable, Ar
      *
      * @param 	mixed	offset
      * @return 	mixed	element of the collection
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2008-05-29
      */
     public function offsetGet($offset) {
@@ -158,7 +158,7 @@ abstract class tx_pttools_collection implements IteratorAggregate, Countable, Ar
      *
      * @param 	mixed	offset
      * @param 	mixed	value
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2008-05-29
      */
     public function offsetSet($offset, $value) {
@@ -171,7 +171,7 @@ abstract class tx_pttools_collection implements IteratorAggregate, Countable, Ar
      * Deletes an element from the collection
      *
      * @param 	mixed	offset
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2008-05-29
      */
     public function offsetUnset($offset) {
@@ -196,7 +196,7 @@ abstract class tx_pttools_collection implements IteratorAggregate, Countable, Ar
      *
      * @param   bool    (optional) if true key won't be modified, else numerical keys will be renumbered, default if false
      * @return  mixed   item or NULL if collection is empty
-     * @author  Fabrizio Branca <branca@punkt.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2008-06-07
      */
     public function shift($doNotModifyKeys = false) {
@@ -223,7 +223,7 @@ abstract class tx_pttools_collection implements IteratorAggregate, Countable, Ar
      *
      * @param   void
      * @return  mixed   item or NULL if collection is empty
-     * @author  Fabrizio Branca <branca@punkt.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2008-06-07
      */
     public function pop() {
@@ -247,7 +247,7 @@ abstract class tx_pttools_collection implements IteratorAggregate, Countable, Ar
      * @param   mixed   element to prepend
      * @param   bool    (optional) if true key won't be modified, else numerical keys will be renumbered, default if false
      * @return  int     Returns the new number of elements in the collection
-     * @author  Fabrizio Branca <branca@punkt.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2008-06-07
      */
     public function unshift($element, $doNotModifyKeys = false) {
@@ -269,7 +269,7 @@ abstract class tx_pttools_collection implements IteratorAggregate, Countable, Ar
      *
      * @param   mixed   element to append
      * @return  int     Returns the new number of elements in the collection
-     * @author  Fabrizio Branca <branca@punkt.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2008-06-07
      */
     public function push($element) {
@@ -287,7 +287,7 @@ abstract class tx_pttools_collection implements IteratorAggregate, Countable, Ar
      * @param   mixed   (optional) if specified, then only keys containing these values are returned.
      * @param   bool    (optional) determines if strict comparision (===) should be used during the search.
      * @return  array   Returns an array of all the keys
-     * @author  Fabrizio Branca <branca@punkt.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2008-06-12
      */
     public function keys($search_value = '', $strict = false) {

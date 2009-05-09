@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *  
-*  (c) 2009 Fabrizio Branca (branca@punkt.de)
+*  (c) 2009 Fabrizio Branca (mail@fabrizio-branca.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is 
@@ -30,7 +30,7 @@
  * @param 	string	content
  * @param 	string	typoscript path to stdWrap configuration
  * @return 	string	wrapped content or empty string
- * @author	Fabrizio Branca <branca@punkt.de>
+ * @author	Fabrizio Branca <mail@fabrizio-branca.de>
  * @since	2008-06-16
  */
 function smarty_modifier_stdWrap($content, $param) {

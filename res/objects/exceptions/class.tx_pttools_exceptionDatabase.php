@@ -59,7 +59,7 @@ class tx_pttools_exceptionDatabase extends tx_pttools_exception {
      * @param   string  (optional) error message (used for frontend/enduser display, too)    
      * @param   string  (optional) detailed debug message (not used for frontend display) - if not set, $GLOBALS['TYPO3_DB']->sql_error() will be used automatically
      * @param 	t3lib_db (optional) used t3lib_db instance, if null (default) $GLOBALS['TYPO3_DB'] will be used
-     * @author  Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <branca@punkt.de>
+     * @author  Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2008-06-17
      */
     public function __construct($errMsg='', $debugMsg='', t3lib_db $dbObj=NULL) {

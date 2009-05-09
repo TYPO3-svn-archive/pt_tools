@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2008 Fabrizio Branca (branca@punkt.de)
+*  (c) 2008 Fabrizio Branca (mail@fabrizio-branca.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -29,7 +29,7 @@ require_once t3lib_extMgm::extPath('pt_tools') . 'res/objects/class.tx_pttools_e
  * Assertion class
  *
  * @see 	http://www.debuggable.com/posts/assert-the-yummyness-of-your-cake:480f4dd6-7fe0-4113-9776-458acbdd56cb
- * @author	Fabrizio Branca <branca@punkt.de>
+ * @author	Fabrizio Branca <mail@fabrizio-branca.de>
  * @since	2008-05-30
  */
 class tx_pttools_assert {
@@ -511,7 +511,7 @@ class tx_pttools_assert {
      * @param     array     array
      * @param     array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
      * @return     void
-     * @author    Fabrizio Branca <branca@punkt.de>
+     * @author    Fabrizio Branca <mail@fabrizio-branca.de>
      * @since    2008-05-17
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
@@ -529,7 +529,7 @@ class tx_pttools_assert {
      * @param     string     list
      * @param     array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
      * @return     void
-     * @author    Fabrizio Branca <branca@punkt.de>
+     * @author    Fabrizio Branca <mail@fabrizio-branca.de>
      * @since    2008-05-17
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
@@ -548,7 +548,7 @@ class tx_pttools_assert {
      * @param     mixed     higher boundary
      * @param     array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
      * @return     void
-     * @author    Fabrizio Branca <branca@punkt.de>
+     * @author    Fabrizio Branca <mail@fabrizio-branca.de>
      * @since    2008-07-01
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
@@ -568,7 +568,7 @@ class tx_pttools_assert {
      * @param     bool    (optional) allow "0", default is false
      * @param     array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
      * @return     void
-     * @author    Fabrizio Branca <branca@punkt.de>
+     * @author    Fabrizio Branca <mail@fabrizio-branca.de>
      * @since    2008-06-02
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
@@ -590,7 +590,7 @@ class tx_pttools_assert {
      * @param     t3lib_DB    (optional) t3lib_DB used, default is NULL, then $GLOBALS['TYPO3_DB'] will be used
      * @param     array        (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
      * @return     void
-     * @author    Fabrizio Branca <branca@punkt.de>
+     * @author    Fabrizio Branca <mail@fabrizio-branca.de>
      * @since    2008-06-08
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
@@ -625,7 +625,7 @@ class tx_pttools_assert {
      * @param     string    type
      * @param     array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
      * @return     void
-     * @author    Fabrizio Branca <branca@punkt.de>
+     * @author    Fabrizio Branca <mail@fabrizio-branca.de>
      * @since    2008-06-10
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
@@ -643,7 +643,7 @@ class tx_pttools_assert {
      * @param     mixed    value
      * @param     array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
      * @return     void
-     * @author    Fabrizio Branca <branca@punkt.de>
+     * @author    Fabrizio Branca <mail@fabrizio-branca.de>
      * @since    2008-06-10
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
@@ -660,7 +660,7 @@ class tx_pttools_assert {
      * @param     string    value
      * @param     array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
      * @return     void
-     * @author    Fabrizio Branca <branca@punkt.de>
+     * @author    Fabrizio Branca <mail@fabrizio-branca.de>
      * @since    2008-06-10
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
@@ -679,7 +679,7 @@ class tx_pttools_assert {
      * @param     string    value
      * @param     array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
      * @return     void
-     * @author    Fabrizio Branca <branca@punkt.de>
+     * @author    Fabrizio Branca <mail@fabrizio-branca.de>
      * @since    2008-06-10
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
@@ -698,7 +698,7 @@ class tx_pttools_assert {
      * @param     mixed     first variable
      * @param     mixed     second variable
      * @param     array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
-     * @author    Fabrizio Branca <branca@punkt.de>
+     * @author    Fabrizio Branca <mail@fabrizio-branca.de>
      * @since    2008-06-21
      */
     public static function isReference(&$a, &$b, array $info = array()) {
@@ -722,7 +722,7 @@ class tx_pttools_assert {
      * @param     mixed    object
      * @param     mixed    class name
      * @param     array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
-     * @author    Fabrizio Branca <branca@punkt.de>
+     * @author    Fabrizio Branca <mail@fabrizio-branca.de>
      * @since    2008-06-21
      */
     public static function isInstanceOf($object, $class, array $info = array()) {
@@ -762,7 +762,7 @@ class tx_pttools_assert {
      * @param    mixed    value 
      * @param    array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
      * @return   void
-     * @author   Fabrizio Branca <branca@punkt.de>
+     * @author   Fabrizio Branca <mail@fabrizio-branca.de>
      * @since    2008-11-10
      */
     public static function isNotNull($val, array $info = array()) {
@@ -777,7 +777,7 @@ class tx_pttools_assert {
      * @param   mixed   value 
      * @param   array   (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
      * @return  void
-     * @author  Fabrizio Branca <branca@punkt.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2008-11-10
      */
     public static function isNull($val, array $info = array()) {
@@ -791,7 +791,7 @@ class tx_pttools_assert {
      *
      * @param   array   (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
      * @return  void
-     * @author  Fabrizio Branca <branca@punkt.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2008-11-11
      */
     public static function loggedIn(array $info = array()) {

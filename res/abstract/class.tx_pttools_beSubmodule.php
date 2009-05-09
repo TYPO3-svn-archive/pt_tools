@@ -216,7 +216,7 @@ abstract class tx_pttools_beSubmodule extends t3lib_SCbase {
      * Puts $this->jsArray to $this->doc->JScode which will be printed in the head of the html page
      * 
      * @return	void
-     * @author	Fabrizio Branca <branca@punkt.de> 
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de> 
      * @since	2007-12-10
      */
     protected function printJS() {
@@ -238,7 +238,7 @@ abstract class tx_pttools_beSubmodule extends t3lib_SCbase {
      * @param 	string		(optional) field label, default; "Search string"
      * @param 	string		(optional) button label, default: "Search"
      * @return 	string		HTML Output
-     * @author 	Fabrizio Branca <branca@punkt.de
+     * @author 	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since 	2008-01-18
      */
     protected function printSearchForm($searchString='', $fieldLabel='Search string', $buttonLabel='Search') {

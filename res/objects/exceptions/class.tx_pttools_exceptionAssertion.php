@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *  
-*  (c) 2008 Rainer Kuhn (branca@punkt.de)
+*  (c) 2008 Rainer Kuhn (mail@fabrizio-branca.de)
 *  All rights reserved
 *  
 *  This script is part of the TYPO3 project. The TYPO3 project is 
@@ -26,7 +26,7 @@
  *
  * $Id$
  *
- * @author  Fabrizio Branca <branca@punkt.de>
+ * @author  Fabrizio Branca <mail@fabrizio-branca.de>
  * @since   2008-06-11
  */ 
 
@@ -42,7 +42,7 @@ require_once t3lib_extMgm::extPath('pt_tools').'res/objects/class.tx_pttools_exc
 /** 
  * "Assertion failed" exception class
  *
- * @author      Fabrizio Branca <branca@punkt.de>
+ * @author      Fabrizio Branca <mail@fabrizio-branca.de>
  * @since       2008-06-11
  * @package     TYPO3
  * @subpackage  tx_pttools
@@ -58,7 +58,7 @@ class tx_pttools_exceptionAssertion extends tx_pttools_exception {
      * 
      * @param   string  (optional) error message (used for frontend/enduser display, too)    
      * @param   string  (optional) detailed debug message (not used for frontend display)  
-     * @author  Fabrizio Branca <branca@punkt.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2008-06-11
      */
     public function __construct($errMsg='', $debugMsg='') {

@@ -10,7 +10,7 @@ require_once(t3lib_extMgm::extPath('pt_tools').'res/abstract/class.tx_pttools_ob
  * Simple test object
  * TODO: replace by stdClass
  * 
- * @author	Fabrizio Branca <branca@punkt.de>
+ * @author	Fabrizio Branca <mail@fabrizio-branca.de>
  * @since	2008-06-09
  */
 class tx_pttools_testObject {
@@ -22,7 +22,7 @@ class tx_pttools_testObject {
  * Test collection, because tx_pttools_objectCollection is an abstract class
  * TODO: find out how to test abstract classes without doing things like this
  * 
- * @author	Fabrizio Branca <branca@punkt.de>
+ * @author	Fabrizio Branca <mail@fabrizio-branca.de>
  * @since	2008-06-09
  */
 class tx_pttools_testCollection extends tx_pttools_objectCollection {
@@ -39,7 +39,7 @@ class tx_pttools_testCollection extends tx_pttools_objectCollection {
 /**
  * Testcase for class "tx_pttools_objectCollection"
  * 
- * @author	Fabrizio Branca <branca@punkt.de>
+ * @author	Fabrizio Branca <mail@fabrizio-branca.de>
  * @since	2008-06-09
  */
 class tx_pttools_objectCollection_testcase extends tx_phpunit_testcase {
@@ -55,7 +55,7 @@ class tx_pttools_objectCollection_testcase extends tx_phpunit_testcase {
 	 * Setting up the fixture for the tests.
 	 * This will be called before each single test
 	 * 
-	 * @author	Fabrizio Branca <branca@punkt.de>
+	 * @author	Fabrizio Branca <mail@fabrizio-branca.de>
 	 * @since	2008-06-09
 	 */
 	protected function setUp() {
@@ -66,7 +66,7 @@ class tx_pttools_objectCollection_testcase extends tx_phpunit_testcase {
 	/**
 	 * Cleaning up after each single test
 	 *
-	 * @author	Fabrizio Branca <branca@punkt.de>
+	 * @author	Fabrizio Branca <mail@fabrizio-branca.de>
 	 * @since	2008-06-09
 	 */
 	protected function tearDown() {

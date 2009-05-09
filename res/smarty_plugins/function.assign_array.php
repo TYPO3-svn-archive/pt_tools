@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2008 Fabrizio Branca (branca@punkt.de)
+*  (c) 2008 Fabrizio Branca (mail@fabrizio-branca.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -33,7 +33,7 @@
  * @param 	array 	  parameters for the assign array function from the Smarty engine, mandatory keys are 'var' and 'values', key 'delimiter' is optional (e.g. array('var'=>'myArray', 'values'=>'2,4,5'))
  * @param	Smarty 	  object of type Smarty (reference to the Smarty object)
  * @return 	void
- * @author	Fabrizio Branca <branca@punkt.de>, based on function.assign_array.php by Jens Lehmann <jenslehmann@goldmail.de>
+ * @author	Fabrizio Branca <mail@fabrizio-branca.de>, based on function.assign_array.php by Jens Lehmann <jenslehmann@goldmail.de>
  * @see 	http://smarty.php.net/contribs/plugins/view.php/function.assign_array.php
  */
 function smarty_function_assign_array($params, Smarty &$smarty) {

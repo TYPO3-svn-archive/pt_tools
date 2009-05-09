@@ -313,7 +313,7 @@ class tx_pttools_debug {
      * @param   integer     error code (type) or appropriate E_* constant
      * @param   array       associative array of a PHP backtrace: the return value of PHP's debug_backtrace()
      * @return  void
-     * @author  Fabrizio Branca <branca@punkt.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2007-05-03
      */
     public static function printBacktrace($severity, $arr) {
@@ -346,7 +346,7 @@ class tx_pttools_debug {
      * @param 	int   	(optional) amount of lines to display before current line, default = 4
      * @param 	int     (optional) amount of lines to display after current line, default = 2
      * @return 	array	array of lines, key == 0 is the current one
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2008-06-11
      * @see		F3_FLOW3_Error_DebugExceptionHandler->getCodeSnippet (by Robert Lemke <robert@typo3.org>)
      */
@@ -372,7 +372,7 @@ class tx_pttools_debug {
      *
      * @param 	Exception	exception
      * @return 	string		HTML output
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2008-06-12
      */
     public static function exceptionToHTML(Exception $exception, $cssPath = '/typo3conf/ext/pt_tools/res/css/exception.css') {
@@ -416,7 +416,7 @@ class tx_pttools_debug {
      *
      * @param 	array	trace
      * @return 	string 	HTML output
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2008-06-12
      */
     public static function traceToHtml(array $trace, $callingFile = '', $callingLine = '') {
@@ -519,7 +519,7 @@ class tx_pttools_debug {
      * 
      * @param   array	trace
      * @return  array	trace
-     * @author  Fabrizio Branca <branca@punkt.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2008-08-27
      */
     public static function cleanBacktrace(array $trace) {
@@ -538,7 +538,7 @@ class tx_pttools_debug {
      * Returns true if in developement context (for debugging outputs)
      *
      * @return 	bool	if visitors ip matches the devIPmask or a logged in admin backend user is present
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2008-06-15
      */
     public static function inDevContext() {
@@ -570,7 +570,7 @@ class tx_pttools_debug {
      * @param   int     $errline
      * @return  void    returns false (if no exception is thrown), so the normal error handler continues
      * @throws  tx_pttools_exception
-     * @author  Fabrizio Branca <branca@punkt.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2008-06-22
      */
     public static function convertErrorToExceptionErrorHandler($errno, $errstr, $errfile, $errline) {
@@ -605,7 +605,7 @@ class tx_pttools_debug {
      *
      * @param   Exception   exception
      * @return  string      HTML output or simple exception message
-     * @author  Fabrizio Branca <branca@punkt.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2008-06-27
      */
     public static function catchUncaughtExceptionsExceptionHandler(Exception $exception) {

@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *  
-*  (c) 2006-2008 Rainer Kuhn (kuhn@punkt.de), Fabrizio Branca (branca@punkt.de)
+*  (c) 2006-2008 Rainer Kuhn (kuhn@punkt.de), Fabrizio Branca (mail@fabrizio-branca.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is 
@@ -26,7 +26,7 @@
  *
  * $Id$
  *
- * @author  Rainer Kuhn <kuhn@punkt.de>, completely rewritten by Fabrizio Branca <branca@punkt.de> 2008-06-20
+ * @author  Rainer Kuhn <kuhn@punkt.de>, completely rewritten by Fabrizio Branca <mail@fabrizio-branca.de> 2008-06-20
  * @since   2006-03-20
  */ 
 /**
@@ -46,7 +46,7 @@ require_once t3lib_extMgm::extPath('pt_tools').'res/objects/class.tx_pttools_exc
 
 /**
  * The location of the smarty classes changed in the smarty extension >= 1.1.0
- * Fabrizio Branca <branca@punkt.de> 2007-11
+ * Fabrizio Branca <mail@fabrizio-branca.de> 2007-11
  */
 t3lib_extMgm::isLoaded('smarty', 1); // die if smarty is not loaded
 try {
@@ -73,7 +73,7 @@ require_once t3lib_extMgm::extPath('lang').'lang.php';
 /**
  * Adapter class for the Smarty Templating engine to set individual directories and extend functionalities (requires the TYPO3 extension 'smarty', replaces class.tx_smarty.php)
  *
- * @author      Rainer Kuhn <kuhn@punkt.de>, completely rewritten by Fabrizio Branca <branca@punkt.de> 2008-06-20
+ * @author      Rainer Kuhn <kuhn@punkt.de>, completely rewritten by Fabrizio Branca <mail@fabrizio-branca.de> 2008-06-20
  * @since       2006-03-20
  * @package     TYPO3
  * @subpackage  tx_pttools
@@ -101,7 +101,7 @@ class tx_pttools_smartyAdapter extends tx_smarty_wrapper {
      * @param   string  (optional) [DEPRECATED!] the directory where Smarty config files are located (absolute webserver directory path within htdocs/)
      * @param   string  (optional) [DEPRECATED!] the directory for Smarty cache files (absolute webserver directory path within htdocs/)
      * @throws	tx_pttools_exception	if no compile_dir or cache_dir defined in one of the configuration places
-     * @author	Rainer Kuhn <kuhn@punkt.de>, completely rewritten by Fabrizio Branca <branca@punkt.de> 2008-06-16
+     * @author	Rainer Kuhn <kuhn@punkt.de>, completely rewritten by Fabrizio Branca <mail@fabrizio-branca.de> 2008-06-16
      * @since	2006-03-20
      */
     public function __construct($extKeyOrpObj = NULL, $templateDir_relOrLocalConf='res/smarty_tpl/', $configDir_rel='res/smarty_cfg/', $compileDir_abs='typo3temp/smarty_compile/', $cacheDir_abs='typo3temp/smarty_cache/') {
@@ -176,7 +176,7 @@ class tx_pttools_smartyAdapter extends tx_smarty_wrapper {
      *
      * @param 	array 	configuration array
      * @return 	void
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2008-06-17
      */
     public function loadAndSetConfiguration($pObj = NULL, array $localConf = array()) {
@@ -284,7 +284,7 @@ class tx_pttools_smartyAdapter extends tx_smarty_wrapper {
      *
      * @param 	mixed	string, getFileAbsFileName or tx_lib_object object
      * @return 	void
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2008-06-20
      */
     public function setPathToLanguageFile($param) {
@@ -323,7 +323,7 @@ class tx_pttools_smartyAdapter extends tx_smarty_wrapper {
      * @param 	string	template source, passed by reference
      * @param 	Smarty 	calling smarty object
      * @return 	bool 	true
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since 	2008-10-15
      */
     public function string_resource_get_template($tpl_name, &$tpl_source, Smarty $smarty_obj) {
@@ -340,7 +340,7 @@ class tx_pttools_smartyAdapter extends tx_smarty_wrapper {
      * @param 	string 	timestamp, passed by reference
      * @param 	Smarty 	calling smarty object
      * @return 	bool 	true
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since 	2008-10-15
      */
     public function string_resource_get_timestamp($tpl_name, &$tpl_timestamp, Smarty $smarty_obj) {
@@ -356,7 +356,7 @@ class tx_pttools_smartyAdapter extends tx_smarty_wrapper {
      * @param 	string	template name
      * @param 	Smarty 	calling smarty object
      * @return 	bool 	true
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since 	2008-10-15
      */
     public function string_resource_get_secure($tpl_name, Smarty $smarty_obj) {
@@ -371,7 +371,7 @@ class tx_pttools_smartyAdapter extends tx_smarty_wrapper {
      * @param 	string	template name
      * @param 	Smarty 	calling smarty object
      * @return 	bool 	true
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since 	2008-10-15
      */
     public function string_resource_get_trusted($tpl_name, Smarty $smarty_obj) {  

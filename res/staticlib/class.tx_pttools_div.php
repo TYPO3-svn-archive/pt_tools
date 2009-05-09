@@ -180,7 +180,7 @@ class tx_pttools_div  {
      * 
      * @param   string      name of the file to include
      * @return  boolean     FALSE if file was not available/included, TRUE otherwise
-     * @author  Fabrizio Branca <branca@punkt.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2007-05-03
      */
     public static function includeOnceIfExists($filename) {
@@ -199,7 +199,7 @@ class tx_pttools_div  {
      *
      * @param       string      name of the file to look for
      * @return      mixed       (string) the full path if file exists, (boolean) FALSE if it does not
-     * @author      Aidan Lister <aidan@php.net>, added to pt_tools by Fabrizio Branca <branca@punkt.de>
+     * @author      Aidan Lister <aidan@php.net>, added to pt_tools by Fabrizio Branca <mail@fabrizio-branca.de>
      * @version     1.2.1
      * @link        http://aidanlister.com/repos/v/function.file_exists_incpath.php
      * @since       2007-05-03
@@ -257,7 +257,7 @@ class tx_pttools_div  {
      * @param   bool    (optional) allow "0" as pid, default: false
      * @return  int     pid
      * @throws  tx_pttools_exception     if pid or alias does not exist, if query fails or if pid == 0 and allowPidZero is false
-     * @author  Fabrizio Branca <branca@punkt.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2008-06-03
      */
     public static function getPid($pidOrAlias, $allowZeroAsPid=false) {
@@ -306,7 +306,7 @@ class tx_pttools_div  {
      * @param   string  (optional) url of the new window, keep empty to display your html code
      * @param   string  (optional) name of the window
      * @return  bool    true if popup was rendered, otherwise false
-     * @author  Fabrizio Branca <branca@punkt.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2008-06-12
      */
     public static function outputToPopup($htmlCode, $varName = '_popup', $windowParams = 'width=1280,height=600,resizable,scrollbars=yes', $windowUrl = '', $windowName = '') {
@@ -332,7 +332,7 @@ class tx_pttools_div  {
      * @param   mixed
      * @return  void
      * @throws  tx_pttools_exception    if parameter is not valid
-     * @author  Fabrizio Branca <branca@punkt.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2008-07-11
      * @see     t3lib_TCEmain::clear_cacheCmd
      */
@@ -386,7 +386,7 @@ class tx_pttools_div  {
      * @param	string    comma-separated list of fe_group uids from a user
      * @param	string    comma-separated list of fe_group uids of the item to access
      * @return	bool    true if at least one of the users group uids is in the access list or the access list is empty
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2009-01-19
      */
     public static function hasGroupAccess($groupList, $accessList) {
@@ -428,7 +428,7 @@ class tx_pttools_div  {
      * @param 	string	content
      * @param 	array	(optional) configuration, do not use a type hint here
      * @return 	string	quotet string
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2009-03-10
      */
     public static function quoteStr($content, $conf) {
@@ -701,7 +701,7 @@ class tx_pttools_div  {
      * @param     string    (optional) extension key
      * @param     string    (optional) extConfKey, e.g. "tsConfigurationPid"
      * @return    array     typoscript configuation array
-     * @author    Fabrizio Branca <branca@punkt.de>
+     * @author    Fabrizio Branca <mail@fabrizio-branca.de>
      * @since     2008-10-15
      */
     public static function typoscriptRegistry($tsConfigKey, $pageUid = NULL, $extKey = '', $extConfKey = '') {
@@ -812,7 +812,7 @@ class tx_pttools_div  {
      * @throws    tx_pttools_exceptionAssertion     if no tsArray is given and not being in a frontend context
      * @throws    tx_pttools_exceptionAssertion     if tsPath is not valid
      * @throws    tx_pttools_exception            if subKey was not found
-     * @author  Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <branca@punkt.de>
+     * @author  Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2008-06-24
      */
     public static function getTS($tsPath, array $tsArray = array()) {
@@ -849,7 +849,7 @@ class tx_pttools_div  {
      * @param   bool     (optional) if true the method won't throw an exception if no flexform data is found, default: false
      * @return  void
      * @throws  tx_pttools_exception    if no flexform data was found
-     * @author  Fabrizio Branca <branca@punkt.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2008-01-22
      */
     public static function mergeConfAndFlexform($pObj, $noExceptionIfNoFlexform = false) {
@@ -1113,7 +1113,7 @@ class tx_pttools_div  {
      * @param   string      (optional) separator of the key-value pairs within the list (default: ';')
      * @param   string      (optional) separator of key and value within a pair (default: '=')
      * @return  array       associative array of the given key-value list
-     * @author  Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <branca@punkt.de>
+     * @author  Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2007-07-10
      */
     public static function getArrayFromKeyValueList($keyValueList, $pairSeparator=';', $keyValueSeparator='=') {
@@ -1195,7 +1195,7 @@ class tx_pttools_div  {
      * @param   array   $arr
      * @return  string  json
      * @see     http://www.bin-co.com/php/scripts/array2json/
-     * @author  Fabrizio Branca <branca@punkt.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2007-10-08
      */
     public static function array2json($arr) {

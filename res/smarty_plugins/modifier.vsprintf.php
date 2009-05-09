@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *  
-*  (c) 2008 Fabrizio Branca (branca@punkt.de)
+*  (c) 2008 Fabrizio Branca (mail@fabrizio-branca.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is 
@@ -36,7 +36,7 @@
  * @param 	string	(optional) second parameter to replace...
  * @param 	string	(optional) ...
  * @return 	string	content
- * @author	Fabrizio Branca <branca@punkt.de>
+ * @author	Fabrizio Branca <mail@fabrizio-branca.de>
  * @since	2008-07-08
  */
 function smarty_modifier_vsprintf($content) {

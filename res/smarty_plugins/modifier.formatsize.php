@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *  
-*  (c) 2008 Fabrizio Branca (branca@punkt.de)
+*  (c) 2008 Fabrizio Branca (mail@fabrizio-branca.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is 
@@ -30,7 +30,7 @@
  * @param 	string	content
  * @param 	string	wrap
  * @return 	string	wrapped content or empty string
- * @author	Fabrizio Branca <branca@punkt.de>
+ * @author	Fabrizio Branca <mail@fabrizio-branca.de>
  * @since	2008-06-16
  */
 function smarty_modifier_formatsize($sizeInBytes, $labels = '') {

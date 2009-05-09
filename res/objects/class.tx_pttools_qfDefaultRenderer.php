@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *  
-*  (c) 2009 Fabrizio Branca <branca@punkt.de>, Rainer Kuhn <kuhn@punkt.de>
+*  (c) 2009 Fabrizio Branca <mail@fabrizio-branca.de>, Rainer Kuhn <kuhn@punkt.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is 
@@ -26,7 +26,7 @@
  *
  * $Id$
  *
- * @author      Fabrizio Branca <branca@punkt.de>, Rainer Kuhn <kuhn@punkt.de>
+ * @author      Fabrizio Branca <mail@fabrizio-branca.de>, Rainer Kuhn <kuhn@punkt.de>
  * @since       2009-03-16
  */
 
@@ -48,7 +48,7 @@ require_once t3lib_extMgm::extPath('pt_tools').'res/abstract/class.tx_pttools_iQ
 /**
  * Default renderer for quickform, based on Fabrizio Branca's QF renderer tx_tcaobjects_qfDefaultRenderer in his extension 'tcaobjects'
  *
- * @author      Fabrizio Branca <branca@punkt.de>
+ * @author      Fabrizio Branca <mail@fabrizio-branca.de>
  * @since       2009-03-16
  * @package     TYPO3
  * @subpackage  tx_pttools
@@ -59,7 +59,7 @@ class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default imple
      * Constructor
      *
      * @param   string    (optional) templateFile
-     * @author  Fabrizio Branca <branca@punkt.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2008-06-22
      */
     public function __construct($templateFile=NULL) {
@@ -77,7 +77,7 @@ class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default imple
      *
      * @param   string    path to the template file (EXT:... syntax is supported here)
      * @return  void
-     * @author  Fabrizio Branca <branca@punkt.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      * @since  2008-04-27
      */
     public function setTemplateFile($templateFile) {
@@ -128,7 +128,7 @@ class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default imple
      * @param   bool       Whether a group is required
      * @param   string     An error message associated with a group
      * @return  void
-     * @author  Fabrizio Branca <branca@punkt.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      */
     public function startGroup (&$group, $required, $error) {
         
@@ -152,7 +152,7 @@ class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default imple
      * @param       string      The HTML surrounding an element 
      * @param       string      Name of the group to apply template for
      * @return      void
-     * @author      Fabrizio Branca <branca@punkt.de>
+     * @author      Fabrizio Branca <mail@fabrizio-branca.de>
      */
     public function setGroupElementTemplate($html, $group = '') {
         
@@ -174,7 +174,7 @@ class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default imple
      * @param       string      The HTML surrounding group elements
      * @param       string      Name of the group to apply template for
      * @return      void
-     * @author      Fabrizio Branca <branca@punkt.de>
+     * @author      Fabrizio Branca <mail@fabrizio-branca.de>
      */
     public function setGroupTemplate($html, $group = '') {
         
@@ -196,7 +196,7 @@ class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default imple
      * @param   string        (optional) id of the element that will replace {id}, default is ''
      * @see     renderElement()
      * @return  string      Html for element
-     * @author  Fabrizio Branca <branca@punkt.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      */
     public function _prepareTemplate($name, $label, $required, $error, HTML_QuickForm_element $element = null) {
         
@@ -228,7 +228,7 @@ class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default imple
      * @param   bool                   Whether an element is required
      * @param   string                 An error message associated with an element
      * @return  void
-     * @author  Fabrizio Branca <branca@punkt.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      */
     public function renderElement(HTML_QuickForm_element $element, $required, $error) {
         

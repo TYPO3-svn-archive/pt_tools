@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *  
-*  (c) 2008 Fabrizio Branca (branca@punkt.de)
+*  (c) 2008 Fabrizio Branca (mail@fabrizio-branca.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is 
@@ -39,7 +39,7 @@ require_once t3lib_extMgm::extPath('pt_tools').'res/staticlib/class.tx_pttools_d
  * 
  * $Id$
  * 
- * @author	Fabrizio Branca <branca@punkt.de>
+ * @author	Fabrizio Branca <mail@fabrizio-branca.de>
  * @since	2008-05-27
  * @see 	http://www.patternsforphp.com/wiki/Registry
  */
@@ -61,7 +61,7 @@ final class tx_pttools_registry extends tx_pttools_collection implements tx_ptto
      * 
      * @param   void
      * @return  tx_pttools_registry      unique instance of the Singleton object
-     * @author 	Fabrizio Branca <branca@punkt.de>
+     * @author 	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2008-05-27
      */
     public static function getInstance() {
@@ -84,7 +84,7 @@ final class tx_pttools_registry extends tx_pttools_collection implements tx_ptto
      * 
      * @param   void
      * @return  void
-     * @author 	Fabrizio Branca <branca@punkt.de>
+     * @author 	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2008-05-27
      */
     public final function __clone() {
@@ -107,7 +107,7 @@ final class tx_pttools_registry extends tx_pttools_collection implements tx_ptto
      * @param	bool	(optional) overwrite existing object, default is false
      * @return	void
      * @throws	tx_pttools_exception	if the given label already exists and overwrite if false
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2008-06-19
      */
     public function addItem($object, $label, $overwrite = false) {
@@ -144,7 +144,7 @@ final class tx_pttools_registry extends tx_pttools_collection implements tx_ptto
      * @param	bool	(optional) overwrite existing object, default is false
      * @return 	void
      * @throws	tx_pttools_exception	if the given label already exists and overwrite if false
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2008-05-27
      */
     public function register($label, $object, $overwrite = false) {
@@ -161,7 +161,7 @@ final class tx_pttools_registry extends tx_pttools_collection implements tx_ptto
      *
      * @param 	mixed 	label
      * @throws	tx_pttools_exception 	if the label does not exists (uncaught exception from "deleteItem")
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2008-05-27
      */
     public function unregister($label) {
@@ -176,7 +176,7 @@ final class tx_pttools_registry extends tx_pttools_collection implements tx_ptto
      * @param 	mixed	label
      * @return 	mixed	object
      * @throws	tx_pttools_exception 	if the label does not exists (uncaught exception from "getItemById")
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2008-05-27
      */
     public function get($label) {
@@ -190,7 +190,7 @@ final class tx_pttools_registry extends tx_pttools_collection implements tx_ptto
      *
      * @param 	mixed	label
      * @return 	bool
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2008-05-27
      */
     public function has($label) {

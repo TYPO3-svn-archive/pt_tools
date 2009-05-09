@@ -3,7 +3,7 @@
 *  Copyright notice
 *
 *  (c) 2005-2008 Wolfgang Zenker <zenker@punkt.de>, Rainer Kuhn <kuhn@punkt.de>,
-*                Fabrizio Branca <branca@punkt.de>
+*                Fabrizio Branca <mail@fabrizio-branca.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -27,7 +27,7 @@
  *
  * $Id$
  *
- * @author      Wolfgang Zenker <zenker@punkt.de>, Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <branca@punkt.de>
+ * @author      Wolfgang Zenker <zenker@punkt.de>, Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <mail@fabrizio-branca.de>
  * @since       2006-10-24
  */
 
@@ -49,7 +49,7 @@ require_once t3lib_extMgm::extPath('pt_tools').'res/staticlib/class.tx_pttools_d
 /**
  * Abstract object collection class
  *
- * @author      Wolfgang Zenker <zenker@punkt.de>, Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <branca@punkt.de>
+ * @author      Wolfgang Zenker <zenker@punkt.de>, Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <mail@fabrizio-branca.de>
  * @since       2006-10-24
  * @package     TYPO3
  * @subpackage  tx_pttools
@@ -76,7 +76,7 @@ abstract class tx_pttools_objectCollection extends tx_pttools_collection {
      *
      * @param   mixed       object item to validate
      * @return  boolean     true if object validation suceeded, false otherwise
-     * @author  Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <branca@punkt.de>
+     * @author  Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2008-10-16
      */
     final protected function checkItemType($itemObj) {

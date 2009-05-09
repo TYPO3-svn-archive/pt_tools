@@ -36,7 +36,7 @@ require_once t3lib_extMgm::extPath('pt_tools').'res/staticlib/class.tx_pttools_d
  * 
  * $Id$
  * 
- * @author      Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <branca@punkt.de>
+ * @author      Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <mail@fabrizio-branca.de>
  * @since       2008-10-09
  * @package     TYPO3
  * @subpackage  tx_pttools
@@ -118,7 +118,7 @@ class tx_pttools_div_testcase extends tx_phpunit_testcase {
      **************************************************************************/
     
     /**
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2008-10-15
      */
     public static function provider_exceptionOnInvalidTsPath() {
@@ -135,7 +135,7 @@ class tx_pttools_div_testcase extends tx_phpunit_testcase {
     /**
      * @dataProvider provider_exceptionOnInvalidTsPath
      * @expectedException tx_pttools_exceptionAssertion
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2008-10-15
      */
     public function test_exceptionOnInvalidTsPath($tsPath) {
@@ -143,7 +143,7 @@ class tx_pttools_div_testcase extends tx_phpunit_testcase {
     }
     
     /**
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2008-10-15
      */
     public function test_getTSReturnsAnArray() {
@@ -162,7 +162,7 @@ class tx_pttools_div_testcase extends tx_phpunit_testcase {
     }
     
     /**
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2008-10-15
      */
     public function test_getTSResturnsAValue() {

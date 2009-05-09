@@ -44,7 +44,7 @@ require_once t3lib_extMgm::extPath('pt_tools').'res/staticlib/class.tx_pttools_a
  * The Messagebox uses selectable icons (found in the 'res' directory of this extension), depending on the passed type. 
  *
  * @author      Rainer Kuhn <kuhn@punkt.de>
- * @since       2005-09-12, made independent from tslib_pibase and removed inline styles, 2008-06-19 by Fabrizio Branca <branca@punkt.de>
+ * @since       2005-09-12, made independent from tslib_pibase and removed inline styles, 2008-06-19 by Fabrizio Branca <mail@fabrizio-branca.de>
  * @package     TYPO3
  * @subpackage  tx_pttools
  */
@@ -183,7 +183,7 @@ class tx_pttools_msgBox {
      * @param   void
      * @return  string      HTML msgbox string
      * @global  GLOBALS['TSFE']->cObj
-     * @author  Rainer Kuhn <kuhn@punkt.de>, Wolfgang Zenker <zenker@punkt.de>, Fabrizio Branca <branca@punkt.de>
+     * @author  Rainer Kuhn <kuhn@punkt.de>, Wolfgang Zenker <zenker@punkt.de>, Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2005-09-15, switched to template based version 2008-04-28, removed inline styles 2008-06-19
      */
     protected function generateMsgBoxHTML() {

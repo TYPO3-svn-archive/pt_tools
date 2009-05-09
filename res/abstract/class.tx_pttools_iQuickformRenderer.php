@@ -26,7 +26,7 @@
  *
  * $Id$
  *
- * @author      Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <branca@punkt.de>
+ * @author      Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <mail@fabrizio-branca.de>
  * @since       2009-03-16
  */
 
@@ -35,7 +35,7 @@
 /**
  * Interface for PEAR Quickform renderers
  *
- * @author      Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <branca@punkt.de>
+ * @author      Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <mail@fabrizio-branca.de>
  * @since       2009-03-16
  * @package     TYPO3
  * @subpackage  tx_pttools

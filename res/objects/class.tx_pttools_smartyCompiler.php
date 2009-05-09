@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2008 Fabrizio Branca (branca@punkt.de)
+*  (c) 2008 Fabrizio Branca (mail@fabrizio-branca.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -32,7 +32,7 @@ require_once t3lib_extMgm::extPath('pt_tools').'res/objects/class.tx_pttools_exc
 /**
  * Compiler class for smarty
  *
- * @author      Fabrizio Branca <branca@punkt.de>
+ * @author      Fabrizio Branca <mail@fabrizio-branca.de>
  * @since       2008-06-20
  * @package     TYPO3
  * @subpackage  tx_pttools
@@ -47,7 +47,7 @@ class tx_pttools_smartyCompiler extends Smarty_Compiler {
      * @param 	integer (optional) error_type, default is E_USER_WARNING
      * @throws	tx_pttools_exception
      * @return 	void
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2008-06-20
      */
     public function trigger_error($error_msg, $error_type = E_USER_WARNING) {

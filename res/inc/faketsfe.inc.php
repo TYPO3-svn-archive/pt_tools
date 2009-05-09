@@ -25,7 +25,7 @@
  *
  * $Id$
  *
- * @author      Fabrizio Branca <branca@punkt.de>
+ * @author      Fabrizio Branca <mail@fabrizio-branca.de>
  * @since       2007-10-08
  * @see			typo3/sysext/rtehtmlarea/htmlarea/plugins/SpellChecker/spell-check-logic.php
  */ 

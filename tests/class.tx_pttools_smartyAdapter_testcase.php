@@ -9,7 +9,7 @@ require_once(t3lib_extMgm::extPath('pt_tools').'res/objects/class.tx_pttools_sma
  * tx_pttools_smartyAdapter test case.
  * 
  * @version $Id$
- * @author	Fabrizio Branca <branca@punkt.de>
+ * @author	Fabrizio Branca <mail@fabrizio-branca.de>
  * @since	2008-10-15
  */
 class tx_pttools_smartyAdapter_testcase extends tx_phpunit_testcase {

@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *  
-*  (c) 2009 Fabrizio Branca (branca@punkt.de)
+*  (c) 2009 Fabrizio Branca (mail@fabrizio-branca.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is 
@@ -26,7 +26,7 @@
  *
  * $Id$
  *
- * @author      Fabrizio Branca <branca@punkt.de>
+ * @author      Fabrizio Branca <mail@fabrizio-branca.de>
  * @since       2009-01-22
  */
 
@@ -35,7 +35,7 @@
 /**
  * Interface for objects, whose properties can be set at once by passing an array to a defined method 
  *
- * @author      Fabrizio Branca <branca@punkt.de>
+ * @author      Fabrizio Branca <mail@fabrizio-branca.de>
  * @since       2009-01-22
  * @package     TYPO3
  * @subpackage  tx_pttools
@@ -47,7 +47,7 @@ interface tx_pttools_iSettableByArray {
      * 
      * @param   array	array of properties ('propertyName' => 'propertyValue');
      * @return  void
-     * @author	Fabrizio Branca <branca@punkt.de>
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2009-01-22
      */
     public function setPropertiesFromArray(array $dataArray);

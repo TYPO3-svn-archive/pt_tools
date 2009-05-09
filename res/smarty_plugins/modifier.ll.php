@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2008 Fabrizio Branca (branca@punkt.de)
+*  (c) 2008 Fabrizio Branca (mail@fabrizio-branca.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -35,7 +35,7 @@
  * @param 	string	language label key
  * @return 	string	language label
  * @throws	tx_pttools_exception if label not found
- * @author	Fabrizio Branca <branca@punkt.de>
+ * @author	Fabrizio Branca <mail@fabrizio-branca.de>
  * @since	2008-06-16
  */
 function smarty_modifier_ll($key, $throwExceptionOnTranslationUnavailable=true) {
