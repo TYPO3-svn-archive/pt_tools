@@ -310,6 +310,7 @@ class tx_pttools_div  {
      * @since   2008-06-12
      */
     public static function outputToPopup($htmlCode, $varName = '_popup', $windowParams = 'width=1280,height=600,resizable,scrollbars=yes', $windowUrl = '', $windowName = '') {
+        
         if (is_object($GLOBALS['TSFE'])) {
             
             $jscode = $varName.' = window.open("'.$windowUrl.'","'.$windowName.'","'.$windowParams.'");'.chr(10);
@@ -324,6 +325,7 @@ class tx_pttools_div  {
         } else {
             return false;
         }
+        
     }
     
     /**
@@ -337,11 +339,11 @@ class tx_pttools_div  {
      * @see     t3lib_TCEmain::clear_cacheCmd
      */
     public static function clearCache($cacheCmd = 'all') {
-
+        
         if (!t3lib_div::testInt($cacheCmd) && !in_array($cacheCmd, array('pages', 'all', 'temp_CACHED'))) {
             throw tx_pttools_exception('Parameter must be "pages", "all", "temp_CACHED" or numeric');
         }
-
+        
         $tce = t3lib_div::makeInstance('t3lib_TCEmain'); /* @var $tce t3lib_TCEmain */
         $tce->stripslashes_values = 0;
         $tce->start(Array(),Array());
@@ -382,14 +384,15 @@ class tx_pttools_div  {
      * Check if a user has access to an item
      * (get the group list of the current logged in user from $GLOBALS['TSFE']->gr_list)
      *
-     * @see		t3lib_pageSelect::getMultipleGroupsWhereClause()
-     * @param	string    comma-separated list of fe_group uids from a user
-     * @param	string    comma-separated list of fe_group uids of the item to access
-     * @return	bool    true if at least one of the users group uids is in the access list or the access list is empty
-     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
-     * @since	2009-01-19
+     * @param   string      comma-separated list of fe_group uids from a user
+     * @param   string      comma-separated list of fe_group uids of the item to access
+     * @return  bool        true if at least one of the users group uids is in the access list or the access list is empty
+     * @see     t3lib_pageSelect::getMultipleGroupsWhereClause()
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
+     * @since   2009-01-19
      */
     public static function hasGroupAccess($groupList, $accessList) {
+        
         if (empty($accessList)) {
             return true;
         } 
@@ -399,11 +402,11 @@ class tx_pttools_div  {
             }
         }
         return false;
+        
     }
     
     /**
-     * Quote str for use as a userFunction in typoscript to prevent sql injections 
-     * when using data from the clients in sql statements (RECORDS, CONTENT)
+     * Quote string method for usage as a Typoscript userFunction to prevent SQL injections when using data from the clients in SQL statements (RECORDS, CONTENT)
      * You can pass the table name as a config option (see example). The table name is a string/stdWrap field
      * 
      * @example 
@@ -412,48 +415,57 @@ class tx_pttools_div  {
      * 
      * lib.searchByName = CONTENT
      * lib.searchByName {
-     * 		table = pages 
-     * 		select {
-     * 			where = 1=1
-     * 			andWhere {
-     * 				data = GPvar:tx_myext_searchword
-     *				postUserFunc = tx_pttools_div->quoteStr
-     * 				postUserFunc.table = pages
-     * 				wrap = title LIKE "%|%"
-     * 			}
-     * 		}
+     *      table = pages 
+     *      select {
+     *          where = 1=1
+     *          andWhere {
+     *              data = GPvar:tx_myext_searchword
+     *              postUserFunc = tx_pttools_div->quoteStr
+     *              postUserFunc.table = pages
+     *              wrap = title LIKE "%|%"
+     *          }
+     *      }
      * }
      * </code>
      *
-     * @param 	string	content
-     * @param 	array	(optional) configuration, do not use a type hint here
-     * @return 	string	quotet string
-     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
-     * @since	2009-03-10
+     * @param   string      content
+     * @param   array       (optional) configuration, do not use a type hint here
+     * @return  string      quoted string
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
+     * @since   2009-03-10
      */
     public static function quoteStr($content, $conf) {
+        
         $conf['table'] = $GLOBALS['TSFE']->cObj->stdWrap($conf['table'], $conf['table.']);
+        
         return $GLOBALS['TYPO3_DB']->quoteStr($content, $conf['table']);
+        
+    }
+    
+    /**
+     * Checks whether a given array is an associative array
+     * 
+     * @param   array       array to be checked
+     * @return  boolean     true, if array is associative
+     * @see     http://de.php.net/is_array
+     * @author  Michael Knoll <knoll@punkt.de>
+     * @since   2009-03-15
+     */
+    public static function isAssociativeArray($array) {
+        
+        if (is_array($array)) {
+            foreach (array_keys($array) as $k => $v) {
+                if ($k !== $v) {
+                    return true;
+                }
+            }
+        }
+          
+        return false;
+          
     }
     
     
-    
-	/**
-	 * Checks, whether a given array is an associative array
-	 * 
-	 * @param 	array	$array	Array to be checked
-	 * @return  bool			True, if Array is associative
-	 * @author  Michael Knoll <knoll@punkt.de>
- 	 * @since   2009-03-15
- 	 * @see 	http://de.php.net/is_array
-	 */
-	public static function isAssociativeArray($array) {
-  		foreach (array_keys($array) as $k => $v) {
-    		if ($k !== $v)
-      			return true;
-  		}
-  		return false;
-	}
     
     /***************************************************************************
         SECTION: DATE/TIME METHODS
