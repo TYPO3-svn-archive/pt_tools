@@ -418,10 +418,13 @@ class tx_pttools_div  {
      *      table = pages 
      *      select {
      *          where = 1=1
-     *          andWhere {
-     *              data = GPvar:tx_myext_searchword
-     *              postUserFunc = tx_pttools_div->quoteStr
-     *              postUserFunc.table = pages
+     *          andWhere.stdWrap {
+     *              cObject = TEXT
+     *              cObject {
+     *                  data = GPvar:tx_myext_searchword
+     *                  postUserFunc = tx_pttools_div->quoteStr
+     *                  postUserFunc.table = pages
+     *              }
      *              wrap = title LIKE "%|%"
      *          }
      *      }
@@ -438,7 +441,9 @@ class tx_pttools_div  {
         
         $conf['table'] = $GLOBALS['TSFE']->cObj->stdWrap($conf['table'], $conf['table.']);
         
-        return $GLOBALS['TYPO3_DB']->quoteStr($content, $conf['table']);
+        $quotedString = $GLOBALS['TYPO3_DB']->quoteStr($content, $conf['table']);
+        
+        return $quotedString;
         
     }
     
