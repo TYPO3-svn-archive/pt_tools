@@ -12,14 +12,16 @@ RFT: refactoring / code cleanup
 ********************************************************************************
 
 
-ToDo: As of 14.05.2009
+ToDo: As of 31.05.2009
 ====
 
 
 v0.4.2dev3:
 ----------
++ (fb) CHG: tx_pttools_div::htmlOutputArrayAccess(): unset values before overwriting them, because a simple overwrite can cause side-effects
+            depending on the implementation of the ArrayAccess object. (E.g. when checking if an element already exists)
 + (uk) ADD: res/smarty_plugins/modifier.numberFormat.php to format a number with deimalpoint and thousand separator
-+ (uk) ADD; res/smarty_plugins/modifier.registerValue.php save a smarty value in register object collection
++ (uk) ADD: res/smarty_plugins/modifier.registerValue.php save a smarty value in register object collection
 + (rk) FIX: tx_pttools_div::quoteStr(): fixed the example Typoscript code for quoteStr() as TS userFunc usage
 + (rk) RFT: tx_pttools_div: code cleanup, added array check in isAssociativeArray()
 + (rk) ADD/CHG: extendend XSS prevention tools

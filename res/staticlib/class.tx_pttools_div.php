@@ -115,7 +115,7 @@ class tx_pttools_div  {
      * @global  array           $TYPO3_CONF_VARS
      * @return  object|bool     hook object or false if no hook was registered
      * @throws  tx_pttools_exception    if hook method registered, but not found
-     * @author  Rainer Kuhn <kuhn@punkt.de>, based on tx_indexedsearch::hookRequest() by Kasper Skårhøj/Christian Jul Jensen
+     * @author  Rainer Kuhn <kuhn@punkt.de>, based on tx_indexedsearch::hookRequest() by Kasper Skï¿½rhï¿½j/Christian Jul Jensen
      * @since   2006-04-06
      */
     public static function hookRequest($extKey, $hookArrayKey, $functionName) {
@@ -1016,6 +1016,9 @@ class tx_pttools_div  {
         $filteredObject = clone($arrayObject);
          
         foreach ($filteredObject as $key=>$value) {
+        	
+        	// unset the property first, because overwriting it can have side-effects on ArrayAccess objects (e.g. when checking if an item already exists in the collection)
+        	unset($filteredObject[$key]);
             
             // scalars: use default htmlOutput()
             if (is_scalar($value)) {
