@@ -1,0 +1,32 @@
+<!-- ###ELEMENTTEMPLATE### -->
+<div class="{elementclass} {errorclass}">
+    <label for="{id}">{label}<!-- BEGIN required -->*<!-- END required --></label>
+    <br/>
+    {element}
+    <!-- BEGIN error --><div class="error">{error}</div><!-- END error -->
+    <!-- BEGIN comment <div class="notice">{comment}</div> END comment -->
+</div>
+<!-- ###ELEMENTTEMPLATE### -->
+
+<!-- ###GROUPELEMENTTEMPLATE### -->     
+{element}<label for="{id}">{label}</label><!-- BEGIN required -->*<!-- END required -->
+<!-- ###GROUPELEMENTTEMPLATE### -->
+
+<!-- ###FORMTEMPLATE### -->
+<form{attributes}>
+    {hidden}
+    {content}
+</form>
+<!-- ###FORMTEMPLATE### -->
+
+<!-- ###HEADERTEMPLATE### -->
+<h2>{header}</h2>
+<!-- ###HEADERTEMPLATE### -->
+
+<!-- ###REQUIREDNOTETEMPLATE### -->
+<p>{requiredNote}</p>
+<!-- ###REQUIREDNOTETEMPLATE### -->
+
+<!-- ###GROUPTEMPLATE### -->
+<p>{content}</p>
+<!-- ###GROUPTEMPLATE### -->

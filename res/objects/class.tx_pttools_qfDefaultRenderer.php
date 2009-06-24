@@ -83,7 +83,7 @@ class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default imple
     public function setTemplateFile($templateFile) {
         
         tx_pttools_assert::isFilePath($templateFile);
-        
+               
         $fileContent = $GLOBALS['TSFE']->cObj->fileResource($templateFile);
         
         $subparts = array();
@@ -196,7 +196,7 @@ class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default imple
      * @param   string        (optional) id of the element that will replace {id}, default is ''
      * @see     renderElement()
      * @return  string      Html for element
-     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>, Daniel Lienert <lienert@punkt.de>
      */
     public function _prepareTemplate($name, $label, $required, $error, HTML_QuickForm_element $element = null) {
         
@@ -208,9 +208,14 @@ class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default imple
             if (!is_null($element)) {
                 $html = str_replace('{id}', $element->getAttribute('id'), $html);
                 $html = str_replace('{comment}', $element->getComment(), $html);
+                $html = str_replace('{elementclass}', 'qf_' . $element->getType(), $html);
+                $html = str_replace('{errorclass}', (isset($error) ? 'error' : ''), $html);
+                
             } else {
                 $html = str_replace('{id}', '', $html);
                 $html = str_replace('{comment}', '', $html);
+                $html = str_replace('{elementclass}', '', $html);
+                $html = str_replace('{errorclass}', '', $html);
             }
         }
         
