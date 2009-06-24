@@ -56,6 +56,13 @@ require_once t3lib_extMgm::extPath('pt_tools').'res/abstract/class.tx_pttools_iQ
 class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default implements tx_pttools_iQuickformRenderer {
     
     /**
+     * @var string  prefix for CSS classnames
+     */
+    protected $cssPrefix = 'tx-pttools-qf_';
+    
+    
+    
+    /**
      * Constructor
      *
      * @param   string    (optional) templateFile
@@ -208,8 +215,8 @@ class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default imple
             if (!is_null($element)) {
                 $html = str_replace('{id}', $element->getAttribute('id'), $html);
                 $html = str_replace('{comment}', $element->getComment(), $html);
-                $html = str_replace('{elementclass}', 'qf_' . $element->getType(), $html);
-                $html = str_replace('{errorclass}', (isset($error) ? 'error' : ''), $html);
+                $html = str_replace('{elementclass}', $this->cssPrefix . $element->getType(), $html);
+                $html = str_replace('{errorclass}', (isset($error) ? ' ' . $this->cssPrefix . 'error' : ''), $html);
                 
             } else {
                 $html = str_replace('{id}', '', $html);
