@@ -213,8 +213,16 @@ class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default imple
         } else {
             $html = parent::_prepareTemplate($name, $label, $required, $error);
             if (!is_null($element)) {
-                $html = str_replace('{id}', $element->getAttribute('id'), $html);
-                $html = str_replace('{comment}', $element->getComment(), $html);
+                $html = str_replace('{id}', ($element->getAttribute('id') ? $element->getAttribute('id') : $element->getName()), $html);
+                
+	            if(trim($element->getComment())) {
+	            	$html = str_replace('{comment}', $element->getComment(), $html);
+	            	$html = str_replace('<!-- BEGIN comment -->', '', $html);
+	            	$html = str_replace('<!-- END comment -->', '', $html);
+	            } else {
+	            	$html = preg_replace("/([ \t\n\r]*)?<!-- BEGIN comment -->.*<!-- END comment -->([ \t\n\r]*)?/isU", '', $html);
+	            }
+	                
                 $html = str_replace('{elementclass}', $this->cssPrefix . $element->getType(), $html);
                 $html = str_replace('{errorclass}', (isset($error) ? ' ' . $this->cssPrefix . 'error' : ''), $html);
                 
@@ -240,7 +248,7 @@ class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default imple
      * @param   bool                   Whether an element is required
      * @param   string                 An error message associated with an element
      * @return  void
-     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>, Daniel Lienert <lienert@punkt.de>
      */
     public function renderElement(HTML_QuickForm_element $element, $required, $error) {
         
@@ -252,8 +260,14 @@ class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default imple
         } elseif (!empty($this->_groupElementTemplate)) {
             $html = str_replace('{label}', $element->getLabel(), $this->_groupElementTemplate);
             // replaces "{id}" with current element's id
-            $html = str_replace('{id}', $element->getAttribute('id'), $html);
-            $html = str_replace('{comment}', $element->getComment(), $html);
+            $html = str_replace('{id}', ($element->getAttribute('id') ? $element->getAttribute('id') : $element->getName()), $html);
+
+            if(trim($element->getComment())) {
+            	$html = str_replace('{comment}', $element->getComment(), $html);	
+            } else {
+            	$html = preg_replace("/([ \t\n\r]*)?<!-- BEGIN comment -->.*<!-- END comment -->([ \t\n\r]*)?/isU", '', $html);
+            }
+
             if ($required) {
                 $html = str_replace('<!-- BEGIN required -->', '', $html);
                 $html = str_replace('<!-- END required -->', '', $html);
