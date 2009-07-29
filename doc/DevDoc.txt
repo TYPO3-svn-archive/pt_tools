@@ -12,12 +12,18 @@ RFT: refactoring / code cleanup
 ********************************************************************************
 
 
-ToDo: As of 24.06.2009
+ToDo: As of 29.07.2009
 ====
+- Implement storing, reading and deleting data to foreign session in backend and frontend context in tx_pttools_sessionStorageAdapter
+  Storing to foreign sessions in frontend is already implemented. 
 
 
 v0.4.2dev3:
 ----------
++ (fb) ADD: added property (including getter and setter) "referenceNumber" to class tx_pttools_paymentRequestInformation
+       ADD: added optional parameter to tx_pttools_paymentReturnInformation::construct() to allow data being read from session
+       ADD: added optional parameter to tx_pttools_paymentReturnInformation::storeToSession() to allow data being stored into a foreign session
+       ADD: added optional parameter to tx_pttools_sessionStorageAdapter::store() to allow data being stored into a foreign session
 + (dl) ADD: added tmpl/tx_pttools_quickformRendererDiv.html derived tx_pttools_quickformRendererMinimal.html with YAML like element template
 			added additional markers to tx_pttools_qfDefaultRenderer::_prepareTemplate
 + (fb) CHG: tx_pttools_div::htmlOutputArrayAccess(): unset values before overwriting them, because a simple overwrite can cause side-effects
