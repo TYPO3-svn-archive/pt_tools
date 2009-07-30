@@ -58,7 +58,7 @@ class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default imple
     /**
      * @var string  prefix for CSS classnames
      */
-    protected $cssPrefix = 'tx-pttools-qf_';
+    protected $cssPrefix = 'tx-pttools-qf-';
     
     
     
@@ -223,8 +223,8 @@ class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default imple
 	            	$html = preg_replace("/([ \t\n\r]*)?<!-- BEGIN comment -->.*<!-- END comment -->([ \t\n\r]*)?/isU", '', $html);
 	            }
 	                
-                $html = str_replace('{elementclass}', $this->cssPrefix . $element->getType(), $html);
-                $html = str_replace('{errorclass}', (isset($error) ? ' ' . $this->cssPrefix . 'error' : ''), $html);
+                $html = str_replace('{elementclass}', $this->cssPrefix.$element->getType().' type-'.$element->getType(), $html);  // "type-..." is used by YAML default styles
+                $html = str_replace('{errorclass}', (isset($error) ? ' '.$this->cssPrefix.'error' : ''), $html);
                 
             } else {
                 $html = str_replace('{id}', '', $html);
