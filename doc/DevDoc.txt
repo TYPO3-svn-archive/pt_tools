@@ -20,7 +20,9 @@ ToDo: As of 30.07.2009
 
 v0.4.2dev3:
 ----------
-+ (rk) CHG: tx_pttools_qfDefaultRenderer: changed default CSS prefix, added YAML-like CSS class to all form elements
++ (rk) ADD/CHG: Added and changed CSS styles for tx_pttools_qfDefaultRenderer and div-renderer template:
+       + tx_pttools_qfDefaultRenderer: changed default CSS prefix, added YAML-like CSS class to all form elements
+       + tmpl/tx_pttools_quickformRendererDiv.html: added CSS classes for special elements
 + (fb) ADD: added property (including getter and setter) "referenceNumber" to class tx_pttools_paymentRequestInformation
        ADD: added optional parameter to tx_pttools_paymentReturnInformation::construct() to allow data being read from session
        ADD: added optional parameter to tx_pttools_paymentReturnInformation::storeToSession() to allow data being stored into a foreign session
