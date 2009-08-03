@@ -3,12 +3,13 @@
     <label for="{id}">{label}<!-- BEGIN required -->*<!-- END required --></label>
     {element}
     <!-- BEGIN error --><div class="error">{error}</div><!-- END error -->
-    <!-- BEGIN comment --><div class="noticexxx">{comment}</div><!-- END comment -->
+    <!-- BEGIN comment --><div class="notice">{comment}</div><!-- END comment -->
 </div>
 <!-- ###ELEMENTTEMPLATE### -->
 
 <!-- ###GROUPELEMENTTEMPLATE### -->     
-{element}<label for="{id}">{label}</label><!-- BEGIN required -->*<!-- END required -->
+<span class="tx-pttools-qf-group-label">{label}<!-- BEGIN required -->*<!-- END required --></span>
+{element}
 <!-- ###GROUPELEMENTTEMPLATE### -->
 
 <!-- ###FORMTEMPLATE### -->
@@ -27,5 +28,5 @@
 <!-- ###REQUIREDNOTETEMPLATE### -->
 
 <!-- ###GROUPTEMPLATE### -->
-<p class="tx-pttools-qf-group">{content}</p>
+{content}
 <!-- ###GROUPTEMPLATE### -->

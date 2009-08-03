@@ -12,7 +12,7 @@ RFT: refactoring / code cleanup
 ********************************************************************************
 
 
-ToDo: As of 30.07.2009
+ToDo: As of 03.08.2009
 ====
 - Implement storing, reading and deleting data to foreign session in backend and frontend context in tx_pttools_sessionStorageAdapter
   Storing to foreign sessions in frontend is already implemented. 
@@ -20,6 +20,7 @@ ToDo: As of 30.07.2009
 
 v0.4.2dev3:
 ----------
++ (rk) CHG: tmpl/tx_pttools_quickformRendererDiv.html: changed HTML tags and CSS class names for div-renderer template 
 + (rk) ADD/CHG: Added and changed CSS styles for tx_pttools_qfDefaultRenderer and div-renderer template:
        + tx_pttools_qfDefaultRenderer: changed default CSS prefix, added YAML-like CSS class to all form elements
        + tmpl/tx_pttools_quickformRendererDiv.html: added CSS classes for special elements
