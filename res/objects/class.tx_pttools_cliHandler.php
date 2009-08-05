@@ -159,6 +159,7 @@ class tx_pttools_cliHandler  {
         
         static $loggingErrorMailSent = false;
         $logMsg = '';
+        ob_clean(); // clean (erase) the output buffer to display only the echo's below (necessary if output buffering is enabled before)
                
         // prepare messages for display and logging
         $msg = ($isError ? "[ERROR] ".$msg."\nScript terminated.\n" : $msg."\n");
@@ -181,6 +182,7 @@ class tx_pttools_cliHandler  {
                 // if logging not possible AND logging error mail not sent before: send logging error mail to admin          
                 if ($loggingErrorMailSent == false) {
                     echo "LOGGING ERROR! Sending error mail to admin ".$this->adminMailRecipient."...\n";
+                    ob_flush(); // sends the output buffer to display the echo message (necessary if output buffering is enabled before)
                     $mailSubject    = "Logging Error (".$this->cliScriptName.") on ".$this->cliHostName;
                     $mailMessage    = "Logging for ".$this->cliScriptName." on ".$this->cliHostName." not possible in\n".
                                       $this->cliLogDir.$this->cliScriptName."_log.\n\n".
@@ -203,6 +205,7 @@ class tx_pttools_cliHandler  {
         // no error: display of debug message if activated in config
         if (($this->cliQuietMode == false && $displayStatus != 2) || $displayStatus == 1) {
             echo $msg;
+            ob_flush();  // sends the output buffer to display the echo message (necessary if output buffering is enabled before)
         }
     
     }
