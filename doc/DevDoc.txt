@@ -20,6 +20,7 @@ ToDo: As of 05.08.2009
 
 v0.4.2dev3:
 ----------
++ (fb) ADD: added hook in tx_pttools_smartyAdapter::__construct() to allow to add other locations for smarty plugin directories
 + (rk) ADD: class.tx_pttools_cliHandler.php: added output buffer handling in cliMessage() due to new(?) ob_start() command TYPO3's init.php
 + (rk) CHG: tmpl/tx_pttools_quickformRendererDiv.html: changed HTML tags and CSS class names for div-renderer template 
 + (rk) ADD/CHG: Added and changed CSS styles for tx_pttools_qfDefaultRenderer and div-renderer template:

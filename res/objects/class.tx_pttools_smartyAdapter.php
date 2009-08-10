@@ -160,6 +160,13 @@ class tx_pttools_smartyAdapter extends tx_smarty_wrapper {
 
         // add own plugins
         array_unshift($this->plugins_dir, t3lib_extMgm::extPath('pt_tools').'res/smarty_plugins');
+        
+        // hook: allow extension to add own pluginDirectories to smarty
+        if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['pt_tools']['tx_pttools_smartyAdapter']['pluginDirectory'])) {
+            foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['pt_tools']['tx_pttools_smartyAdapter']['pluginDirectory'] as $pluginDirectory) {
+            	array_unshift($this->plugins_dir, $pluginDirectory);
+            }
+        }
 
         // add language configuration to the registry (needed for the "ll" modifier)
         $configuration = array(
