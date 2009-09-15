@@ -86,7 +86,20 @@ class tx_pttools_div  {
      * @author  Rainer Kuhn <kuhn@punkt.de>
      * @since   2005-12-01
      */
-    public static function localRedirect($localPath, $keepVal=NULL, $keepValSessionKeyName='redirectionKeepVal') { 
+    public static function localRedirect($localPath, $keepVal=NULL, $keepValSessionKeyName='redirectionKeepVal') {
+
+        // hook: allow things to be done before redirecting
+        if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['pt_tools']['tx_pttools_div']['localRedirect'])) {
+            $fakeThis = new stdClass();
+            $params = array(
+                'localPath' => $localPath,
+                'keepVal' => $keepVal,
+                'keepValSessionKeyName' => $keepValSessionKeyName, 
+            );
+            foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['pt_tools']['tx_pttools_div']['localRedirect'] as $funcName) {
+                t3lib_div::callUserFunction($funcName, $params, $fakeThis);
+            }
+        }
         
         // register page overlapping values in TYPO3 session if message has been set
         if (!empty($keepVal)) {
