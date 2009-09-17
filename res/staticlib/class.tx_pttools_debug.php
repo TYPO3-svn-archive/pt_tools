@@ -379,7 +379,7 @@ class tx_pttools_debug {
 
         $output = '';
 
-        $output .= '<!--'.chr(10).$this->exceptionToTxt($exception).'-->';
+        $output .= '<!--'.chr(10).self::exceptionToTxt($exception).'-->';
 
         $output .= '<html>
             <head>
