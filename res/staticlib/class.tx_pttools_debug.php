@@ -1,19 +1,19 @@
 <?php
 /***************************************************************
 *  Copyright notice
-*  
+*
 *  (c) 2002-2008 Rainer Kuhn (kuhn@punkt.de)
 *  All rights reserved
 *
-*  This script is part of the TYPO3 project. The TYPO3 project is 
+*  This script is part of the TYPO3 project. The TYPO3 project is
 *  free software; you can redistribute it and/or modify
 *  it under the terms of the GNU General Public License as published by
 *  the Free Software Foundation; either version 2 of the License, or
 *  (at your option) any later version.
-* 
+*
 *  The GNU General Public License can be found at
 *  http://www.gnu.org/copyleft/gpl.html.
-* 
+*
 *  This script is distributed in the hope that it will be useful,
 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -21,14 +21,14 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
-/** 
+/**
  * General debugging class and non-OO function shortcut 'trace()' (part of the library extension 'pt_tools')
  *
  * $Id$
  *
  * @author      Rainer Kuhn <kuhn@punkt.de>
  * @since       2005-08-18
- */ 
+ */
 /**
  * [CLASS/FUNCTION INDEX of SCRIPT]
  */
@@ -53,20 +53,20 @@ if (class_exists('t3lib_extMgm')) { // ignore in non TYPO3-mode
  * @subpackage  tx_pttools
  */
 class tx_pttools_debug {
-    
+
     /***************************************************************************
      *   STATIC METHODS
      **************************************************************************/
-        
+
     /**
      * Prints, returns or logs debugging/tracing information for a given element. The non-00 function trace() (see below this class) can be used as shortcut for this method (to use the method like a PHP command).
      *
      * This function analyzes an element's data type and outputs this together with its value/content.
      * Array and object values are displayed itemized as human-readable information.
      * Depending on the global variable $trace, which has to be set at the beginning of each script that uses trace(),
-     * tracing output can be configured individually for each script/page: tracing can be switched off, 
+     * tracing output can be configured individually for each script/page: tracing can be switched off,
      * be printed/returned as a string, or be written to a log file (configurable in TYPO3's Constant Editor).
-     * 
+     *
      * IMPORTANT: Be careful with objects and multidimensional arrays (> 2D): this function is not able to
      * dissolve cyclic references. This means the output of an array or an object, that is contained in itself
      * (e.g. $GLOBALS) will never end!
@@ -81,43 +81,43 @@ class tx_pttools_debug {
      * @author  Rainer Kuhn <kuhn@punkt.de>
      * @since   2002-07 (major revision 2004-09)
      */
-    public static function trace($element, $return=0, $marker=NULL) {   
-        
-        global $trace; 
-        
+    public static function trace($element, $return=0, $marker=NULL) {
+
+        global $trace;
+
         // stop tracing if no valid $trace value is set
         if (!in_array(intval($trace), Array(1, 2, 3))) {
             return;
         }
-        
-        
+
+
         // check trace type (set globally in every script)
         switch($trace) {
-            
+
             // config for tracing output in HTML string ($trace=1)
             case 1:
-            
+
                 $diff['arrow'] = "&gt;";
                 $diff['blank'] = "&nbsp;";
                 $style         = "style=\"color:#993300; font-family:'Courier New'; font-size:12px\"";
                 $traceString1  = "<table border=\"0\">\n<tr>\n<td valign=\"top\" nowrap=\"nowrap\">\n".
                                  "<b $style>trace ";
                 break;
-                            
+
             // config for tracing in log file ($trace=2)
             case 2:
-                
+
                 // static var do not lose their values when program execution leaves this function scope
                 static $headerAttached = FALSE;  // used to attach trace log header only once per script
                 static $adminMailSent  = FALSE;  // used to prevent logging error mails multiple times per script
-            
+
                 $diff['arrow'] = ">";
                 $diff['blank'] = " ";
                 $traceString1  = "trace ";
-                
+
                 // compose log header for tracing of script on first call within current script/page
                 if ($headerAttached == FALSE) {
-                    $headerString = 
+                    $headerString =
                         "\n\n\n".
                         "*******************************************************************************\n".
                         "TRACE-LOG: ".date("Y-m-d, H:i:s")."\n".
@@ -134,33 +134,33 @@ class tx_pttools_debug {
                         "TRACE OUTPUTS OF ".t3lib_div::getIndpEnv('REQUEST_URI').":\n".
                         "-------------------------------------------------------------------------------\n";
                }
-               
+
                break;
-               
-            // config for tracing using PEAR's Var_Dump ($trace=3) 
-            case 3: 
-                
+
+            // config for tracing using PEAR's Var_Dump ($trace=3)
+            case 3:
+
                 if (tx_pttools_div::includeOnceIfExists('Var_Dump.php') == false) {
                     // TODO: (Fabrizio) this returns the error "Allowed memory size of 100663296 bytes exhausted (tried to allocate 16 bytes)..."
                     throw new tx_pttools_exception('PEAR\'s Var_Dump cannot be included while $trace is set to 3!', 2);
                 }
-                
-                Var_Dump::displayInit(array('display_mode' => 'HTML4_Table'));        
+
+                Var_Dump::displayInit(array('display_mode' => 'HTML4_Table'));
                 Var_Dump::display($element);
-                
+
                 break;
-            
+
             // default = no tracing, e.g. $trace = 0
             default:
-           
+
                 return;
-               
+
        } # end type switch
-       
-       
+
+
        // ***** START TRACING: *****
         $elemContent = "";
-        
+
        // if array: itemize and save content
         if (is_array($element)) {
             $elemType = "[array] ";
@@ -204,11 +204,11 @@ class tx_pttools_debug {
                     unset($elemContent);
                 }
             }
-            
+
         // analyze all other data types and save element's value
         } else {
             $elemContent = $element;
-            if (is_string($element)) { 
+            if (is_string($element)) {
                 if (is_numeric($element)) {
                     $elemType = "[numstr]";
                 } else {
@@ -225,7 +225,7 @@ class tx_pttools_debug {
                 }
             } elseif (is_object($element)) {
                 $elemType = "[object]";
-            } elseif (is_resource($element)) { 
+            } elseif (is_resource($element)) {
                 $elemType = "[resource: ".get_resource_type($element)."]";
             } elseif (is_null($element)) {
                 $elemType = "[ NULL ]";
@@ -234,57 +234,57 @@ class tx_pttools_debug {
                 $elemType = "[*** unknown type ***]";
             }
         }
-    
+
         // compose element ouptput string (data type, value/content and marker text if called with 3rd param)
-        $traceString1 .= 
+        $traceString1 .=
             $elemType.":".
             ($trace==1 ? "</b>\n</td>\n<td>\n<pre $style>\n" : " ").
             (isset($marker) ? ($trace==1 ? "<b $style>" : "\n")."------------ ".$marker." ------------".($trace==1 ? "</b>" : "")."\n" : "");
-        $traceString2  = 
+        $traceString2  =
             (isset($marker) ? ($trace==1 ? "<b $style>" : "")."------------ /".$marker." -----------".($trace==1 ? "</b>" : "")."\n" : "").
             ($trace==1 ? "</pre>\n</td>\n</tr>\n</table>\n" : "\n");
-        
+
         // ...use print_r for multidimensional arrays and objects
         if (is_object($element) || isset($multidimArray) || isset($objectArray)) {
-            $traceOutput = $traceString1. 
-                           print_r($element, 1). 
+            $traceOutput = $traceString1.
+                           print_r($element, 1).
                            $traceString2;
-            
+
         // ...use trace output for all other datatypes
         } else {
-            $traceOutput = $traceString1. 
+            $traceOutput = $traceString1.
                            $elemContent.((isset($marker) & !is_array($element)) ? "\n" : "").
                            $traceString2;
         }
-        
+
         // use output string to print or return (depending on global $trace value and function call/2nd param)
         if ($trace == 1) {
-            
+
             if ($return == 1) {
                 return $traceOutput;
             } else {
                 echo $traceOutput;
                 ob_flush(); // assure the trace output is sent to the browser (e.g. if output buffering is enabled and a page redirect follows the trace() call)
             }
-            
+
         // use output string to write to logfile (depending on global $trace value)
         } elseif ($trace == 2) {
-            
+
             // attach log header if not done yet
             if (isset($headerString)) {
                 $traceOutput = $headerString . $traceOutput;
                 $headerAttached = TRUE;
             }
-            
+
             // get values from Constant Editor configuration
             $logDir = $GLOBALS['TSFE']->tmpl->setup['config.']['pt_tools.']['traceLogDir'];
             $adminMail = $GLOBALS['TSFE']->tmpl->setup['config.']['pt_tools.']['adminMail'];
-            
+
             // try to write to log file if log directory is configured
             if (isset($logDir)) {
                 // is log file writeable? (valid path/existing directory? access rights ok?)
-                if (! @error_log($traceOutput, 3, $logDir."trace_log")) { 
-                    
+                if (! @error_log($traceOutput, 3, $logDir."trace_log")) {
+
                     // ...NO: send error report if admin mail is configured
                     if (isset($adminMail) && $adminMailSent == FALSE) {
                         $mailSubject    = "Trace Logging Error (pt_tools) on ".t3lib_div::getIndpEnv('HTTP_HOST');
@@ -298,18 +298,18 @@ class tx_pttools_debug {
                         mail($adminMail, $mailSubject, $mailMessage, $mailHeaders);
                         $adminMailSent = TRUE;
                     }
-                    
+
                 }   // ...YES: tracing has been written to log file
-                
+
             }
-            
+
         }
-        
+
     } # end trace()
-    
+
     /**
      * Outputs the stack backtrace for an error as a HTML string on the page
-     * 
+     *
      * @param   integer     error code (type) or appropriate E_* constant
      * @param   array       associative array of a PHP backtrace: the return value of PHP's debug_backtrace()
      * @return  void
@@ -317,12 +317,12 @@ class tx_pttools_debug {
      * @since   2007-05-03
      */
     public static function printBacktrace($severity, $arr) {
-        
+
         $bgColor = "808070";
         if (($severity == E_COMPILE_ERROR) || ($severity == E_CORE_ERROR) || ($severity == E_USER_ERROR) || ($severity == E_ERROR)) {
             $bgColor="A08070";
         }
-        
+
         echo "<table style='background-color:#".$bgColor.";color:#ffffff;font-size:8pt;'>\n";
         foreach ($arr as $linebefore){
             if (isset($linebefore['file'])) {
@@ -335,9 +335,9 @@ class tx_pttools_debug {
             echo "<tr>\n<td colspan='2'><hr /></td>\n</tr>\n";
         }
         echo "</table>\n";
-        
+
     }
-    
+
     /**
      * Returns an array of code snippet lines from the specified file.
      *
@@ -378,9 +378,9 @@ class tx_pttools_debug {
     public static function exceptionToHTML(Exception $exception, $cssPath = '/typo3conf/ext/pt_tools/res/css/exception.css') {
 
         $output = '';
-        
-        $output .= '<!--'.chr(10).get_class($exception).': '.$exception->getMessage().chr(10).$exception->getTraceAsString().chr(10).'-->';
-        
+
+        $output .= '<!--'.chr(10).$this->exceptionToTxt($exception).'-->';
+
         $output .= '<html>
             <head>
                 <title>Uncaught '.get_class($exception).'</title>
@@ -389,7 +389,7 @@ class tx_pttools_debug {
             <body>
 
                 <h1 class="exceptionmessage">' . $exception->getMessage() . '</h1>
-                
+
                 <h2 class="exceptionclass">Uncaught "' .get_class($exception) . '"</h2>
 
                 <div class="exceptioninfo">';
@@ -416,6 +416,18 @@ class tx_pttools_debug {
     }
 
     /**
+     * Formats an exception as TXT.
+     *
+     * @param 	Exception	exception
+     * @return 	string		TXT output
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
+     * @since	2009-09-17
+     */
+    public static function exceptionToTxt(Exception $exception) {
+        return get_class($exception).': '.$exception->getMessage().chr(10).chr(10).$exception->getTraceAsString().chr(10);
+    }
+
+    /**
      * Formats a trace array as HTML
      *
      * @param 	array	trace
@@ -425,7 +437,7 @@ class tx_pttools_debug {
      */
     public static function traceToHtml(array $trace, $callingFile = '', $callingLine = '') {
         $backtraceCode = '';
-        
+
         if (count($trace)) {
 
             // loop over all steps
@@ -435,10 +447,10 @@ class tx_pttools_debug {
                     if (empty($step['file'])) $step['file'] = $callingFile;
                     if (empty($step['line'])) $step['line'] = $callingLine;
                 }
-                
+
                 $backtraceCode .= '<div class="step">';
 
-                
+
 
                 // process file name
                 if (isset($step['file'])) {
@@ -517,27 +529,27 @@ class tx_pttools_debug {
 
         return $backtraceCode;
     }
-    
+
     /**
      * Cleans backtrace array (removes references to objects)
-     * 
+     *
      * @param   array	trace
      * @return  array	trace
      * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2008-08-27
      */
     public static function cleanBacktrace(array $trace) {
-        
+
         foreach ($trace as $key => $value) {
             if (isset($trace[$key]['object'])) {
                 unset($trace[$key]['object']);
             }
         }
-        
+
         return $trace;
-        
+
     }
-    
+
     /**
      * Returns true if in developement context (for debugging outputs)
      *
@@ -546,25 +558,25 @@ class tx_pttools_debug {
      * @since	2008-06-15
      */
     public static function inDevContext() {
-    	
+
     	$inDevContext = false;
-    	
+
     	if (t3lib_div::cmpIP(t3lib_div::getIndpEnv('REMOTE_ADDR'), $GLOBALS['TYPO3_CONF_VARS']['SYS']['devIPmask'])) {
     		$inDevContext = true;
     	} else {
-    		
+
 	    	require_once PATH_t3lib.'class.t3lib_userauth.php';
 			require_once PATH_t3lib.'class.t3lib_userauthgroup.php';
 			require_once PATH_t3lib.'class.t3lib_beuserauth.php';
-			 
+
 	    	if (($GLOBALS['BE_USER'] instanceof t3lib_beUserAuth) &&  $GLOBALS['BE_USER']->isAdmin()) {
 	    		$inDevContext = true;
 	    	}
     	}
-        
+
     	return $inDevContext;
     }
-    
+
     /**
      * Error handler: Converts some php errors into exceptions
      *
@@ -593,8 +605,8 @@ class tx_pttools_debug {
             E_STRICT             => 'Runtime Notice',
             E_RECOVERABLE_ERROR  => 'Catchable Fatal Error'
         );
-        
-        // if (error has not been supressed with an @) AND (error matches the definied error reporting level) 
+
+        // if (error has not been supressed with an @) AND (error matches the definied error reporting level)
         if ((error_reporting() != 0) && ($errno & $GLOBALS['tx_pttools_debug']['errors'])) {
             if (ini_get ('log_errors')) {
                 error_log(sprintf('PHP %s:  %s in %s on line %d', $errorLevels[$errno], $errstr, $errfile, $errline));
@@ -603,7 +615,7 @@ class tx_pttools_debug {
         }
         return false; // If the function returns FALSE then the normal error handler continues.
     }
-    
+
     /**
      * Exception handler
      *
@@ -618,7 +630,9 @@ class tx_pttools_debug {
         }
 
         if (self::inDevContext()) {
-            if (TYPO_MODE == 'FE') {
+            if (PHP_SAPI == 'cli') {
+                echo tx_pttools_debug::exceptionToTxt($exception);
+            } elseif (TYPO3_MODE == 'FE') {
                 echo tx_pttools_debug::exceptionToHTML($exception);
             } else {
                 echo tx_pttools_debug::exceptionToHTML($exception, $GLOBALS['BACK_PATH'].'../typo3conf/ext/pt_tools/res/css/exception.css');
@@ -627,7 +641,7 @@ class tx_pttools_debug {
             echo $exception->__toString();
         }
     }
-    
+
 } // end class
 
 
@@ -637,7 +651,7 @@ class tx_pttools_debug {
 *******************************************************************************/
 
 /**
- * Shortcut function for tx_pttools_debug::trace() to use the method with a shorthand notation like a PHP command. 
+ * Shortcut function for tx_pttools_debug::trace() to use the method with a shorthand notation like a PHP command.
  *
  * Prints, returns or logs debugging/tracing information for a given element. See tx_pttools_debug::trace for description and details.
  *
@@ -650,7 +664,7 @@ class tx_pttools_debug {
  * @author  Rainer Kuhn <kuhn@punkt.de>
  * @since   2005-18-08
  */
-function trace($element, $return=0, $marker=NULL) { 
+function trace($element, $return=0, $marker=NULL) {
     return tx_pttools_debug::trace($element, $return, $marker);
 }
 
