@@ -20,6 +20,7 @@ ToDo: As of 17.09.2009
 
 v0.4.2dev3:
 ----------
++ (fb) ADD: added method tx_pttools_div::isIntegerish()
 + (fb) ADD: added some html comments in tx_pttools_debug::exceptionToHTML() output.
 + (fb) ADD: smartyAdapter reads language file from EXT:<extkey>/locallang.xml by default (instead of throwing an error if nothing is configured)
 + (fb) ADD: added hook in tx_pttools_div::localRedirect()

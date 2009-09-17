@@ -483,6 +483,19 @@ class tx_pttools_div  {
           
     }
     
+    /**
+     * Checks if a value is "integerish"
+     * 
+     * @param	mixed	value to check
+     * @return 	bool	true if integerish
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
+     * @since 	2009-09-15
+     */
+    public static function isIntegerish($val) {
+        // or: is_int($val) || ctype_digit($val)
+        return ('x'.$val == 'x'.intval($val));
+    }
+    
     
     
     /***************************************************************************
