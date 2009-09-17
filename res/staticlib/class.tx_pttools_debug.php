@@ -377,7 +377,11 @@ class tx_pttools_debug {
      */
     public static function exceptionToHTML(Exception $exception, $cssPath = '/typo3conf/ext/pt_tools/res/css/exception.css') {
 
-        $output = '<html>
+        $output = '';
+        
+        $output .= '<!--'.chr(10).get_class($exception).': '.$exception->getMessage().chr(10).$exception->getTraceAsString().chr(10).'-->';
+        
+        $output .= '<html>
             <head>
                 <title>Uncaught '.get_class($exception).'</title>
                 <link rel="stylesheet" type="text/css" href="'.$cssPath.'" />
@@ -421,7 +425,7 @@ class tx_pttools_debug {
      */
     public static function traceToHtml(array $trace, $callingFile = '', $callingLine = '') {
         $backtraceCode = '';
-
+        
         if (count($trace)) {
 
             // loop over all steps
