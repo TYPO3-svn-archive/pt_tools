@@ -12,7 +12,7 @@ RFT: refactoring / code cleanup
 ********************************************************************************
 
 
-ToDo: As of 06.09.2009
+ToDo: As of 17.09.2009
 ====
 - Implement storing, reading and deleting data to foreign session in backend and frontend context in tx_pttools_sessionStorageAdapter
   Storing to foreign sessions in frontend is already implemented. 
@@ -20,6 +20,7 @@ ToDo: As of 06.09.2009
 
 v0.4.2dev3:
 ----------
++ (fb) ADD: smartyAdapter reads language file from EXT:<extkey>/locallang.xml by default (instead of throwing an error if nothing is configured)
 + (fb) ADD: added hook in tx_pttools_div::localRedirect()
 + (fb) ADD: added smarty modifiers includeCssFile and includeJsFile that allow to include js and css files from within smarty view templates
 + (fb) ADD: added hook in tx_pttools_smartyAdapter::__construct() to allow to add other locations for smarty plugin directories

@@ -181,6 +181,7 @@ class tx_pttools_smartyAdapter extends tx_smarty_wrapper {
     /**
      * Load and set configuration
      *
+     * @param	object	parent object
      * @param 	array 	configuration array
      * @return 	void
      * @author	Fabrizio Branca <mail@fabrizio-branca.de>
@@ -191,6 +192,12 @@ class tx_pttools_smartyAdapter extends tx_smarty_wrapper {
         /***********************************************************************
          * Load configuration
          **********************************************************************/
+        
+        // some basic conventions
+        if (is_object($pObj) && !empty($pObj->extKey)) {
+            $this->t3_confVars['conventions']['t3_languageFile'] = 'EXT:'.$pObj->extKey.'/locallang.xml';
+        }
+        
         // get configuration from extconf
         $this->t3_confVars['extconf'] = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['smarty'];
 
