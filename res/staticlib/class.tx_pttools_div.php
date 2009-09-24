@@ -669,18 +669,38 @@ class tx_pttools_div  {
      */
     public static function getLLL($llKey, $llArray) {
      
-            $llLabel = '';
+        $llLabel = '';
             
-            // TYPO3 Frontend mode
-            if (TYPO3_MODE == 'FE' && is_object($GLOBALS['TSFE'])) {  
-                $llLabel = $GLOBALS['TSFE']->getLLL($llKey, $llArray);
-                $llLabel = $GLOBALS['TSFE']->csConv($llLabel); // convert to correct characterset (this not done in $GLOBALS['TSFE']->getLLL)
-            // TYPO3 Backend mode
-            } else {                              
-                $llLabel = $GLOBALS['LANG']->getLLL($llKey, $llArray);
-            }
-            
-            return $llLabel;
+        // TYPO3 Frontend mode
+        if (TYPO3_MODE == 'FE' && is_object($GLOBALS['TSFE'])) {  
+            $llLabel = $GLOBALS['TSFE']->getLLL($llKey, $llArray);
+            $llLabel = $GLOBALS['TSFE']->csConv($llLabel); // convert to correct characterset (this not done in $GLOBALS['TSFE']->getLLL)
+        // TYPO3 Backend mode
+        } else {                              
+            $llLabel = $GLOBALS['LANG']->getLLL($llKey, $llArray);
+        }
+        
+        return $llLabel;
+        
+    }
+    
+    /**
+     * Get language object
+     * 
+     * @param 	void
+     * @return 	language	Language object
+     * @author	Fabrizio Branca <mail@fabrizio-branca.de>
+     * @since	2009-09	21
+     */
+    public static function getLangObject() {
+        
+        if ($GLOBALS['LANG'] instanceof language) {
+            $lang = $GLOBALS['LANG'];
+        } else {
+            $lang = t3lib_div::makeInstance('language');
+            $lang->csConvObj = t3lib_div::makeInstance('t3lib_cs');     
+        }
+        return $lang;
         
     }
     
