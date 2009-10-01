@@ -1,19 +1,19 @@
 <?php
 /***************************************************************
 *  Copyright notice
-*  
+*
 *  (c) 2005-2008 Rainer Kuhn (kuhn@punkt.de)
 *  All rights reserved
 *
-*  This script is part of the TYPO3 project. The TYPO3 project is 
+*  This script is part of the TYPO3 project. The TYPO3 project is
 *  free software; you can redistribute it and/or modify
 *  it under the terms of the GNU General Public License as published by
 *  the Free Software Foundation; either version 2 of the License, or
 *  (at your option) any later version.
-* 
+*
 *  The GNU General Public License can be found at
 *  http://www.gnu.org/copyleft/gpl.html.
-* 
+*
 *  This script is distributed in the hope that it will be useful,
 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -21,14 +21,14 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
-/** 
+/**
  * General helper methods library (part of the library extension 'pt_tools')
  *
  * $Id$
  *
  * @author      Rainer Kuhn <kuhn@punkt.de>
  * @since       2005-08-19
- */ 
+ */
 /**
  * [CLASS/FUNCTION INDEX of SCRIPT]
  */
@@ -54,7 +54,7 @@ require_once t3lib_extMgm::extPath('pt_tools').'res/staticlib/class.tx_pttools_a
  * @subpackage  tx_pttools
  */
 class tx_pttools_div  {
-    
+
     /**
      * Class constants: period specifiers for getPeriodAsInt()
     */
@@ -65,13 +65,13 @@ class tx_pttools_div  {
     const PERIOD_WEEKS = 4;     // period as weeks
     const PERIOD_MONTHS = 5;    // period as months
     const PERIOD_YEARS = 6;     // period as months
-    
-    
-    
+
+
+
     /***************************************************************************
      *   SECTION: GENERAL METHODS
      **************************************************************************/
-    
+
     /**
      * Redirects the user to a local page and optionally stores a value to pass to the redirected page into the TYPO3 session
      *
@@ -81,7 +81,7 @@ class tx_pttools_div  {
      * @param   string      local page to redirect to: URL path exclusive domain and leading slash, but including all GET-params (Example: for redirection to http://mydomain.com/contact.html?myGetParam=1 just pass "contact.html?myGetParam=1"). This value may be created using the TYPO3 method pi_getPageLink.
      * @param   mixed       (optional) arbitrary value to pass to the redirected page by storing it into the TYPO3 session (objects and arrays will be serialized, see tx_pttools_sessionStorageAdapter::store())
      * @param   string      (optional) TYPO3 session key name to store $keepVal into (default = 'redirectionKeepVal'). This string may be prefixed with the prefixId of the calling FE plugin to prevent namespace conflicts between different extensions.
-     * @return  void        
+     * @return  void
      * @see     tslib_pibase::pi_getPageLink()
      * @author  Rainer Kuhn <kuhn@punkt.de>
      * @since   2005-12-01
@@ -94,32 +94,32 @@ class tx_pttools_div  {
             $params = array(
                 'localPath' => $localPath,
                 'keepVal' => $keepVal,
-                'keepValSessionKeyName' => $keepValSessionKeyName, 
+                'keepValSessionKeyName' => $keepValSessionKeyName,
             );
             foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['pt_tools']['tx_pttools_div']['localRedirect'] as $funcName) {
                 t3lib_div::callUserFunction($funcName, $params, $fakeThis);
             }
         }
-        
+
         // register page overlapping values in TYPO3 session if message has been set
         if (!empty($keepVal)) {
             tx_pttools_sessionStorageAdapter::getInstance()->store($keepValSessionKeyName, $keepVal);
         }
-        
+
         // generate absolute URL from local path
         $targetUrl  = t3lib_div::locationHeaderUrl($localPath);
         trace($targetUrl, 0, '$targetUrl');
-        
+
         // log to devlog
         if (TYPO3_DLOG) t3lib_div::devLog('Redirecting from "'.t3lib_div::getIndpEnv('TYPO3_REQUEST_URL').'" to "'.$targetUrl.'"', 'pt_tools', 1);
-        
+
         // redirect by sending a "Location" header
         header('Location: '.$targetUrl);
         exit;
-        
+
     }
-    
-    /**   
+
+    /**
      * Returns an object reference to the hook object if any, false otherwise
      *
      * @param   string          TYPO3 extension key of the extension to use the hook in (e.g. 'pt_gsashop')
@@ -132,32 +132,32 @@ class tx_pttools_div  {
      * @since   2006-04-06
      */
     public static function hookRequest($extKey, $hookArrayKey, $functionName) {
-        
+
         // check if there are any hook relevant userfunctions implemented
         if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extKey][$hookArrayKey][$functionName]) {
-            
+
             trace('HOOK entry found for ['.$extKey.']['.$hookArrayKey.']['.$functionName.']');
-            
+
             $hookObj = t3lib_div::getUserObj($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extKey][$hookArrayKey][$functionName], '');
-            
+
             if (method_exists($hookObj, $functionName)) {
                 trace('Hook method '.$functionName.' found, returning hook object');
                 if (TYPO3_DLOG) t3lib_div::devLog(sprintf('Hook method found [%s][%s][%s], returning hook object (class: "%s")', $extKey, $hookArrayKey, $functionName, get_class($hookObj)), 'pt_tools', 1);
-                
+
                 $hookObj->pObj = $this;
                 return $hookObj;
-                
+
             } else {
                 throw new tx_pttools_exception('Hook method not found!', 3,
                                                'HOOK ERROR: method '.$functionName.' not found or no hook object returned');
             }
         }
-        
+
         return false;
-        
+
     }
-    
-    /**   
+
+    /**
      * Returns the charset encoding currently used by the TYPO3 website
      *
      * @param   string      (optional) default charset if there is no other setting found (default='iso-8859-1')
@@ -170,9 +170,9 @@ class tx_pttools_div  {
      * @since   2006-10-10
      */
     public static function getSiteCharsetEncoding($defaultCharset='iso-8859-1') {
-        
+
         $charset = '';
-        
+
         // do charset detection for FE and BE  ### TODO: do investigation and/or tests to find out if this is correct/sufficient...
         if (is_object($GLOBALS['TSFE']) && $GLOBALS['TSFE']->renderCharset) {
             $charset = $GLOBALS['TSFE']->renderCharset;
@@ -183,30 +183,30 @@ class tx_pttools_div  {
         } else {
             $charset = $defaultCharset;
         }
-        
+
         return strtolower($charset);
-        
+
     }
-    
+
     /**
      * Checks if a file exists in the includepath and includes it once if it is available
-     * 
+     *
      * @param   string      name of the file to include
      * @return  boolean     FALSE if file was not available/included, TRUE otherwise
      * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2007-05-03
      */
     public static function includeOnceIfExists($filename) {
-        
+
         if (self::fileExistsInIncpath($filename)) {
-            include_once $filename; 
+            include_once $filename;
             return true;
         } else {
             return false;
         }
-        
+
     }
-    
+
     /**
      * Checks if a file exists in the include path and returns the full path if the file exists
      *
@@ -218,9 +218,9 @@ class tx_pttools_div  {
      * @since       2007-05-03
      */
     public static function fileExistsInIncpath($filename) {
-        
+
         $paths = explode(PATH_SEPARATOR, get_include_path());
-        
+
         foreach ($paths as $path) {
             // formulate the absolute path
             $fullpath = $path . DIRECTORY_SEPARATOR . $filename;
@@ -229,11 +229,11 @@ class tx_pttools_div  {
                 return $fullpath;
             }
         }
-        
+
         return false;
-        
+
     }
-    
+
     /**
      * Creates an easy-to-remember mnemonic password.
      * All passwords created by this method follow the scheme "every consonant is followed by a vowel" (e.g. "rexegubo")
@@ -244,25 +244,25 @@ class tx_pttools_div  {
      * @since   2007-10-02 (based on tx_ptlib_base::createPassword() from 2004-05)
      */
     public static function createPassword($length=8) {
-        
+
         $consonantArr  = array('b','c','d','f','g','h','j','k','l','m','n','p','r','s','t','v','w','x','y','z');
         $vowelArr  = array('a','e','i','o','u');
         $password = '';
-        
+
         if (!is_int($n = $length/2)) {
             $n = (integer)$length/2;
             $password .= $vowelArr[rand(0, 4)];
         }
-        
+
         for ($i=1; $i<=$n; $i++) {
             $password .= $consonantArr[rand(0, 19)];
             $password .= $vowelArr[rand(0, 4)];
         }
-        
+
         return $password;
-        
+
     }
-    
+
     /**
      * Get Pid from parameter (pid or alias)
      *
@@ -274,7 +274,7 @@ class tx_pttools_div  {
      * @since   2008-06-03
      */
     public static function getPid($pidOrAlias, $allowZeroAsPid=false) {
-        
+
         $select  = 'uid';
         $from    = 'pages';
         if (!ctype_digit(strval($pidOrAlias))) {
@@ -291,7 +291,7 @@ class tx_pttools_div  {
         $groupBy = '';
         $orderBy = '';
         $limit   = '1';
-        
+
         // exec query using TYPO3 DB API
         $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
         trace(tx_pttools_div::returnLastBuiltSelectQuery($GLOBALS['TYPO3_DB'], $select, $from, $where, $groupBy, $orderBy, $limit));
@@ -300,16 +300,16 @@ class tx_pttools_div  {
         }
         $a_row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
         $GLOBALS['TYPO3_DB']->sql_free_result($res);
-        
+
         if ($a_row == false) {
             throw new tx_pttools_exception('PID "'.$pidOrAlias.'" not found');
         }
-        
-        trace($a_row); 
+
+        trace($a_row);
         return $a_row['uid'];
-        
+
     }
-    
+
     /**
      * Output HTML to a popup window
      *
@@ -323,24 +323,24 @@ class tx_pttools_div  {
      * @since   2008-06-12
      */
     public static function outputToPopup($htmlCode, $varName = '_popup', $windowParams = 'width=1280,height=600,resizable,scrollbars=yes', $windowUrl = '', $windowName = '') {
-        
+
         if (is_object($GLOBALS['TSFE'])) {
-            
+
             $jscode = $varName.' = window.open("'.$windowUrl.'","'.$windowName.'","'.$windowParams.'");'.chr(10);
             foreach(explode(chr(10), $htmlCode) as $line) {
                 $line = strtr($line, array('"' => '\\"'));
                 $jscode .= $varName .'.document.writeln("'.$line.'");'.chr(10);
             }
             $jscode .= $varName .'.document.close();'.chr(10);
-            
+
             $GLOBALS['TSFE']->additionalHeaderData['popup'.$varName] .= t3lib_div::wrapJS($jscode);
             return true;
         } else {
             return false;
         }
-        
+
     }
-    
+
     /**
      * Clear caches "pages", "all", "temp_CACHED" or numeric'
      *
@@ -352,28 +352,28 @@ class tx_pttools_div  {
      * @see     t3lib_TCEmain::clear_cacheCmd
      */
     public static function clearCache($cacheCmd = 'all') {
-        
+
         if (!t3lib_div::testInt($cacheCmd) && !in_array($cacheCmd, array('pages', 'all', 'temp_CACHED'))) {
             throw tx_pttools_exception('Parameter must be "pages", "all", "temp_CACHED" or numeric');
         }
-        
+
         $tce = t3lib_div::makeInstance('t3lib_TCEmain'); /* @var $tce t3lib_TCEmain */
         $tce->stripslashes_values = 0;
         $tce->start(Array(),Array());
         $tce->clear_cacheCmd($cacheCmd);
-        
+
     }
-    
+
     /**
-     * Redirects to the Cookie Error Page if Cookie ist not set and Cookie Error Page is defined. Otherwise nothing is done 
+     * Redirects to the Cookie Error Page if Cookie ist not set and Cookie Error Page is defined. Otherwise nothing is done
      *
      * @param   object   tslib_pibase
-     * @return  boolean  true if Cookies enabled, false if Cookies not disabled and no Error Page set or does not exist.    
+     * @return  boolean  true if Cookies enabled, false if Cookies not disabled and no Error Page set or does not exist.
      * @author  Dorit Rottner <rottner@punkt.de>
-     * @since   2008-08-01 
+     * @since   2008-08-01
      */
-     public static function checkCookies(tslib_pibase $pObj) { 
-         
+     public static function checkCookies(tslib_pibase $pObj) {
+
         if (!$_COOKIE['fe_typo_user']) {
             $redirect_url = $pObj->pi_linkTP_keepPIvars_url($overrulePIvars = array(), $cache = 1, $clearAnyway = 0, $GLOBALS['TSFE']->tmpl->setup['config.']['pt_tools.']['cookieErrorPage']);
             #$redirect_url = t3lib_div::locationHeaderUrl($GLOBALS['TSFE']->tmpl->setup['config.']['pt_tools.']['cookieErrorPage']);
@@ -388,11 +388,11 @@ class tx_pttools_div  {
         } else {
             $return = true;
         }
-        
+
         return $return;
-        
+
     }
-    
+
     /**
      * Check if a user has access to an item
      * (get the group list of the current logged in user from $GLOBALS['TSFE']->gr_list)
@@ -405,30 +405,30 @@ class tx_pttools_div  {
      * @since   2009-01-19
      */
     public static function hasGroupAccess($groupList, $accessList) {
-        
+
         if (empty($accessList)) {
             return true;
-        } 
+        }
         foreach(t3lib_div::intExplode(',', $groupList) as $groupUid) {
             if (t3lib_div::inList($accessList, $groupUid)) {
                 return true;
             }
         }
         return false;
-        
+
     }
-    
+
     /**
      * Quote string method for usage as a Typoscript userFunction to prevent SQL injections when using data from the clients in SQL statements (RECORDS, CONTENT)
      * You can pass the table name as a config option (see example). The table name is a string/stdWrap field
-     * 
-     * @example 
+     *
+     * @example
      * <code>
      * page.includeLibs.tx_pttools_div = EXT:pt_tools/res/staticlib/class.tx_pttools_div.php
-     * 
+     *
      * lib.searchByName = CONTENT
      * lib.searchByName {
-     *      table = pages 
+     *      table = pages
      *      select {
      *          where = 1=1
      *          andWhere.stdWrap {
@@ -451,18 +451,18 @@ class tx_pttools_div  {
      * @since   2009-03-10
      */
     public static function quoteStr($content, $conf) {
-        
+
         $conf['table'] = $GLOBALS['TSFE']->cObj->stdWrap($conf['table'], $conf['table.']);
-        
+
         $quotedString = $GLOBALS['TYPO3_DB']->quoteStr($content, $conf['table']);
-        
+
         return $quotedString;
-        
+
     }
-    
+
     /**
      * Checks whether a given array is an associative array
-     * 
+     *
      * @param   array       array to be checked
      * @return  boolean     true, if array is associative
      * @see     http://de.php.net/is_array
@@ -470,7 +470,7 @@ class tx_pttools_div  {
      * @since   2009-03-15
      */
     public static function isAssociativeArray($array) {
-        
+
         if (is_array($array)) {
             foreach (array_keys($array) as $k => $v) {
                 if ($k !== $v) {
@@ -478,14 +478,14 @@ class tx_pttools_div  {
                 }
             }
         }
-          
+
         return false;
-          
+
     }
-    
+
     /**
      * Checks if a value is "integerish"
-     * 
+     *
      * @param	mixed	value to check
      * @return 	bool	true if integerish
      * @author	Fabrizio Branca <mail@fabrizio-branca.de>
@@ -495,13 +495,47 @@ class tx_pttools_div  {
         // or: is_int($val) || ctype_digit($val)
         return ('x'.$val == 'x'.intval($val));
     }
-    
-    
-    
+
+
+
+	/**
+	 * Applies a stdWrap on all items of an array
+	 *
+	 * @param 	array 	input array
+	 * @return 	array	output array
+	 * @author	Fabrizio Branca <mail@fabrizio-branca.de> (taken from ext:tcaobjects)
+	 * @since	2008-03-26
+	 */
+	public static function stdWrapArray(array $data, tslib_cObj $cObj=NULL) {
+
+		if (is_null($cObj)) {
+			$cObj = $GLOBALS['TSFE']->cObj;
+		}
+
+		tx_pttools_assert::isInstanceOf($cObj, 'tslib_cObj', array('message' => 'No cObj found.'));
+
+		$newData = array();
+		foreach (array_keys($data) as $key) {
+			if (substr($key, -1) != '.') {
+				if (empty($newData[$key])) {
+					$newData[$key] = $cObj->stdWrap($data[$key], $data[$key.'.']);
+				}
+			} else {
+				if (empty($newData[substr($key, 0, -1)])) {
+					$newData[substr($key, 0, -1)] = $cObj->stdWrap($data[substr($key, 0, -1)], $data[$key]);
+				}
+			}
+		}
+		return $newData;
+	}
+
+
+
+
     /***************************************************************************
         SECTION: DATE/TIME METHODS
     ***************************************************************************/
-    
+
     /**
      * Converts a given date string from Euro format to US format or vice versa and returns the converted string
      *
@@ -511,19 +545,19 @@ class tx_pttools_div  {
      * @author  Rainer Kuhn <kuhn@punkt.de>
      * @since   2007-10-02 (based on tx_ptlib_base::dateConv() from 2002-06)
      */
-    public static function convertDate($dateOrig, $reverse=0) { 
-        
+    public static function convertDate($dateOrig, $reverse=0) {
+
         tx_pttools_assert::isNotEmptyString($dateOrig);
-        
+
         $dateConv = strtr($dateOrig, '.', '-');
         $dateElements = explode('-', $dateConv);
         $seperator = ($reverse == 1 ? '.' : '-');
         $dateConv = implode($seperator, array_reverse($dateElements));
-        
-        return $dateConv;   
-        
+
+        return $dateConv;
+
     }
-    
+
     /**
      * Returns the current date
      *
@@ -533,13 +567,13 @@ class tx_pttools_div  {
      * @since   2007-10-02 (based on tx_ptlib_base::dateToday() from 2002-10)
      */
     public static function dateToday($euroFormat=0) {
-        
+
         $today = ($euroFormat == 1 ? date('d.m.Y') : date('Y-m-d'));
-        
+
         return $today;
-        
+
     }
-    
+
     /**
      * Converts string describing time period into integer of given unit
      *
@@ -551,13 +585,13 @@ class tx_pttools_div  {
      * @since   2008-11-05
     */
     public function getPeriodAsInt($period, $unit, $round = true) {
-        
+
         trace('[CMD] '.__METHOD__);
         trace($period);
         trace($unit);
-        
+
         $result = 0;
-        
+
         if ($period != '') {
             $tz = timezone_open('Europe/Berlin');
             $newdate = date_create($period, $tz);
@@ -598,18 +632,18 @@ class tx_pttools_div  {
                     throw new tx_pttools_exception('unknown unit', tx_pttools_exception::EXCP_INTERNAL);
             }
         }
-        
+
         trace($result);
         return $result;
-        
+
     }
-    
-    
-    
+
+
+
     /***************************************************************************
      *   SECTION: LANGUAGE SPECIFIC METHODS
      **************************************************************************/
-    
+
     /**
      * Returns a frontend locallang value with all HTML entities replaced for display in browser
      *
@@ -620,11 +654,11 @@ class tx_pttools_div  {
      * @since   2006-08-03 (based on PHP4 function tx_ptlayoutgen_pi1::displayLL() from 2004-12-16)
      */
     public static function displayLL(tslib_pibase $callerObj, $LLkey) {
-    
+
         return htmlentities($callerObj->pi_getLL($LLkey), ENT_QUOTES);
-        
+
     }
-    
+
     /**
      * Includes a locallang file and returns the $LOCAL_LANG array found inside - works for frontend and backend.
      * This method provides a TYPO3_MODE independent version of the seperate TYPO3 FE/BE methods getLLL().
@@ -637,27 +671,27 @@ class tx_pttools_div  {
      * @since   2007-10-30
      */
     public static function readLLfile($llFile) {
-            
+
             $llArray = array();
-            
+
             // TYPO3 Frontend mode
-            if (TYPO3_MODE == 'FE' && is_object($GLOBALS['TSFE'])) {            
+            if (TYPO3_MODE == 'FE' && is_object($GLOBALS['TSFE'])) {
                 $llArray = $GLOBALS['TSFE']->readLLfile($llFile);
             // TYPO3 Backend mode
-            } elseif (is_object($GLOBALS['LANG'])) {                              
+            } elseif (is_object($GLOBALS['LANG'])) {
                 $llArray = $GLOBALS['LANG']->readLLfile($llFile);
             } else {
                 throw new tx_pttools_exception('No valid TSFE or LANG object found!');
             }
-            
+
             return $llArray;
-        
+
     }
-    
+
     /**
      * Returns the locallang label for a specified key from a given $LOCAL_LANG array - works for frontend and backend.
      * This method provides a TYPO3_MODE independent version of the seperate TYPO3 FE/BE methods getLLL().
-     * 
+     *
      *
      * @param   string      locallang key to retrieve it's label
      * @param   array       $LOCAL_LANG array to use - this could be retrieved e.g. by tx_pttools_div::readLLfile()
@@ -668,65 +702,65 @@ class tx_pttools_div  {
      * @since   2007-10-30
      */
     public static function getLLL($llKey, $llArray) {
-     
+
         $llLabel = '';
-            
+
         // TYPO3 Frontend mode
-        if (TYPO3_MODE == 'FE' && is_object($GLOBALS['TSFE'])) {  
+        if (TYPO3_MODE == 'FE' && is_object($GLOBALS['TSFE'])) {
             $llLabel = $GLOBALS['TSFE']->getLLL($llKey, $llArray);
             $llLabel = $GLOBALS['TSFE']->csConv($llLabel); // convert to correct characterset (this not done in $GLOBALS['TSFE']->getLLL)
         // TYPO3 Backend mode
-        } else {                              
+        } else {
             $llLabel = $GLOBALS['LANG']->getLLL($llKey, $llArray);
         }
-        
+
         return $llLabel;
-        
+
     }
-    
+
     /**
      * Get language object
-     * 
+     *
      * @param 	void
      * @return 	language	Language object
      * @author	Fabrizio Branca <mail@fabrizio-branca.de>
      * @since	2009-09	21
      */
     public static function getLangObject() {
-        
+
         if ($GLOBALS['LANG'] instanceof language) {
             $lang = $GLOBALS['LANG'];
         } else {
             $lang = t3lib_div::makeInstance('language');
-            $lang->csConvObj = t3lib_div::makeInstance('t3lib_cs');     
+            $lang->csConvObj = t3lib_div::makeInstance('t3lib_cs');
         }
         return $lang;
-        
+
     }
-    
-    
-    
+
+
+
     /***************************************************************************
      *   SECTION: EXTENSION CONFIGURATION RETRIEVAL METHODS
      **************************************************************************/
-    
+
     /**
-     * Returns the basic extension configuration data from localconf.php (configurable in Extension Manager) 
+     * Returns the basic extension configuration data from localconf.php (configurable in Extension Manager)
      *
      * @param   string      extension key of the extension to get its configuration
      * @param   bool        (optional) if true the method won't throw an exception if no configuration is found, default: false
      * @global  array       $TYPO3_CONF_VARS
-     * @return  array       basic extension configuration data from localconf.php 
+     * @return  array       basic extension configuration data from localconf.php
      * @throws  tx_pttools_exception   if no basic extension configuration is found in localconf.php or if extKey is empty
      * @author  Rainer Kuhn <kuhn@punkt.de>
      * @since   2006-05-18
      */
     public static function returnExtConfArray($extKey, $noExceptionIfNoConfigFound=false) {
-        
+
         require(PATH_typo3conf.'localconf.php');  // don't use require_once here!
-        
+
         tx_pttools_assert::isNotEmptyString($extKey);
-        
+
         $baseConfArr = unserialize($TYPO3_CONF_VARS['EXT']['extConf'][$extKey]);
         if (!is_array($baseConfArr)) {
             if ($noExceptionIfNoConfigFound == true) {
@@ -736,29 +770,29 @@ class tx_pttools_div  {
                                                '$TYPO3_CONF_VARS["EXT"]["extConf"]["'.$extKey.'"] not found in localconf.php.');
             }
         }
-        
+
         trace($baseConfArr, 0, '$baseConfArr');
         return $baseConfArr;
-        
+
     }
-    
+
     /**
      * Returns typoscript configuration independent of frontend or backend context and caches it into the registry (with the key: ts_$tsConfigKey) to prevent multiple configuration loading.
-     * 
-     * When calling this method with 'plugin.my_ext.' the whole typoscript configuration under this path is stored into the registry. 
+     *
+     * When calling this method with 'plugin.my_ext.' the whole typoscript configuration under this path is stored into the registry.
      * But: When calling this method with 'plugin.my_ext.anotherkey.' the configuration is loaded again instead of looking for the key 'anotherkey.' in the previously loaded configuration.
-     * To improve performance always call the highest level and pick the keys after: $conf = tx_pttools_div::typoscriptRegistry('plugin.my_ext.'); $key = $conf['anotherkey.']  
-     * 
+     * To improve performance always call the highest level and pick the keys after: $conf = tx_pttools_div::typoscriptRegistry('plugin.my_ext.'); $key = $conf['anotherkey.']
+     *
      * @example
      *  If being only in frontend context:
      *  - tx_pttools_div::typoscriptRegistry('plugin.my_ext.');
-     * 
+     *
      *  For all cases, when already having the page uid from where to load the typscript available (will only be used in non-frontend-context)
      *  - tx_pttools_div::typoscriptRegistry('plugin.my_ext.', 1);
-     * 
+     *
      *  For all cases, assuming the pageUid is configured in "tsConfigurationPid" of the extension manager configuration (will only be used in non-frontend-context)
      *  - tx_pttools_div::typoscriptRegistry('plugin.my_ext.', NULL, 'my_ext', 'tsConfigurationPid');
-     * 
+     *
      * @param     string    typoscript config key, e.g. "plugin.tx_myext."
      * @param     int       (optional) pageuid
      * @param     string    (optional) extension key
@@ -768,52 +802,52 @@ class tx_pttools_div  {
      * @since     2008-10-15
      */
     public static function typoscriptRegistry($tsConfigKey, $pageUid = NULL, $extKey = '', $extConfKey = '') {
-        
+
         tx_pttools_assert::isNotEmptyString($tsConfigKey, array('message' => 'No "tsConfigKey" defined!'));
-        
+
         require_once t3lib_extMgm::extPath('pt_tools').'res/objects/class.tx_pttools_registry.php';
-        
+
         $registry = tx_pttools_registry::getInstance();
         $registryKey = 'ts_' . $tsConfigKey;
-        
+
         if (!$registry->has($registryKey)) {
-            
+
             // In frontend context
             if ($GLOBALS['TSFE'] instanceof tslib_fe) {
-                
+
                 $confArray = self::getTS($tsConfigKey);
-            
+
             // Not in frontend context
             } else {
                 if (!is_null($pageUid)) {
-                    
+
                     tx_pttools_assert::isValidUid($pageUid, false, array('message' => 'No valid pageUid given'));
                     $confArray = self::returnTyposcriptSetup($pageUid, $tsConfigKey);
-                    
+
                 } elseif (!empty($extKey) && !empty($extConfKey)) {
-                    
+
                     $tmpExtConfArray = self::returnExtConfArray($extKey);
                     $pageUid = $tmpExtConfArray[$extConfKey];
                     tx_pttools_assert::isValidUid($pageUid, false, array('message' => 'No valid pageUid found under "'.$extConfKey.'" in extension configuration for extKey "'.$extKey.'"'));
                     $confArray = self::returnTyposcriptSetup($pageUid, $tsConfigKey);
-                    
+
                 } else {
                     throw new tx_pttools_exception('You have to define either a "pageUid" or a "extKey" and a "extConfKey" when not in frontend context.');
                 }
             }
-            
+
             $registry->register($registryKey, $confArray);
-            
+
         }
-        
+
         return $registry->get($registryKey);
-        
+
     }
-    
+
     /**
      * Returns the Typoscript setup of a given page - this may be used e.g. to read TS frontend configurations where no TSFE exists (e.g. in backend modules or CLI scripts).
      *
-     * @param   integer     (optional) page UID of the page to extract its TS setup (default=1) 
+     * @param   integer     (optional) page UID of the page to extract its TS setup (default=1)
      * @param   string      (optional) TS config key string to retrieve its value ('.' at each subkey's end means retrieve array, no '.' means retrieve single value, e.g. 'config.tx_ptgsashop.' for array or 'config.tx_ptgsashop.currencyCode' for single value
      * @return  mixed       array or single value - depending on 2nd param $tsConfigKey. If 2nd param is not set: multidimensional array of the given page's TS setup (this may be used read e.g. $returnArr['plugin.']['tx_EXTENSION_pi1.'])
      * @throws  tx_pttools_exception   if no TS setup could be found/created
@@ -821,7 +855,7 @@ class tx_pttools_div  {
      * @since   2008-01-24
      */
     public static function returnTyposcriptSetup($pageUid=1, $tsConfigKey='') {
-        
+
         // include required TYPO3 libraries
         require_once(PATH_t3lib.'class.t3lib_page.php');
         require_once(PATH_t3lib.'class.t3lib_tsparser_ext.php');
@@ -833,37 +867,37 @@ class tx_pttools_div  {
             $tmpTSFE = $GLOBALS['TSFE'];
             unset($GLOBALS['TSFE']);
         }
-        
+
         // create TS configuration: idea of Fabian Koenig (http://lists.netfielders.de/pipermail/typo3-german/2007-May/032473.html)
         $sysPageObj = t3lib_div::makeInstance('t3lib_pageSelect');
-        $rootLine = $sysPageObj->getRootLine($pageUid);      
-        $TSObj = t3lib_div::makeInstance('t3lib_tsparser_ext');  /* @var $TSObj t3lib_tsparser_ext */ 
-        $TSObj->tt_track = 0;    
+        $rootLine = $sysPageObj->getRootLine($pageUid);
+        $TSObj = t3lib_div::makeInstance('t3lib_tsparser_ext');  /* @var $TSObj t3lib_tsparser_ext */
+        $TSObj->tt_track = 0;
         $TSObj->init();
-        $TSObj->runThroughTemplates($rootLine);  
-        $TSObj->generateConfig();   
-        
+        $TSObj->runThroughTemplates($rootLine);
+        $TSObj->generateConfig();
+
         // restoring the TSFE if there was any
         if (is_object($tmpTSFE)) {
             $GLOBALS['TSFE'] = $tmpTSFE;
         }
-        
+
         // retrieve complete TS setup
         $returnVal = $TSObj->setup;  // multidimensional TS array here - this may be used read e.g. $returnVal['plugin.']['tx_EXTENSION_pi1.']
         if (!is_array($returnVal)) {
             throw new tx_pttools_exception('TS configuration retrieval error!', 2,
                                            __METHOD__.' failed to retrieve the TS configuration of page'.$pageUid);
         }
-        
+
         // process return value depending on 2nd param $tsConfigKey
-        if (!empty($tsConfigKey)) {    
+        if (!empty($tsConfigKey)) {
             $returnVal = self::getTS($tsConfigKey, $TSObj->setup);
         }
-    
+
         return $returnVal;  // mixed (array or single value)
 
     }
-    
+
     /**
      * Get Typoscript from array
      *
@@ -879,17 +913,17 @@ class tx_pttools_div  {
      * @since   2008-06-24
      */
     public static function getTS($tsPath, array $tsArray = array()) {
-        
+
         tx_pttools_assert::isNotEmptyString($tsPath, array('message' => '"tsPath" is empty!'));
         // TODO: improve pattern, so that ".blub" or "plugin..test" are not matched
-        
+
         if (empty($tsArray)) {
             tx_pttools_assert::isInstanceOf($GLOBALS['TSFE'], 'tslib_fe', array('message' => 'No TSFE available!'));
             $tsArray = $GLOBALS['TSFE']->tmpl->setup;
         }
-        
+
         tx_pttools_assert::isNotEmpty($tsArray);
-        
+
         $lastKeyIsArray = false;
         if (substr($tsPath, -1) == '.') {
             $lastKeyIsArray = true;
@@ -899,15 +933,15 @@ class tx_pttools_div  {
             if (!empty($keyPartsArray[$i])) {
                 $newSubKey = $keyPartsArray[$i].(($i<(count($keyPartsArray)-1) || $lastKeyIsArray == true) ? '.' : '');
                 $tsArray = $tsArray[$newSubKey];
-            } 
+            }
         }
-        
+
         return $tsArray;
     }
-    
-    /** 
+
+    /**
      * Overwrites the conf array with parameters from the flexform with the same keys
-     * 
+     *
      * @param   mixed    plugin object, e.g. "tslib_pibase" or any other object (needs a "tslib_cObj" at ->cObj, an array at ->conf and callable methods "pi_getFFvalue()" and "pi_initPIflexForm()")
      * @param   bool     (optional) if true the method won't throw an exception if no flexform data is found, default: false
      * @return  void
@@ -916,7 +950,7 @@ class tx_pttools_div  {
      * @since   2008-01-22
      */
     public static function mergeConfAndFlexform($pObj, $noExceptionIfNoFlexform = false) {
-        
+
         tx_pttools_assert::isObject($pObj, array('message' => '"$pObj" is no object.'));
         tx_pttools_assert::isInstanceOf($pObj->cObj, 'tslib_cObj', array('message' => '"$pObj->cObj" is no instance of "tslib_cObj".'));
         tx_pttools_assert::isArray($pObj->conf, array('message' => '"$pObj->conf" is no array.'));
@@ -926,10 +960,10 @@ class tx_pttools_div  {
         if (!is_callable(array($pObj, 'pi_getFFvalue'))) {
             throw new tx_pttools_exception('"$pObj needs a callable method "pi_getFFvalue()"');
         }
-        
+
         $pObj->pi_initPIflexForm();
         $piFlexForm = $pObj->cObj->data['pi_flexform'];
-        
+
         if (is_array($piFlexForm['data'])) {
             foreach ($piFlexForm['data'] as $sheet => $data) {
                 foreach ($data as $lang => $value) {
@@ -945,17 +979,17 @@ class tx_pttools_div  {
         } elseif (!$noExceptionIfNoFlexform) {
              throw new tx_pttools_exception('No plugin configuration found!', 0, 'No flexform data found. Please update your plugin configuration!');
         }
-        
+
     }
-    
-    
-    
+
+
+
     /***************************************************************************
      *   SECTION: FORMATTING/CONVERSION METHODS
      **************************************************************************/
-    
+
     /**
-     * Filters a given scalar value for HTML output on web pages to prevent XSS attacks and similar hacks. 
+     * Filters a given scalar value for HTML output on web pages to prevent XSS attacks and similar hacks.
      * Should be used instead of htmlspecialchars() for any output value in FE plugins.
      * Use tx_pttools_div::htmlOutputArray() for arrays or tx_pttools_div::htmlOutputArrayAccess() for ArrayAccess objects
      *
@@ -963,14 +997,14 @@ class tx_pttools_div  {
      * @return  string|NULL     filtered value string (empty string if input value was no scalar and not NULL) or NULL if input value was NULL
      * @see     tx_pttools_div::htmlOutputArray()
      * @see     tx_pttools_div::htmlOutputArrayAccess()
-     * @see     http://www.cgisecurity.com/articles/xss-faq.shtml#vendor  
+     * @see     http://www.cgisecurity.com/articles/xss-faq.shtml#vendor
      * @author  Rainer Kuhn <kuhn@punkt.de>
      * @since   2006-05-16, re-written 2009-05-08
      */
      public static function htmlOutput($value) {
-        
+
         $filteredValue = '';
-            
+
         // scalars: convert HTML special chars in filtered value
         if (is_scalar($value)) {
             $filteredValue = htmlspecialchars((string)$value, ENT_QUOTES); // default PHP special char conversion with double AND single quotes translated (translates: & " ' < >)
@@ -981,14 +1015,14 @@ class tx_pttools_div  {
         } else {
             if (TYPO3_DLOG) t3lib_div::devLog(__METHOD__.'(): unfilterable value has been converted to empty string', 'pt_tools', 2, array('original value' => $value));
         }
-        
+
         return $filteredValue;
-    
+
     }
-    
-     
+
+
     /**
-     * Filters the elements of a given array for HTML output on web pages to prevent XSS attacks and similar hacks. 
+     * Filters the elements of a given array for HTML output on web pages to prevent XSS attacks and similar hacks.
      * Should be used instead of htmlspecialchars() for any array  intended for output in FE plugins.
      *
      * @param   array       array with values to be filtered for output
@@ -999,21 +1033,21 @@ class tx_pttools_div  {
      * @since   2006-05-16, re-written 2009-05-08
      */
      public static function htmlOutputArray($array, $filterKeys=1) {
-     
+
         $filteredArray = array();
-        
+
         if (is_array($array)) {
-            
+
             foreach ($array as $key=>$value) {
-                
+
             // array key conversion (if requested)
                 $newKey = ($filterKeys == 1 ? tx_pttools_div::htmlOutput($key) : $key);
-                
+
             // array value conversion
                 // scalars: use default htmlOutput()
                 if (is_scalar($value)) {
                     $filteredArray[$newKey] = tx_pttools_div::htmlOutput($value);
-                // nested arrays: recursive function call 
+                // nested arrays: recursive function call
                 } elseif (is_array($value)) {
                     $filteredArray[$newKey] = tx_pttools_div::htmlOutputArray($value, $filterKeys);
                 // objects implementing the ArrayAccess interface: use htmlOutputArrayAccess()
@@ -1028,19 +1062,19 @@ class tx_pttools_div  {
                     if (TYPO3_DLOG) t3lib_div::devLog(__METHOD__.'(): unfilterable array value of key "'.$key.'" has been converted to empty string', 'pt_tools', 2, array('original value' => $value));
                 }
             }
-            
+
         } else {
             if (TYPO3_DLOG) t3lib_div::devLog(__METHOD__.'(): given parameter was no array', 'pt_tools', 2, array('original parameter' => $array));
         }
-        
+
         return $filteredArray;
-    
+
     }
-     
+
     /**
-     * Filters the elements of a given ArrayAccess object for HTML output on web pages to prevent XSS attacks and similar hacks. 
+     * Filters the elements of a given ArrayAccess object for HTML output on web pages to prevent XSS attacks and similar hacks.
      * Should be used instead of htmlspecialchars() for any ArrayAccess object intended for output in FE plugins.
-     * IMPORTANT: since the object will be cloned internally, this method does not work for non-clonable objects (e.g. Singletons). In this case you could implement the tx_pttools_iTemplateable interface to your object and sent the return of the getMarkerArray() method through tx_pttools_div::htmlOutputArray. 
+     * IMPORTANT: since the object will be cloned internally, this method does not work for non-clonable objects (e.g. Singletons). In this case you could implement the tx_pttools_iTemplateable interface to your object and sent the return of the getMarkerArray() method through tx_pttools_div::htmlOutputArray.
      *
      * @param   ArrayAccess     object implementing the ArrayAccess interface containing property values to be filtered for output
      * @param   boolean         (optional) flag whether keys of eventually contained nested arrays should be filtered, too. See comment of $filterKeys in htmlOutputArray.
@@ -1051,21 +1085,21 @@ class tx_pttools_div  {
      * @since   2009-05-08
      */
      public static function htmlOutputArrayAccess(ArrayAccess $arrayObject, $filterNestedArrayKeys=1) {
-        
+
         // prevent endless recursion loop for nested objects
-        static $loopCounter = 0; 
+        static $loopCounter = 0;
         $loopCounter += 1;
-        if ($loopCounter > 99) {  
+        if ($loopCounter > 99) {
             throw new tx_pttools_exceptionInternal('Recursion break', 'Max. recursion depth of 99 exceeded in '.__METHOD__);
         }
-         
+
         $filteredObject = clone($arrayObject);
-         
+
         foreach ($filteredObject as $key=>$value) {
-        	
+
         	// unset the property first, because overwriting it can have side-effects on ArrayAccess objects (e.g. when checking if an item already exists in the collection)
         	unset($filteredObject[$key]);
-            
+
             // scalars: use default htmlOutput()
             if (is_scalar($value)) {
                 $filteredObject[$key] = tx_pttools_div::htmlOutput($value);
@@ -1084,38 +1118,38 @@ class tx_pttools_div  {
                 if (TYPO3_DLOG) t3lib_div::devLog(__METHOD__.'(): unfilterable ArrayAccess object property "'.$key.'" has been converted to empty string', 'pt_tools', 2, array('original value' => $value));
             }
         }
-        
+
         return $filteredObject;
-    
+
     }
-     
+
     /**
      * Returns the given value as an integer (returns 1 for non-numeric values and for negative values if configured with 2nd param)
      *
      * @param   mixed       value to convert to an integer
-     * @param   boolean     (optional) flag wether only positive integer should be returned (if set to 1, this method will return 1 for any negative numeric values) 
+     * @param   boolean     (optional) flag wether only positive integer should be returned (if set to 1, this method will return 1 for any negative numeric values)
      * @return  integer     integer converted from given value
      * @author  Rainer Kuhn <kuhn@punkt.de>
      * @since   2005-10-13
      */
      public static function returnIntegerValue($value, $returnOnlyPositive=0) {
-     
+
         // use integer 1 for everything else than a numeric value
         $intValue = 1;
-            
+
         // use converted integer value for numeric values
         if (is_numeric(str_replace(',', '.', $value))) {
             $intValue = (integer)$value;
         }
-        
+
         // return 1 for any negative numeric values if second param is set to true
         if ($returnOnlyPositive == 1 && $intValue < 0) {
             $intValue = 1;
         }
-        
+
         return $intValue;
     }
-    
+
     /**
      * Make sure a comma-separated list of integers is really only that
      *
@@ -1125,7 +1159,7 @@ class tx_pttools_div  {
      * @since   2008-08-23
      */
      public static function sanitizeIntList($list) {
-     
+
         // turn list into array, sanitize array elements, put back into list
         $listArray = explode(',', $list);
         $cleanArray = explode(',', $list);
@@ -1133,10 +1167,10 @@ class tx_pttools_div  {
             $cleanArray[] = intval($element);
         }
         $list = implode(',', $cleanArray);
-            
+
         return $list;
     }
-    
+
     /**
      * Purges a comma seperated list (CSL) string (tries to compensate erroneous entries) and returns exploded string as array
      *
@@ -1147,31 +1181,31 @@ class tx_pttools_div  {
      * @since   2006-08-03 (based on PHP4 function tx_ptlayoutgen_pi1::purgeAndExplodeCSL() from 2004-12-08)
      */
     public static function returnArrayFromCsl($csl, $arrayName='') {
-    
+
         // try to compensate erroneous blanks and double commas
         $tmpCsl = str_replace(' ', '', $csl);
         $tmpCsl = str_replace(',,', ',', $tmpCsl);
-        
+
         // delete comma at string end (if exists)
         if (strrpos($tmpCsl, ',') === strlen($tmpCsl)-1) {
             $tmpCsl = substr($tmpCsl, 0, strlen($tmpCsl)-1);
         }
-        
+
         // explode and return as array
         $a_csl = array();
         if (!empty($tmpCsl)) {
             if (strpos($tmpCsl, ',') === FALSE) {
-                $a_csl[] = $tmpCsl; // if no commas are found: use comlete string as only array element 
+                $a_csl[] = $tmpCsl; // if no commas are found: use comlete string as only array element
             } else {
                 $a_csl = explode(',', $tmpCsl);
             }
         }
-        
+
         trace($a_csl, 0, ($arrayName ? '$'.$arrayName : '$a_csl'));
         return $a_csl;
-        
+
     }
-     
+
     /**
      * Returns an associative array of a given string list of separated key-value-pairs
      *
@@ -1183,19 +1217,19 @@ class tx_pttools_div  {
      * @since   2007-07-10
      */
     public static function getArrayFromKeyValueList($keyValueList, $pairSeparator=';', $keyValueSeparator='=') {
-        
+
         $resultArr = array();
         $keyValuePairArr = explode($pairSeparator, $keyValueList);
-        
+
         foreach ($keyValuePairArr as $keyValuePair){
             list($key, $value) = explode($keyValueSeparator, $keyValuePair);
             $resultArr[trim($key)] = trim($value);
         }
-        
+
         return $resultArr;
-        
-    } 
-     
+
+    }
+
     /**
      * Converts all string values of a given array from one to another charset encoding. This method requires libiconv to be installed on the server!
      *
@@ -1210,28 +1244,28 @@ class tx_pttools_div  {
      * @since   2006-09-28
      */
      public static function iconvArray($inputArray, $inputCharset='ISO-8859-1', $outputCharset='UTF-8', $exclusionArr=array(), $noConvHandling='//TRANSLIT') {
-        
+
         if (is_array($inputArray)) {
-            
+
             $outputArray = array();
             foreach ($inputArray as $key=>$value) {
                 if (is_string($value) && !in_array($key, $exclusionArr)) {
                     $outputArray[$key] = iconv($inputCharset, $outputCharset.$noConvHandling, $value);
                 } elseif (is_array($value) && !in_array($key, $exclusionArr)) {
-                    $outputArray[$key] = self::iconvArray($value, $inputCharset, $outputCharset, $exclusionArr, $noConvHandling); 
+                    $outputArray[$key] = self::iconvArray($value, $inputCharset, $outputCharset, $exclusionArr, $noConvHandling);
                 } else {
                     $outputArray[$key] = $value;
                 }
             }
-        // "security bottom" if one passes anything other than an array (e.g. a NULL result from a database query fetch assoc call)   
+        // "security bottom" if one passes anything other than an array (e.g. a NULL result from a database query fetch assoc call)
         } else {
             $outputArray = $inputArray;
         }
-        
+
         return $outputArray;
-    
+
     }
-    
+
     /**
      * Encrypts a password with md5 using salt
      *
@@ -1252,9 +1286,9 @@ class tx_pttools_div  {
         $salt = '$1$'.$salt.'$';
 
         return crypt($cleartext, $salt);
-        
+
     }
-    
+
     /**
      * Converts an array to a json string
      *
@@ -1265,14 +1299,14 @@ class tx_pttools_div  {
      * @since   2007-10-08
      */
     public static function array2json($arr) {
-        
+
         if (function_exists('json_encode')) {
             return json_encode($arr);
-            
+
         } else {
             $parts = array();
             $is_list = false;
-        
+
             //Find out if the given array is a numerical array
             $keys = array_keys($arr);
             $max_length = count($arr)-1;
@@ -1292,31 +1326,31 @@ class tx_pttools_div  {
                 } else {
                     $str = '';
                     if(!$is_list) $str = '"' . $key . '":';
-        
+
                     //Custom handling for multiple data types
                     if(is_numeric($value)) $str .= $value; //Numbers
                     elseif($value === false) $str .= 'false'; //The booleans
                     elseif($value === true) $str .= 'true';
                     else $str .= '"' . addslashes($value) . '"'; //All other things
                     // :TODO: Is there any more datatype we should be in the lookout for? (Object?)
-        
+
                     $parts[] = $str;
                 }
             }
             $json = implode(',',$parts);
-            
+
             if($is_list) return '[' . $json . ']';//Return numerical JSON
             return '{' . $json . '}';//Return associative JSON
         }
-        
+
     }
-    
-    
-    
+
+
+
     /***************************************************************************
      *   SECTION: DATABASE RELATED METHODS
      **************************************************************************/
-    
+
     /**
      * Returns the last built SQL SELECT query with tabs removed.
      *
@@ -1333,22 +1367,22 @@ class tx_pttools_div  {
      * @see                 class.t3lib_db.php, t3lib_db::exec_SELECTquery()
      * @author  Rainer Kuhn <kuhn@punkt.de>
      * @since   2005-04-26
-     */ 
+     */
     public static function returnLastBuiltSelectQuery(t3lib_db $dbObject, $select_fields, $from_table, $where_clause, $groupBy='', $orderBy='', $limit='') {
-           
+
         // try to get query from debug_lastBuiltQuery (works only for T3 3.8.0 with $GLOBALS['TYPO3_DB']->store_lastBuiltQuery = true)
         $query = $dbObject->debug_lastBuiltQuery;
-        
+
         // fallback for former versions of class.t3lib_db.php (TYPO3 3.6.0-3.8.0beta1) or $GLOBALS['TYPO3_DB']->store_lastBuiltQuery _not_ set to true
         if (strlen($query) < 1) {
             $query = $dbObject->SELECTquery($select_fields, $from_table, $where_clause, $groupBy, $orderBy, $limit);
         }
-        
+
         // remove tabs and return query string
         return str_replace(chr(9), '', $query);
-        
+
     }
-    
+
     /**
      * Returns the last built SQL DELETE query with tabs removed.
      *
@@ -1361,22 +1395,22 @@ class tx_pttools_div  {
      * @see                 class.t3lib_db.php, t3lib_db::exec_DELETEquery()
      * @author  Rainer Kuhn <kuhn@punkt.de>
      * @since   2005-11-16
-     */ 
+     */
     public static function returnLastBuiltDeleteQuery(t3lib_db $dbObject, $from_table, $where_clause) {
-           
+
         // try to get query from debug_lastBuiltQuery (works only for T3 3.8.0 with $GLOBALS['TYPO3_DB']->store_lastBuiltQuery = true)
         $query = $dbObject->debug_lastBuiltQuery;
-        
+
         // fallback for former versions of class.t3lib_db.php (TYPO3 3.6.0-3.8.0beta1) or $GLOBALS['TYPO3_DB']->store_lastBuiltQuery _not_ set to true
         if (strlen($query) < 1) {
             $query = $dbObject->DELETEquery($from_table, $where_clause);
         }
-        
+
         // remove tabs and return query string
         return str_replace(chr(9), '', $query);
-        
+
     }
-    
+
     /**
      * Returns the last built SQL UPDATE query with tabs removed.
      *
@@ -1390,22 +1424,22 @@ class tx_pttools_div  {
      * @see                 class.t3lib_db.php, t3lib_db::exec_UPDATEquery()
      * @author  Rainer Kuhn <kuhn@punkt.de>
      * @since   2005-11-17
-     */ 
+     */
     public static function returnLastBuiltUpdateQuery(t3lib_db $dbObject, $table, $where, $updateFieldsArr) {
-           
+
         // try to get query from debug_lastBuiltQuery (works only for T3 3.8.0 with $GLOBALS['TYPO3_DB']->store_lastBuiltQuery = true)
         $query = $dbObject->debug_lastBuiltQuery;
-        
+
         // fallback for former versions of class.t3lib_db.php (TYPO3 3.6.0-3.8.0beta1) or $GLOBALS['TYPO3_DB']->store_lastBuiltQuery _not_ set to true
         if (strlen($query) < 1) {
             $query = $dbObject->UPDATEquery($table, $where, $updateFieldsArr);
         }
-        
+
         // remove tabs and return query string
         return str_replace(chr(9), '', $query);
-        
+
     }
-    
+
     /**
      * Returns the last built SQL INSERT query with tabs removed.
      *
@@ -1418,38 +1452,38 @@ class tx_pttools_div  {
      * @see                 class.t3lib_db.php, t3lib_db::exec_INSERTquery()
      * @author  Rainer Kuhn <kuhn@punkt.de>
      * @since   2005-11-17
-     */ 
+     */
     public static function returnLastBuiltInsertQuery(t3lib_db $dbObject, $table, $insertFieldsArr) {
-           
+
         // try to get query from debug_lastBuiltQuery (works only for T3 3.8.0 with $GLOBALS['TYPO3_DB']->store_lastBuiltQuery = true)
         $query = $dbObject->debug_lastBuiltQuery;
-        
+
         // fallback for former versions of class.t3lib_db.php (TYPO3 3.6.0-3.8.0beta1) or $GLOBALS['TYPO3_DB']->store_lastBuiltQuery _not_ set to true
         if (strlen($query) < 1) {
             $query = $dbObject->INSERTquery($table, $insertFieldsArr);
         }
-        
+
         // remove tabs and return query string
         return str_replace(chr(9), '', $query);
-        
+
     }
 
     /**
-     * This function adds fieldentries for crdate, tstamp, cruser_id and pid to the fieldValue array used for SQL INSERT and UPDATE statements. 
-     * 
+     * This function adds fieldentries for crdate, tstamp, cruser_id and pid to the fieldValue array used for SQL INSERT and UPDATE statements.
+     *
      * crdate, cruser_id and pid are only added if INSERT is set to true.
-     * 
-     * @param   array       array which contains the field Value pairs for INSERT or UPDATE statements 
-     * @param   boolean     if true array will be used for SQL INSERT statement 
+     *
+     * @param   array       array which contains the field Value pairs for INSERT or UPDATE statements
+     * @param   boolean     if true array will be used for SQL INSERT statement
      * @param   integer     (optional) page id for INSERT (this setting has no effect if 2. param is set to false)
      * @param   integer     (optional) BE user id for INSERT (this setting has no effect if 2. param is set to false)
-     * @return  array       expanded array for SQL INSERT or UPDATE statements  
+     * @return  array       expanded array for SQL INSERT or UPDATE statements
      * @see                 class.t3lib_db.php, t3lib_db::exec_INSERTquery(), t3lib_db::exec_UPDATEquery()
      * @author  Dorit Rottner <rottner@punkt.de>
      * @since   2006-09-14
-     */ 
+     */
     public static function expandFieldValuesForQuery($fieldValueArr, $isInsert=false, $pid=NULL, $cruser_id=NULL) {
-        
+
         if ($isInsert) {
             $fieldValueArr['crdate'] = time();
             if (! is_null($pid)) {
@@ -1460,14 +1494,14 @@ class tx_pttools_div  {
             }
         }
         $fieldValueArr['tstamp'] = time();
-        
+
         return $fieldValueArr;
-        
-    } 
-    
+
+    }
+
     /**
      * Returns the TYPO3_MODE (FE/BE) related TYPO3 'enable fields' check clause as a where-clause addition for a given table
-     * 
+     *
      * @param   string      table name
      * @param   string      (optional) table alias
      * @return  string      where-clause addition for this table
@@ -1475,17 +1509,17 @@ class tx_pttools_div  {
      * @since   2006-10-30
      */
     public static function enableFields($table, $alias = '') {
-        
+
         if (TYPO3_MODE == 'FE' && is_object($GLOBALS['TSFE']->cObj)) {
             $result =  $GLOBALS['TSFE']->cObj->enableFields($table);
-        } else { 
-            require_once PATH_t3lib.'class.t3lib_befunc.php'; 
+        } else {
+            require_once PATH_t3lib.'class.t3lib_befunc.php';
             $result = t3lib_BEfunc::BEenableFields($table);
             // this is a bugfix for TYPO3 because if there are no hidden, start and endtime fields it returns AND
             if (trim($result) == 'AND') {
                 $result = '';
             }
-            $result .= t3lib_BEfunc::deleteClause($table); 
+            $result .= t3lib_BEfunc::deleteClause($table);
         }
         if ($alias != '') {
             $search = $table.'.';
@@ -1493,9 +1527,9 @@ class tx_pttools_div  {
             $result = str_replace($search, $replace, $result);
         }
         return $result;
-        
+
     }
-    
+
     /**
      * Returns true if a specified database table exists in the given database
      *
@@ -1507,17 +1541,17 @@ class tx_pttools_div  {
      * @since   2007-01-11
      */
     public static function dbTableExists($table, t3lib_db $dbObj) {
-        
+
         $tableExists = false;
         $query  = 'SHOW TABLES';
-        
+
         // exec query using TYPO3 DB API
         $res = $dbObj->sql_query($query);
         trace($query);
         if ($res == false) {
             throw new tx_pttools_exception('Query failed', 1, $dbObj->sql_error());
         }
-        
+
         // store all tables in an array
         $a_tables = array();
         while ($a_row = $dbObj->sql_fetch_assoc($res)) {
@@ -1525,18 +1559,18 @@ class tx_pttools_div  {
         }
         $dbObj->sql_free_result($res);
         trace($a_tables);
-        
+
         // search specified table in array
         trace('searching for table "'.$table.'"...');
         if (in_array($table, $a_tables)) {
             $tableExists = true;
         }
         trace($tableExists);
-        
+
         return $tableExists;
-        
-    }  
-    
+
+    }
+
     /**
      * Returns true if a specified database table contains record rows: the existence of a table ashould have been checked before using tx_pttools_div::dbTableExists()!
      *
@@ -1549,10 +1583,10 @@ class tx_pttools_div  {
      * @since   2007-03-26
      */
     public static function dbTableHasRecords($table, $dbName, t3lib_db $dbObj) {
-        
+
         $tableHasRecords = false;
         $query  = 'SHOW TABLE STATUS FROM '.$dbObj->quoteStr($dbName, $table).' LIKE "'.$dbObj->quoteStr($table, $table).'"';
-        
+
         // exec query using TYPO3 DB API
         $res = $dbObj->sql_query($query);
         trace($query);
@@ -1562,19 +1596,19 @@ class tx_pttools_div  {
         $a_row = $dbObj->sql_fetch_assoc($res);
         $dbObj->sql_free_result($res);
         trace($a_row);
-        
+
         // check number of table rows
         if ($a_row['Rows'] > 0) {
             $tableHasRecords = true;
         }
         trace($tableHasRecords);
-        
+
         return $tableHasRecords;
-        
-    } 
-    
-    
-    
+
+    }
+
+
+
 } // end class
 
 
