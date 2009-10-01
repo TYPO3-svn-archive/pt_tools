@@ -227,9 +227,9 @@ class tx_pttools_qfDefaultRenderer extends HTML_QuickForm_Renderer_Default imple
                 $html = str_replace('{errorclass}', (isset($error) ? ' '.$this->cssPrefix.'error' : ''), $html);
                 
             } else {
-                $html = str_replace('{id}', '', $html);
+                $html = str_replace('{id}', 'dummy_non-element', $html);
                 $html = str_replace('{comment}', '', $html);
-                $html = str_replace('{elementclass}', '', $html);
+                $html = str_replace('{elementclass}', 'tx-pttools-qf-non-element', $html);
                 $html = str_replace('{errorclass}', '', $html);
             }
         }

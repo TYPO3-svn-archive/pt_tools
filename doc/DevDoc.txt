@@ -12,7 +12,7 @@ RFT: refactoring / code cleanup
 ********************************************************************************
 
 
-ToDo: As of 24.09.2009
+ToDo: As of 01.10.2009
 ====
 - Implement storing, reading and deleting data to foreign session in backend and frontend context in tx_pttools_sessionStorageAdapter
   Storing to foreign sessions in frontend is already implemented. 
@@ -20,6 +20,8 @@ ToDo: As of 24.09.2009
 
 v0.4.2dev3:
 ----------
++ (rk) FIX: tx_pttools_qfDefaultRenderer::_prepareTemplate(): 
+       added dummy {elementclass} and {id} markers for Quickform non-elements (NULL elements, e.g. groups) to prevent empty HTML attribute assignments
 + (fb) ADD: added tx_pttools_div::stdWrapArray()
 + (fb) CHG: tx_pttools_finance::getFormattedPriceString() respects locale's thousands separator now
             Btw: Rainer, why isn't money_format used instead of number_format
