@@ -148,21 +148,27 @@ class tx_pttools_cliHandler  {
      * Error messages will be written to STDERR and they'll terminate the script.
      *
      * @param   string      message to handle
-     * @param   boolean     (optional) type of message: false=notice (default), true=error
+     * @param   boolean     (optional) type of message: false=notice (default), true=error (error results in sending an error mail and terminating the script!)
      * @param   integer     (optional) message display status value (0= standard, 1=always/also in quiet mode, 2=never)
-     * @param   boolean     (optional) flag wether the message is the initial script call message (default:false)
+     * @param   boolean     (optional) flag whether the message is the initial script call message (default:false)
+     * @param   boolean     (optional) flag whether a warning mail should be send for the given message even if it is not stated as an error at the 2nd param $isError (default:false)
      * @return  void        
      * @author  Rainer Kuhn <kuhn@punkt.de>
      * @since   2007-08-23, based on handleMsg() code from 2004-11-29/2007-03-08
      */
-    public function cliMessage($msg, $isError=false, $displayStatus=0, $initialMsg=false) {
+    public function cliMessage($msg, $isError=false, $displayStatus=0, $initialMsg=false, $sendWarningMailforNonErrors=false) {
         
         static $loggingErrorMailSent = false;
         $logMsg = '';
         ob_clean(); // clean (erase) the output buffer to display only the echo's below (necessary if output buffering is enabled before)
                
         // prepare messages for display and logging
-        $msg = ($isError ? "[ERROR] ".$msg."\nScript terminated.\n" : $msg."\n");
+        $msg = $msg."\n";
+        if ($isError == true) {
+            $msg = "[ERROR] ".$msg."\nScript terminated.\n";
+        } elseif ($sendWarningMailforNonErrors == true) {
+            $msg = "[WARNING] ".$msg."\n";
+        }
         if ($initialMsg == true) {
             $logMsg .= "\n".
                        "===========================================================================\n".
@@ -194,12 +200,16 @@ class tx_pttools_cliHandler  {
         }
     
         // if an error has occured: mail error to admin and terminate script
-        if ($isError == true) {
-            fwrite(STDERR, $msg."\n");  // write error message to shell's STDERR (enables e.g. mailing of cronjob errors)
-            $mailSubject    = "CLI SCRIPT ERROR: ".$this->cliScriptName." on ".$this->cliHostName;
-            $mailMessage    = "ERROR while executing ".$this->cliScriptName." on ".$this->cliHostName.":\n\n".$logMsg."\n\n";
+        if ($isError == true || $sendWarningMailforNonErrors == true) {
+            $mailSubject    = "CLI SCRIPT ".($isError == true ? "ERROR" : "WARNING").": ".$this->cliScriptName." on ".$this->cliHostName;
+            $mailMessage    = ($isError == true ? "ERROR" : "WARNING")." while executing ".$this->cliScriptName." on ".$this->cliHostName.":\n\n".$logMsg."\n\n";
             mail($this->adminMailRecipient, $mailSubject, $mailMessage, $this->mailHeaders);
-            die();
+            if ($isError == true) {
+                echo $msg;
+                ob_flush();  // sends the output buffer to display the echo message (necessary if output buffering is enabled before)
+                fwrite(STDERR, $msg."\n");  // write error message to shell's STDERR (enables e.g. mailing of cronjob errors)
+                die();
+            }
         } 
         
         // no error: display of debug message if activated in config

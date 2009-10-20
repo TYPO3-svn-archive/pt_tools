@@ -12,7 +12,7 @@ RFT: refactoring / code cleanup
 ********************************************************************************
 
 
-ToDo: As of 01.10.2009
+ToDo: As of 20.10.2009
 ====
 - Implement storing, reading and deleting data to foreign session in backend and frontend context in tx_pttools_sessionStorageAdapter
   Storing to foreign sessions in frontend is already implemented. 
@@ -20,6 +20,7 @@ ToDo: As of 01.10.2009
 
 v0.4.2dev3:
 ----------
++ (rk) ADD: tx_pttools_cliHandler::cliMessage(): added 5th param $sendWarningMailforNonErrors
 + (rk) FIX: tx_pttools_qfDefaultRenderer::_prepareTemplate(): 
        added dummy {elementclass} and {id} markers for Quickform non-elements (NULL elements, e.g. groups) to prevent empty HTML attribute assignments
 + (fb) ADD: added tx_pttools_div::stdWrapArray()
