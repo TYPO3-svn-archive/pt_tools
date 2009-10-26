@@ -12,13 +12,21 @@ RFT: refactoring / code cleanup
 ********************************************************************************
 
 
-ToDo: As of 20.10.2009
+ToDo: As of 26.10.2009
 ====
 - Implement storing, reading and deleting data to foreign session in backend and frontend context in tx_pttools_sessionStorageAdapter
   Storing to foreign sessions in frontend is already implemented. 
 
 
-v0.4.2dev3:
+
+v0.4.2dev4:
+----------
+
+
+
+
+
+v0.4.2dev3:  [used for online project 26.10.09]
 ----------
 + (rk) ADD: tx_pttools_cliHandler::cliMessage(): added 5th param $sendWarningMailforNonErrors
 + (rk) FIX: tx_pttools_qfDefaultRenderer::_prepareTemplate(): 
@@ -83,7 +91,7 @@ v0.4.2dev2: [Initial commit to SVN at forge.typo3.org]
 + (fb) CHG: tx_pttools_collection::getItemById() and ::getItemByIndex() return elements by reference
 
 
-v0.4.2dev1: [Online f. T3DD09 16.02.09]
+v0.4.2dev1: [used for online project 16.02.09]
 ----------
 + (rk) ADD: tx_pttools_paymentReturnInformation: added this new class to 'objects' => ***** MANUAL *****
 + (rk) ADD: tx_pttools_paymentRequestInformation: added this new class to 'objects' => ***** MANUAL *****
