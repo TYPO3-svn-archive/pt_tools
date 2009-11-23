@@ -12,17 +12,17 @@ RFT: refactoring / code cleanup
 ********************************************************************************
 
 
-ToDo: As of 26.10.2009
+ToDo: As of 23.11.2009
 ====
 - Implement storing, reading and deleting data to foreign session in backend and frontend context in tx_pttools_sessionStorageAdapter
   Storing to foreign sessions in frontend is already implemented. 
 
 
 
-v0.4.2dev4:
-----------
-
-
+v1.0.0dev (= v0.4.2final)
+---------
+- (rk) CHG: version update: ext_emconf.php: raised version number to 1.0.0dev
+- (rk) ADD: added documentation for version 1.0.0 to manual.sxw and DevDoc.txt (unfinished)
 
 
 
@@ -70,8 +70,8 @@ v0.4.2dev3:  [used for online project 26.10.09]
 + (fb) RFT: res/objects/class.tx_pttools_qfDefaultRenderer.php: corrected some access modifiers and phpdoc comments
 + (rk) ADD: added templatable Quickform form renderer
        + added PEAR HTML_QuickForm as suggestion to ext_emconf.php
-       + added renderer interface res/abstract/class.tx_pttools_iQuickformRenderer.php
-       + added renderer class res/objects/class.tx_pttools_qfDefaultRenderer.php
+       + added renderer interface res/abstract/class.tx_pttools_iQuickformRenderer.php  *********** MANUAL ********************
+       + added renderer class res/objects/class.tx_pttools_qfDefaultRenderer.php   *********** MANUAL ********************
        + added renderer templates res/tmpl/tx_pttools_quickformRendererDefault.html and tx_pttools_quickformRendererMinimal.html
 + (mk) ADD: res/staticlib/class.tx_pttools_assert.php: added assertion, for checking, whether array is associative
 + (mk) ADD: res/staticlib/class.tx_pttools_div.php: added method to check, whether an array is associative or not
@@ -83,35 +83,35 @@ v0.4.2dev3:  [used for online project 26.10.09]
 v0.4.2dev2: [Initial commit to SVN at forge.typo3.org]
 ----------
 + (rk) ADD: ext_emconf.php: added extension suggestions for development
-+ (mk) ADD: exceptionNotYetImplemented for marking non-finished methods etc.
-+ (mk) ADD: iSingletonCollection interface for singleton collections (returning singleton by an id)
-+ (fb) ADD: tx_pttools_div::quoteStr() for use as typoscript userFunction. See phpdoc for an example
+++ (mk) ADD: exceptionNotYetImplemented for marking non-finished methods etc.
+++ (mk) ADD: iSingletonCollection interface for singleton collections (returning singleton by an id)
+++ (fb) ADD: tx_pttools_div::quoteStr() for use as typoscript userFunction. See phpdoc for an example
 + (fb) ADD: Smarty modifier: modifier.explodeAndPrint.php
-+ (rk) CHG: tx_pttools_debug: ignores tx_pttools_exception inclusion in non TYPO3-mode now (allows to use the base class functions in any arbitrary context)
+++ (rk) CHG: tx_pttools_debug: ignores tx_pttools_exception inclusion in non TYPO3-mode now (allows to use the base class functions in any arbitrary context)
 + (fb) CHG: tx_pttools_collection::getItemById() and ::getItemByIndex() return elements by reference
 
 
 v0.4.2dev1: [used for online project 16.02.09]
 ----------
-+ (rk) ADD: tx_pttools_paymentReturnInformation: added this new class to 'objects' => ***** MANUAL *****
-+ (rk) ADD: tx_pttools_paymentRequestInformation: added this new class to 'objects' => ***** MANUAL *****
+++ (rk) ADD: tx_pttools_paymentReturnInformation: added this new class to 'objects'
+++ (rk) ADD: tx_pttools_paymentRequestInformation: added this new class to 'objects'
 + (rk) ADD: tx_pttools_sessionStorageAdapter::delete(): key deletion and logging is only performed if the requested key is not empty
 + (mk) RFT: tx_pttools_beSubmodule::init() using assertions to check prefix and extkey 
-+ (uk) FIX: tx_pttools_assert::isNotEmptyString() funktionierte nicht bei '0'
-+ (rk) class.tx_pttools_collection.php, class.tx_pttools_objectCollection.php: xclassing korrigiert
-+ (fb) modifier.ll.php: added optional parameter "$throwExceptionOnTranslationUnavailable"
-+ (fb) tx_pttools_iSettableByArray: added this interface  => ***** MANUAL *****
-+ (fb) tx_pttools_div: added hasGroupAccess() method
-+ (fb) added smarty modifier: stdWrap   => ***** MANUAL ***** ??
-+ (fb) tx_pttools_collection: addItems error message
-+ (fb) tx_pttools_sessionStorageAdapter: added additional optional parameter "allow(un)serialize" to prevent automatical (un)serializing of objects while storing or reading
-+ (rk) added new interface tx_pttools_iPageable [ACHTUNG: ***** MANUAL ***** oder ggf. noch nicht einchecken/ListGenerator abwarten!]
-   + (fb) changed the order of parameters in tx_pttools_iPageable interface
-   + (fb) removed where and oderBy parameters of getTotalItemCount() and getItems() methods
-+ (rk) added new interface tx_pttools_iTemplateable [ACHTUNG: ***** MANUAL ***** oder ggf. noch nicht einchecken/ListGenerator abwarten!]
-+ (wz) bugfix: formTemplateHandler: wrong helptext for password repeat field
-+ (wz) docs: added description for password repeat label/help texts.
-+ (rk) ext_emconf.php: adapted extension description
+++ (uk) FIX: tx_pttools_assert::isNotEmptyString() funktionierte nicht bei '0'
++ (rk) FIX: class.tx_pttools_collection.php, class.tx_pttools_objectCollection.php: fixed xclassing
++ (fb) ADD: modifier.ll.php: added optional parameter "$throwExceptionOnTranslationUnavailable"
+++ (fb) ADD: tx_pttools_iSettableByArray: added this interface
+++ (fb) ADD: tx_pttools_div: added hasGroupAccess() method
+++ (fb) ADD: added smarty modifier: stdWrap
++ (fb) ADD: tx_pttools_collection: addItems error message
++ (fb) ADD: tx_pttools_sessionStorageAdapter: added additional optional parameter "allow(un)serialize" to prevent automatical (un)serializing of objects while storing or reading
+++ (rk) ADD: added new interface tx_pttools_iPageable
+   + (fb) CHG: changed the order of parameters in tx_pttools_iPageable interface
+   + (fb) CHG: removed where and orderBy parameters of getTotalItemCount() and getItems() methods
+++ (rk) ADD: added new interface tx_pttools_iTemplateable
++ (wz) FIX: formTemplateHandler: fixed wrong helptext for password repeat field
++ (wz) ADD: docs: added description for password repeat label/help texts.
+++ (rk) CHG: ext_emconf.php: adapted extension description
 
 
 
