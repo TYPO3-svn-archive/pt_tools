@@ -27,8 +27,14 @@ ToDo: As of 24.11.2009
 CHANGELOG
 ********************************************************************************
 
+v1.0.1dev:
+---------
++ (rk) CHG: "initialized" development version 1.0.1dev (v1.0.0 has been tagged before in SVN)
 
-v1.0.0 (= v0.4.2final)
+
+
+
+v1.0.0: (= v0.4.2final) [tagged on Forge SVN and uploaded to TER 24.11.09]
 ------
 + (rk) CHG: version update: ext_emconf.php: raised version number to 1.0.0
 + (rk) ADD: added documentation and changelog for version 1.0.0 to manual.sxw and DevDoc.txt
