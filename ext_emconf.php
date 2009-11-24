@@ -49,6 +49,7 @@ $EM_CONF[$_EXTKEY] = array(
             'geshilib' => '',
             'fb_devlog' => '',
 			'PHP with --enable-bcmath (THIS IS JUST A HINT for tx_pttools_finance, please ignore if your server is correctly configured)' => '',
+            'PEAR Console_Getopt (THIS IS JUST A HINT, please ignore if your server is correctly configured)' => '',
             'PEAR HTML_QuickForm (THIS IS JUST A HINT, please ignore if your server is correctly configured)' => '',
 		),
 	),
