@@ -22,7 +22,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 /** 
- * Interface for templateable classes (part of the 'pt_tools' extension)
+ * Interface for objects, whose properties can be set at once by passing an array to a defined method (part of the 'pt_tools' extension)
  *
  * $Id$
  *
