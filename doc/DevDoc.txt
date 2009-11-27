@@ -3,16 +3,15 @@ DevDoc.txt: Development notes for EXT pt_tools
 Author: Rainer Kuhn, Fabrizio Branca, Wolfgang Zenker et. al.
 
 Legend:
-
-FIX: fixes a bug
-CHG: inform about changed items
+FIX: fixed a bug
+CHG: changed items/features
 ADD: added feature
-RMV: removed Item
+RMV: removed item
 RFT: refactoring / code cleanup
 ********************************************************************************
 
 
-ToDo: As of 24.11.2009
+ToDo: As of 27.11.2009
 ====
 
 - Implement storing, reading and deleting data to foreign session in backend and frontend context in tx_pttools_sessionStorageAdapter
@@ -29,8 +28,8 @@ CHANGELOG
 
 v1.0.1dev:
 ---------
++ (rk) CHG: changed author email address in manual to t3extensions@punkt.de
 + (rk) CHG: "initialized" development version 1.0.1dev (v1.0.0 has been tagged before in SVN)
-
 
 
 
