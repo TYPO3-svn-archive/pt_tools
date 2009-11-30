@@ -26,8 +26,9 @@ ToDo: As of 27.11.2009
 CHANGELOG
 ********************************************************************************
 
-v1.0.1dev:
----------
+v1.0.1:
+------
++ (rk) RFT: removed SVN control directories for TER version
 + (rk) CHG: changed author email address in manual to t3extensions@punkt.de
 + (rk) CHG: "initialized" development version 1.0.1dev (v1.0.0 has been tagged before in SVN)
 
