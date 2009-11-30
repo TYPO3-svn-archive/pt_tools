@@ -1,117 +1,134 @@
 ********************************************************************************
 DevDoc.txt: Development notes for EXT pt_tools
-Author: Rainer Kuhn, Fabrizio Branca, Wolfgang Zenker
+Author: Rainer Kuhn, Fabrizio Branca, Wolfgang Zenker et. al.
 
 Legend:
-
-FIX: fixes a bug
-CHG: inform about changed items
+FIX: fixed a bug
+CHG: changed items/features
 ADD: added feature
-RMV: removed Item
+RMV: removed item
 RFT: refactoring / code cleanup
 ********************************************************************************
 
 
-ToDo: As of 26.10.2009
+ToDo: As of 27.11.2009
 ====
+
 - Implement storing, reading and deleting data to foreign session in backend and frontend context in tx_pttools_sessionStorageAdapter
   Storing to foreign sessions in frontend is already implemented. 
+- Refactor tx_pttools_cliHandler
+- Add unit tests
 
 
 
-v0.4.2dev4:
-----------
+
+********************************************************************************
+CHANGELOG
+********************************************************************************
+
+v1.0.1:
+------
++ (rk) RFT: removed SVN control directories for TER version
++ (rk) CHG: changed author email address in manual to t3extensions@punkt.de
++ (rk) CHG: "initialized" development version 1.0.1dev (v1.0.0 has been tagged before in SVN)
 
 
 
+v1.0.0: (= v0.4.2final) [tagged on Forge SVN and uploaded to TER 24.11.09]
+------
++ (rk) CHG: version update: ext_emconf.php: raised version number to 1.0.0
++ (rk) ADD: added documentation and changelog for version 1.0.0 to manual.sxw and DevDoc.txt
++ (rk) ADD: added reference to doc/DevDoc.txt in file 'ChangeLog'
++ (rk) ADD: added 'PEAR Console_Getopt' to suggestions in ext_emconf.php
 
 
 v0.4.2dev3:  [used for online project 26.10.09]
 ----------
-+ (rk) ADD: tx_pttools_cliHandler::cliMessage(): added 5th param $sendWarningMailforNonErrors
-+ (rk) FIX: tx_pttools_qfDefaultRenderer::_prepareTemplate(): 
+++ (rk) ADD: tx_pttools_cliHandler::cliMessage(): added 5th param $sendWarningMailforNonErrors (yes, this method/class has to be completely refactored :)
+++ (rk) FIX: tx_pttools_qfDefaultRenderer::_prepareTemplate(): 
        added dummy {elementclass} and {id} markers for Quickform non-elements (NULL elements, e.g. groups) to prevent empty HTML attribute assignments
-+ (fb) ADD: added tx_pttools_div::stdWrapArray()
-+ (fb) CHG: tx_pttools_finance::getFormattedPriceString() respects locale's thousands separator now
+++ (fb) ADD: added tx_pttools_div::stdWrapArray()
+++ (fb) CHG: tx_pttools_finance::getFormattedPriceString() respects locale's thousands separator now
             Btw: Rainer, why isn't money_format used instead of number_format
-+ (fb) ADD: added tx_pttools_div::getLangObject(). Use this if you need a lang object and don't want to care about the context you're in
-+ (fb) ADD: added tx_pttools_debug::exceptionToTxt() and extended catchUncaughtExceptionsExceptionHandler to display exception in txt format when in cli mode
-+ (fb) ADD: added method tx_pttools_div::isIntegerish()
-+ (fb) ADD: added some html comments in tx_pttools_debug::exceptionToHTML() output.
-+ (fb) ADD: smartyAdapter reads language file from EXT:<extkey>/locallang.xml by default (instead of throwing an error if nothing is configured)
-+ (fb) ADD: added hook in tx_pttools_div::localRedirect()
-+ (fb) ADD: added smarty modifiers includeCssFile and includeJsFile that allow to include js and css files from within smarty view templates
-+ (fb) ADD: added hook in tx_pttools_smartyAdapter::__construct() to allow to add other locations for smarty plugin directories
+++ (fb) ADD: added tx_pttools_div::getLangObject(). Use this if you need a lang object and don't want to care about the context you're in
+++ (fb) ADD: added tx_pttools_debug::exceptionToTxt() and extended catchUncaughtExceptionsExceptionHandler() to display exception in text format when in CLI mode
+++ (fb) ADD: added method tx_pttools_div::isIntegerish()
+++ (fb) ADD: added some html comments in tx_pttools_debug::exceptionToHTML() output.
+++ (fb) ADD: smartyAdapter reads language file from EXT:<extkey>/locallang.xml by default (instead of throwing an error if nothing is configured)
+++ (fb) ADD: added hook in tx_pttools_div::localRedirect()
+++ (fb) ADD: added smarty modifiers includeCssFile and includeJsFile that allow to include js and css files from within smarty view templates
+++ (fb) ADD: added hook in tx_pttools_smartyAdapter::__construct() to allow to add other locations for smarty plugin directories
 + (rk) ADD: class.tx_pttools_cliHandler.php: added output buffer handling in cliMessage() due to new(?) ob_start() command TYPO3's init.php
-+ (rk) CHG: tmpl/tx_pttools_quickformRendererDiv.html: changed HTML tags and CSS class names for div-renderer template 
-+ (rk) ADD/CHG: Added and changed CSS styles for tx_pttools_qfDefaultRenderer and div-renderer template:
+++ (rk) CHG: tmpl/tx_pttools_quickformRendererDiv.html: changed HTML tags and CSS class names for div-renderer template 
+++ (rk) ADD/CHG: Added and changed CSS styles for tx_pttools_qfDefaultRenderer and div-renderer template:
        + tx_pttools_qfDefaultRenderer: changed default CSS prefix, added YAML-like CSS class to all form elements
        + tmpl/tx_pttools_quickformRendererDiv.html: added CSS classes for special elements
-+ (fb) ADD: added property (including getter and setter) "referenceNumber" to class tx_pttools_paymentRequestInformation
+++ (fb) ADD: added property (including getter and setter) "referenceNumber" to class tx_pttools_paymentRequestInformation
        ADD: added optional parameter to tx_pttools_paymentReturnInformation::construct() to allow data being read from session
        ADD: added optional parameter to tx_pttools_paymentReturnInformation::storeToSession() to allow data being stored into a foreign session
        ADD: added optional parameter to tx_pttools_sessionStorageAdapter::store() to allow data being stored into a foreign session
-+ (dl) ADD: added tmpl/tx_pttools_quickformRendererDiv.html derived tx_pttools_quickformRendererMinimal.html with YAML like element template
+++ (dl) ADD: added tmpl/tx_pttools_quickformRendererDiv.html derived tx_pttools_quickformRendererMinimal.html with YAML like element template
 			added additional markers to tx_pttools_qfDefaultRenderer::_prepareTemplate
-+ (fb) CHG: tx_pttools_div::htmlOutputArrayAccess(): unset values before overwriting them, because a simple overwrite can cause side-effects
+++ (fb) CHG: tx_pttools_div::htmlOutputArrayAccess(): unset values before overwriting them, because a simple overwrite can cause side-effects
             depending on the implementation of the ArrayAccess object. (E.g. when checking if an element already exists)
-+ (uk) ADD: res/smarty_plugins/modifier.numberFormat.php to format a number with deimalpoint and thousand separator
-+ (uk) ADD: res/smarty_plugins/modifier.registerValue.php save a smarty value in register object collection
-+ (rk) FIX: tx_pttools_div::quoteStr(): fixed the example Typoscript code for quoteStr() as TS userFunc usage
-+ (rk) RFT: tx_pttools_div: code cleanup, added array check in isAssociativeArray()
-+ (rk) ADD/CHG: extendend XSS prevention tools
-       - tx_pttools_div: added new method htmlOutputArrayAccess()
-       - tx_pttools_div: extended and improved existing methods htmlOutput() and htmlOutputArray()
-+ (rk) CHG: renamed exceptionNotYetImplemented to exceptionNotImplemented (class.tx_pttools_exceptionNotYetImplemented.php, class.tx_pttools_exception.php)
-+ (rk) ADD: res/smarty_plugins/modifier.trace.php: added a smarty modifier for tracing/debugging output
-+ (mk) CHG: Added code example for iSingletonCollection interface
-+ (fb) CHG: made tx_pttools_singletonCollection::getInstanceById() static
-+ (fb) RMV: .cvsignore file
-+ (fb) RFT: res/objects/class.tx_pttools_qfDefaultRenderer.php: corrected some access modifiers and phpdoc comments
-+ (rk) ADD: added templatable Quickform form renderer
-       + added PEAR HTML_QuickForm as suggestion to ext_emconf.php
-       + added renderer interface res/abstract/class.tx_pttools_iQuickformRenderer.php
-       + added renderer class res/objects/class.tx_pttools_qfDefaultRenderer.php
-       + added renderer templates res/tmpl/tx_pttools_quickformRendererDefault.html and tx_pttools_quickformRendererMinimal.html
-+ (mk) ADD: res/staticlib/class.tx_pttools_assert.php: added assertion, for checking, whether array is associative
-+ (mk) ADD: res/staticlib/class.tx_pttools_div.php: added method to check, whether an array is associative or not
-+ (rk) ADD: res/smarty_plugins/modifier.convertDate.php: added a smarty modifier for date format conversion
-+ (fb) ADD: res/smarty_plugins/modifier.urlencode.php: added a smarty modifier for urlencoding
+++ (uk) ADD: res/smarty_plugins/modifier.numberFormat.php to format a number with deimalpoint and thousand separator
+++ (uk) ADD: res/smarty_plugins/modifier.registerValue.php save a smarty value in register object collection
+++ (rk) FIX: tx_pttools_div::quoteStr(): fixed the example Typoscript code for quoteStr() as TS userFunc usage
+++ (rk) RFT: tx_pttools_div: code cleanup, added array check in isAssociativeArray()
+++ (rk) ADD/CHG: extendend XSS prevention tools
+       + tx_pttools_div: added new method htmlOutputArrayAccess()
+       + tx_pttools_div: extended and improved existing methods htmlOutput() and htmlOutputArray()
+++ (rk) CHG: renamed exceptionNotYetImplemented to exceptionNotImplemented (class.tx_pttools_exceptionNotYetImplemented.php, class.tx_pttools_exception.php)
+++ (rk) ADD: res/smarty_plugins/modifier.trace.php: added a smarty modifier for tracing/debugging output
+++ (mk) ADD: Added code example for iSingletonCollection interface
+++ (fb) CHG: made tx_pttools_singletonCollection::getInstanceById() static
+++ (fb) RMV: .cvsignore file
+++ (fb) RFT: res/objects/class.tx_pttools_qfDefaultRenderer.php: corrected some access modifiers and phpdoc comments
+++ (rk) ADD: added templatable Quickform form renderer
+       ++ added PEAR HTML_QuickForm as suggestion to ext_emconf.php
+       ++ added renderer interface res/abstract/class.tx_pttools_iQuickformRenderer.php
+       ++ added renderer class res/objects/class.tx_pttools_qfDefaultRenderer.php
+       ++ added renderer templates res/tmpl/tx_pttools_quickformRendererDefault.html and tx_pttools_quickformRendererMinimal.html
+++ (mk) ADD: res/staticlib/class.tx_pttools_assert.php: added assertion isAssociativeArray(), for checking, whether array is associative
+++ (mk) ADD: res/staticlib/class.tx_pttools_div.php: added method isAssociativeArray() to check whether an array is associative or not
+++ (rk) ADD: res/smarty_plugins/modifier.convertDate.php: added a smarty modifier for date format conversion
+++ (fb) ADD: res/smarty_plugins/modifier.urlencode.php: added a smarty modifier for urlencoding
 + (fb) RFT: res/smarty_plugins/modifier.formatsize.php: Corrected code comments
 
 
 v0.4.2dev2: [Initial commit to SVN at forge.typo3.org]
 ----------
 + (rk) ADD: ext_emconf.php: added extension suggestions for development
-+ (mk) ADD: exceptionNotYetImplemented for marking non-finished methods etc.
-+ (mk) ADD: iSingletonCollection interface for singleton collections (returning singleton by an id)
-+ (fb) ADD: tx_pttools_div::quoteStr() for use as typoscript userFunction. See phpdoc for an example
-+ (fb) ADD: Smarty modifier: modifier.explodeAndPrint.php
-+ (rk) CHG: tx_pttools_debug: ignores tx_pttools_exception inclusion in non TYPO3-mode now (allows to use the base class functions in any arbitrary context)
+++ (mk) ADD: exceptionNotYetImplemented for marking non-finished methods etc.
+++ (mk) ADD: iSingletonCollection interface for singleton collections (returning singleton by an id)
+++ (fb) ADD: tx_pttools_div::quoteStr() for use as typoscript userFunction. See phpdoc for an example
+++ (fb) ADD: Smarty modifier: modifier.explodeAndPrint.php
+++ (rk) CHG: tx_pttools_debug: ignores tx_pttools_exception inclusion in non TYPO3-mode now (allows to use the base class functions in any arbitrary context)
 + (fb) CHG: tx_pttools_collection::getItemById() and ::getItemByIndex() return elements by reference
 
 
 v0.4.2dev1: [used for online project 16.02.09]
 ----------
-+ (rk) ADD: tx_pttools_paymentReturnInformation: added this new class to 'objects' => ***** MANUAL *****
-+ (rk) ADD: tx_pttools_paymentRequestInformation: added this new class to 'objects' => ***** MANUAL *****
+++ (rk) ADD: tx_pttools_paymentReturnInformation: added this new class to 'objects'
+++ (rk) ADD: tx_pttools_paymentRequestInformation: added this new class to 'objects'
 + (rk) ADD: tx_pttools_sessionStorageAdapter::delete(): key deletion and logging is only performed if the requested key is not empty
 + (mk) RFT: tx_pttools_beSubmodule::init() using assertions to check prefix and extkey 
-+ (uk) FIX: tx_pttools_assert::isNotEmptyString() funktionierte nicht bei '0'
-+ (rk) class.tx_pttools_collection.php, class.tx_pttools_objectCollection.php: xclassing korrigiert
-+ (fb) modifier.ll.php: added optional parameter "$throwExceptionOnTranslationUnavailable"
-+ (fb) tx_pttools_iSettableByArray: added this interface  => ***** MANUAL *****
-+ (fb) tx_pttools_div: added hasGroupAccess() method
-+ (fb) added smarty modifier: stdWrap   => ***** MANUAL ***** ??
-+ (fb) tx_pttools_collection: addItems error message
-+ (fb) tx_pttools_sessionStorageAdapter: added additional optional parameter "allow(un)serialize" to prevent automatical (un)serializing of objects while storing or reading
-+ (rk) added new interface tx_pttools_iPageable [ACHTUNG: ***** MANUAL ***** oder ggf. noch nicht einchecken/ListGenerator abwarten!]
-   + (fb) changed the order of parameters in tx_pttools_iPageable interface
-   + (fb) removed where and oderBy parameters of getTotalItemCount() and getItems() methods
-+ (rk) added new interface tx_pttools_iTemplateable [ACHTUNG: ***** MANUAL ***** oder ggf. noch nicht einchecken/ListGenerator abwarten!]
-+ (wz) bugfix: formTemplateHandler: wrong helptext for password repeat field
-+ (wz) docs: added description for password repeat label/help texts.
-+ (rk) ext_emconf.php: adapted extension description
+++ (uk) FIX: tx_pttools_assert::isNotEmptyString() funktionierte nicht bei '0'
++ (rk) FIX: class.tx_pttools_collection.php, class.tx_pttools_objectCollection.php: fixed xclassing
++ (fb) ADD: modifier.ll.php: added optional parameter "$throwExceptionOnTranslationUnavailable"
+++ (fb) ADD: tx_pttools_iSettableByArray: added this interface
+++ (fb) ADD: tx_pttools_div: added hasGroupAccess() method
+++ (fb) ADD: added smarty modifier: stdWrap
++ (fb) ADD: tx_pttools_collection: addItems error message
++ (fb) ADD: tx_pttools_sessionStorageAdapter: added additional optional parameter "allow(un)serialize" 
+            to prevent automatical (un)serializing of objects while storing or reading
+++ (rk) ADD: added new interface tx_pttools_iPageable
+   + (fb) CHG: changed the order of parameters in tx_pttools_iPageable interface
+   + (fb) CHG: removed where and orderBy parameters of getTotalItemCount() and getItems() methods
+++ (rk) ADD: added new interface tx_pttools_iTemplateable
++ (wz) FIX: formTemplateHandler: fixed wrong helptext for password repeat field
++ (wz) ADD: docs: added description for password repeat label/help texts.
+++ (rk) CHG: ext_emconf.php: adapted extension description
 
 
 
