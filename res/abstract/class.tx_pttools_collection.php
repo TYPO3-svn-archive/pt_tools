@@ -241,21 +241,28 @@ abstract class tx_pttools_collection implements IteratorAggregate, Countable, Ar
     }
 
     /**
-     * Prepend one or more elements to the beginning of the collection
+     * Prepend one element to the beginning of the collection
      * Multiple elements (like in array_unshift) are not supported!
      *
      * @param   mixed   element to prepend
      * @param   bool    (optional) if true key won't be modified, else numerical keys will be renumbered, default if false
-     * @return  int     Returns the new number of elements in the collection
+     * @return  int     (optional) Returns the new number of elements in the collection
      * @author  Fabrizio Branca <mail@fabrizio-branca.de>
      * @since   2008-06-07
      */
-    public function unshift($element, $doNotModifyKeys = false) {
+    public function unshift($element, $doNotModifyKeys = false, $useKey = NULL) {
     
         $this->checkItemType($element);
     
         if ($doNotModifyKeys == true) {
-            $this->itemsArr = array($element) + $this->itemsArr;
+        	if (is_null($useKey)) {
+            	$this->itemsArr = array($element) + $this->itemsArr;
+        	} else {
+        		if (array_key_exists($useKey, $this->itemsArr)) {
+        			unset($this->itemsArr[$useKey]);
+        		}
+        		$this->itemsArr = array($useKey => $element) + $this->itemsArr;
+        	}
         } else {
             array_unshift($this->itemsArr, $element);
         }
