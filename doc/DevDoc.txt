@@ -28,6 +28,7 @@ CHANGELOG
 
 v1.0.2dev:
 ---------
++ (fb) ADD: added smarty function img_resource (which uses typoscript's IMG_RESOURCE)
 + (fb) ADD: Added option "usekey" for collection->unshift method to force a key
 + (rk) CHG: "initialized" development version 1.0.2dev (v1.0.1 has been tagged in SVN and uploaded to TER before)
 
