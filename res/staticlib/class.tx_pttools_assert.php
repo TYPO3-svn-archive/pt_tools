@@ -584,6 +584,27 @@ class tx_pttools_assert {
 
 
     /**
+     * Test if a value is an array with valid uids for TYPO3 records. (positive integer)
+     *
+     * @param     mixed    value
+     * @param     bool    (optional) allow "0", default is false
+     * @param     array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
+     * @return     void
+     * @author    Fabrizio Branca <mail@fabrizio-branca.de>
+     * @since    2009-12-23
+     * @throws  tx_pttools_exceptionAssertion   if assertion fails
+     */
+    public static function isValidUidArray($val, $allowZero = false, array $info = array()) {
+    	self::isArray($val, $info);
+    	
+    	foreach ($val as $uid) {
+    		self::isValidUid($uid, $allowZero, $info);
+    	}
+    }
+
+
+
+    /**
      * Test if value is a valid mysql ressource
      *
      * @param     mixed        value
