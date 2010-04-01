@@ -130,7 +130,9 @@ class tx_pttools_assert {
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
     public static function isEqual($a, $b, array $info = array()) {
-
+		if ($info['message']) {
+			$info['message'] = sprintf($info['message'], $a, $b);
+		}
         return self::test($a, $b, $info, false);
     }
 
@@ -196,8 +198,22 @@ class tx_pttools_assert {
     public static function matchesPattern($pattern, $val, array $info = array()) {
         self::isString($pattern);
         self::isString($val);
-        return self::test(preg_match($pattern, $val), true, $info);
+        return self::test(preg_match($pattern, $val), true, $info, false);
     }
+        
+    
+    
+    /**
+     * Test if variable consists only of letters and digits
+     *
+     * @param	mixed	value
+     * @param 	array	(optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
+     * @return 	void
+     * @throws  tx_pttools_exceptionAssertion   if assertion fails
+     */
+    public static function isAlphaNum($val, array $info = array()) {
+    	return self::matchesPattern('/^[\w\d]+$/', $val, $info);
+    } 
 
 
  	/**
