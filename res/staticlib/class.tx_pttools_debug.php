@@ -388,7 +388,7 @@ class tx_pttools_debug {
             </head>
             <body>
 
-                <h1 class="exceptionmessage">' . $exception->getMessage() . '</h1>
+                <h1 class="exceptionmessage">' . htmlspecialchars($exception->getMessage()) . '</h1>
 
                 <h2 class="exceptionclass">Uncaught "' .get_class($exception) . '"</h2>
 
