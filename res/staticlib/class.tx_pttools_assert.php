@@ -704,6 +704,10 @@ class tx_pttools_assert {
     public static function isFilePath($val, array $info = array()) {
         self::isNotEmptyString($val, $info);
         
+    	if ($info['message']) {
+			$info['message'] = sprintf($info['message'], $val);
+		}
+        
         $filePath = t3lib_div::getFileAbsFileName($val);
         return self::test(t3lib_div::validPathStr($filePath) && is_file($filePath), true, $info);        
     }
