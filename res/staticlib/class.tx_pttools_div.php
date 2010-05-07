@@ -1074,7 +1074,23 @@ class tx_pttools_div  {
     /**
      * Filters the elements of a given ArrayAccess object for HTML output on web pages to prevent XSS attacks and similar hacks.
      * Should be used instead of htmlspecialchars() for any ArrayAccess object intended for output in FE plugins.
-     * IMPORTANT: since the object will be cloned internally, this method does not work for non-clonable objects (e.g. Singletons). In this case you could implement the tx_pttools_iTemplateable interface to your object and sent the return of the getMarkerArray() method through tx_pttools_div::htmlOutputArray.
+     * 
+     * IMPORTANT: since the object will be cloned internally, this method does not work for non-clonable objects (e.g. Singletons). 
+     * In this case you could implement the tx_pttools_iTemplateable interface to your object and sent the return of the getMarkerArray() method through tx_pttools_div::htmlOutputArray.
+     * 
+     * IMPORTANT: since the object will be cloned internally, this method does not work if the reference to this object is important to you
+     * or any persistance manager or other fancy stuff you might use.
+     * 
+     * IMPORTANT: ArrayAccess objects usually aren't Arrays for a reason. Applying this method on them (which btw will be applied automatically
+     * when passing it to a pt_mvc view if not explicitely preventing this by setting the addItem's third parameter to false) will propably 
+     * mess your object up. So if you don't want to spend hours debugging strange side effects think twice _before_ you let your object pass this
+     * method. Of course having all values htmlspecialchars'ed is always a good thing, but in case of objects it's not always a good idea to do this with
+     * a hammer-style method like this one. Think of validating/sanitizing your values before passing it to the view (which is a good idea in any case - 
+     * and btw: ext:tcaobjects offers a nice and elegant solution to do this) or use Smarty's escape modifier to do this for the object's values when 
+     * really outputting them {$myObject.evilPropertyAccessedByArrayAccess|escape:"html"}
+     * 
+     * Bye, and have a nice day, Fabrizio 
+     * (Why do I have the nagging feeling, that noone will ever read this comment?!)
      *
      * @param   ArrayAccess     object implementing the ArrayAccess interface containing property values to be filtered for output
      * @param   boolean         (optional) flag whether keys of eventually contained nested arrays should be filtered, too. See comment of $filterKeys in htmlOutputArray.
@@ -1097,27 +1113,34 @@ class tx_pttools_div  {
 
         foreach ($filteredObject as $key=>$value) {
 
-        	// unset the property first, because overwriting it can have side-effects on ArrayAccess objects (e.g. when checking if an item already exists in the collection)
-        	unset($filteredObject[$key]);
-
             // scalars: use default htmlOutput()
             if (is_scalar($value)) {
             	$tmp = tx_pttools_div::htmlOutput($value);
+            	// Write only back to property if something has changed. Writing properties in the ArrayAccess interface can be much much than setting a value... 
             	if (strcmp($tmp, $value) != 0) {
-            		// Write only back to property if something has changed. Writing properties in the ArrayAccess interface can be much much than setting a value... 
-                	$filteredObject[$key] = $tmp;
+            		// unset the property first, because overwriting it can have side-effects on ArrayAccess objects (e.g. when checking if an item already exists in the collection)
+        			unset($filteredObject[$key]);
+            		$filteredObject[$key] = $tmp;
             	}
             // arrays: use htmlOutputArray()
             } elseif (is_array($value)) {
+                // unset the property first, because overwriting it can have side-effects on ArrayAccess objects (e.g. when checking if an item already exists in the collection)
+        		unset($filteredObject[$key]);
                 $filteredObject[$key] = tx_pttools_div::htmlOutputArray($value, $filterNestedArrayKeys);
             // objects implementing the ArrayAccess interface: recursive function call
             } elseif ($value instanceof ArrayAccess) {
+            	// unset the property first, because overwriting it can have side-effects on ArrayAccess objects (e.g. when checking if an item already exists in the collection)
+        		unset($filteredObject[$key]);
                 $filteredObject[$key] = tx_pttools_div::htmlOutputArrayAccess($value, $filterNestedArrayKeys);
             // NULL: keep NULL as filtered value
             } elseif (is_null($value)) {
+            	// unset the property first, because overwriting it can have side-effects on ArrayAccess objects (e.g. when checking if an item already exists in the collection)
+        		unset($filteredObject[$key]);
                 $filteredObject[$key] = NULL;
             // all other values (including non-ArrayAccess objects): set filtered value to empty string
             } else {
+            	// unset the property first, because overwriting it can have side-effects on ArrayAccess objects (e.g. when checking if an item already exists in the collection)
+        		unset($filteredObject[$key]);
                 $filteredObject[$key] = '';
                 if (TYPO3_DLOG) t3lib_div::devLog(__METHOD__.'(): unfilterable ArrayAccess object property "'.$key.'" has been converted to empty string', 'pt_tools', 2, array('original value' => $value));
             }
