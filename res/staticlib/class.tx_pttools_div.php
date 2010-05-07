@@ -1102,7 +1102,11 @@ class tx_pttools_div  {
 
             // scalars: use default htmlOutput()
             if (is_scalar($value)) {
-                $filteredObject[$key] = tx_pttools_div::htmlOutput($value);
+            	$tmp = tx_pttools_div::htmlOutput($value);
+            	if (strcmp($tmp, $value) != 0) {
+            		// Write only back to property if something has changed. Writing properties in the ArrayAccess interface can be much much than setting a value... 
+                	$filteredObject[$key] = $tmp;
+            	}
             // arrays: use htmlOutputArray()
             } elseif (is_array($value)) {
                 $filteredObject[$key] = tx_pttools_div::htmlOutputArray($value, $filterNestedArrayKeys);
@@ -1111,7 +1115,7 @@ class tx_pttools_div  {
                 $filteredObject[$key] = tx_pttools_div::htmlOutputArrayAccess($value, $filterNestedArrayKeys);
             // NULL: keep NULL as filtered value
             } elseif (is_null($value)) {
-                $filteredArray[$newKey] = NULL;
+                $filteredObject[$key] = NULL;
             // all other values (including non-ArrayAccess objects): set filtered value to empty string
             } else {
                 $filteredObject[$key] = '';
