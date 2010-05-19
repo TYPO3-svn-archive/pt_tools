@@ -68,9 +68,14 @@ function smarty_modifier_ll($key, $throwExceptionOnTranslationUnavailable=true) 
 		array_shift($args);
 		$translation = vsprintf($translation, $args);
 	}
+	
+	list($translation, $title) = t3lib_div::trimExplode('///', $translation);
+	if (!empty($title)) {
+		$translation = sprintf('<span title="%s">%s</span>', $title, $translation);
+	}
 
 	// Exit if no translation was found
-	if(empty($translation)) {
+	if (empty($translation)) {
 
 		// check if file exists
 		tx_pttools_assert::isFilePath($language_file, array('message' => '"'.$language_file.'" is no valid file!'));
