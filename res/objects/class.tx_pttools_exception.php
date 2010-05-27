@@ -280,8 +280,9 @@ class tx_pttools_exception extends Exception {
         }
         
         // write to TYPO3 syslog
+        $debugMsg = $this->debugMsg ? ': '.$this->debugMsg : '';
         t3lib_div::sysLog(
-            $this->getMessage().'['.get_class($this).': '.$this->debugMsg.']', 
+            $this->getMessage().' ['.get_class($this) . $debugMsg.']', 
             'pt_tools', 
             3 // "error"
         );
