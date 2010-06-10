@@ -569,7 +569,7 @@ class tx_pttools_debug {
 			require_once PATH_t3lib.'class.t3lib_userauthgroup.php';
 			require_once PATH_t3lib.'class.t3lib_beuserauth.php';
 
-	    	if (($GLOBALS['BE_USER'] instanceof t3lib_beUserAuth) &&  $GLOBALS['BE_USER']->isAdmin()) {
+	    	if (($GLOBALS['BE_USER'] instanceof t3lib_beUserAuth) && $GLOBALS['BE_USER']->isAdmin()) {
 	    		$inDevContext = true;
 	    	}
     	}
@@ -608,7 +608,7 @@ class tx_pttools_debug {
 
         // if (error has not been supressed with an @) AND (error matches the definied error reporting level)
         if ((error_reporting() != 0) && ($errno & $GLOBALS['tx_pttools_debug']['errors'])) {
-            if (ini_get ('log_errors')) {
+            if (ini_get('log_errors')) {
                 error_log(sprintf('PHP %s:  %s in %s on line %d', $errorLevels[$errno], $errstr, $errfile, $errline));
             }
             throw new tx_pttools_exception($errstr, 0, $errorLevels[$errno] . ': ' . $errstr . ' in ' . $errfile . ' line ' . $errline);
