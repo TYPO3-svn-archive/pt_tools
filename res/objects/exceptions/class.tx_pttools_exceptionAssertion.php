@@ -65,7 +65,29 @@ class tx_pttools_exceptionAssertion extends tx_pttools_exception {
         
         parent::__construct($errMsg, 0, $debugMsg);
         
-    }    
+    }
+
+    /**
+     * Set file
+     *  
+     * @param string $file
+     * @return void
+     * @author Fabrizio Branca <typo3@fabrizio-branca.de>
+     */
+    public function setFile($file) {
+    	$this->file = $file;
+    }
+    
+    /**
+     * Set line
+     *  
+     * @param string line
+     * @return void
+     * @author Fabrizio Branca <typo3@fabrizio-branca.de>
+     */
+    public function setLine($line) {
+    	$this->line = $line;
+    }
     
     
     
