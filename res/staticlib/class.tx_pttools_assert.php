@@ -86,7 +86,10 @@ class tx_pttools_assert {
         }
         $debugMessage = trim($debugMessage, ' ,');
 
-        throw new tx_pttools_exceptionAssertion('Assertion "'.$assertCall['function'].'" failed! '.$info['message'], $debugMessage);
+        $exception = new tx_pttools_exceptionAssertion('Assertion "'.$assertCall['function'].'" failed! '.$info['message'], $debugMessage);
+        $exception->setFile($assertCall['file']);
+        $exception->setLine($assertCall['line']);
+        throw $exception;
     }
 
 

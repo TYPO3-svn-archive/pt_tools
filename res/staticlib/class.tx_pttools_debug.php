@@ -442,6 +442,10 @@ class tx_pttools_debug {
 
             // loop over all steps
             foreach ($trace as $index => $step) {
+            	
+            	if (strpos($step['file'], 'class.tx_pttools_assert.php')) {
+            		continue;
+            	}
 
                 if ($index == 0) {
                     if (empty($step['file'])) $step['file'] = $callingFile;
