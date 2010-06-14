@@ -542,6 +542,24 @@ class tx_pttools_assert {
 
 
     /**
+     * Test if a value is in an array key
+     *
+     * @param     mixed    value
+     * @param     array     array
+     * @param     array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
+     * @return     void
+     * @author    Fabrizio Branca <mail@fabrizio-branca.de>
+     * @since    2008-05-17
+     * @throws  tx_pttools_exceptionAssertion   if assertion fails
+     */
+    public static function isArrayKey($val, array $array, array $info = array()) {
+
+        return self::test(array_key_exists($val, $array), true, $info);
+    }
+
+
+
+    /**
      * Test if a value is in a comma separated list
      *
      * @param     string    value
