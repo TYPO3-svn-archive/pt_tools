@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *  
-*  (c) 2005-2008 Rainer Kuhn (kuhn@punkt.de)
+*  (c) 2005-2008 Rainer Kuhn (kuhn@punkt.de), Fabrizio Branca (typo3@fabrizio-branca.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is 
@@ -26,7 +26,7 @@
  *
  * $Id$
  *
- * @author  Rainer Kuhn <kuhn@punkt.de>
+ * @author  Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <typo3@fabrizio-branca.de>
  * @since   2005-08-12
  */ 
 /**
@@ -55,7 +55,7 @@ require_once t3lib_extMgm::extPath('pt_tools').'res/objects/exceptions/class.tx_
 /**
  * General exception class derived from PHP's default Exception class
  *
- * @author      Rainer Kuhn <kuhn@punkt.de>
+ * @author      Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <typo3@fabrizio-branca.de>
  * @since       2005-08-12
  * @package     TYPO3
  * @subpackage  tx_pttools
@@ -65,8 +65,7 @@ class tx_pttools_exception extends Exception {
     /*
     // Dev Info: Class structure of parent class (PHP5's default Exception):
     
-    class Exception
-    {
+    class Exception {
         protected $message = 'Unknown exception';   // exception message
         protected $code = 0;                        // user defined exception code
         protected $file;                            // source filename of exception
@@ -82,7 +81,7 @@ class tx_pttools_exception extends Exception {
         final function getTraceAsString();          // formated string of trace
     
         // Overrideable
-        function __toString();                      // formated string for display
+        function __toString();                      // formatted string for display
     }
     */
     
@@ -131,6 +130,13 @@ class tx_pttools_exception extends Exception {
      */
     protected $errType = '';
     
+    /**
+     * @var 	bool		If this exception is permanent you can set this property. 
+     * 						pt_mvc's exceptions handling will then send an 404 status code instead of a 503 to prevent
+     * 						bots to retry accessing this page  
+     */
+    protected $permanent = false;
+    
     
     
     /***************************************************************************
@@ -142,9 +148,8 @@ class tx_pttools_exception extends Exception {
      * 
      * @param   string    optional error message (used for frontend/enduser display, too)    
      * @return  integer   DEPRECATED: optional error code, see EXCP_* class constants (currently: 1=DATABASE ERR, 2=CONFIG ERR, 3=INTERNAL ERR, 4=AUTH ERR, 5=WEBSERVICE ERR) - DEPRECATED for public usage: use special exception classes in res/objects/exceptions/ instead!
-     * @param   string    optional detailed debug message (not used for frontend display). For database errors (error code 1) the last TYPO3 DB SQL error is set to the debug message by default. To suppress this or to trace another DB object's SQL error use the third param to replace this default.    
-     * @global  object    $GLOBALS['TYPO3_DB']: t3lib_db Object (TYPO3 DB API)
-     * @author  Rainer Kuhn <kuhn@punkt.de>
+     * @param   string    optional detailed debug message (not used for frontend display). For database errors (error code 1) the last TYPO3 DB SQL error is set to the debug message by default. To suppress this or to trace another DB object's SQL error use the third param to replace this default.
+     * @author  Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <typo3@fabrizio-branca.de>
      * @since   2005-08-12
      */
     public function __construct($errMsg='', $errCode=0, $debugMsg='') {
@@ -228,11 +233,15 @@ class tx_pttools_exception extends Exception {
      * 
      * @param   void       
      * @return  void
-     * @author  Rainer Kuhn <kuhn@punkt.de>
+     * @author  Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <typo3@fabrizio-branca.de>
      * @since   2005-08-12
      */
     public function handleException() {
-        
+    	
+    	if (t3lib_div::compat_version('4.3')) {
+    		t3lib_div::deprecationLog('The use of tx_pttools_exception->handleException() is deprecated. Please call tx_pttools_exception->handle().');	
+    	}
+    	
         $this->handle();
         
     }
@@ -242,7 +251,7 @@ class tx_pttools_exception extends Exception {
      *
      * @param   void       
      * @return  void
-     * @author  Rainer Kuhn <kuhn@punkt.de>
+     * @author  Rainer Kuhn <kuhn@punkt.de>, Fabrizio Branca <typo3@fabrizio-branca.de>
      * @since   2005-08-12
      */
     public function handle() {
@@ -328,7 +337,41 @@ class tx_pttools_exception extends Exception {
         
     }
     
+    /**
+     * Returns if this exception is permament
+     *
+     * @param   void
+     * @return  bool
+     * @since   2010-06-15
+     * @author	Fabrizio Branca <typo3@fabrizio-branca.de>
+     */
+    public function isPermanent() {
+        
+        return $this->permanent;
+        
+    }
     
+    
+    
+    /***************************************************************************
+     *   SETTER
+     **************************************************************************/
+    
+
+    
+    /**
+     * Set the permament status
+     *
+     * @param   bool 	permanent status
+     * @return  void
+     * @since   2010-06-15
+     * @author	Fabrizio Branca <typo3@fabrizio-branca.de>
+     */
+    public function setPermanent($permament = true) {
+        
+        $this->permanent = $permament;
+        
+    }
     
 } // end class
 
