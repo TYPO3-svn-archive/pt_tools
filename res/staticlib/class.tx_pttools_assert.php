@@ -89,6 +89,9 @@ class tx_pttools_assert {
         $exception = new tx_pttools_exceptionAssertion('Assertion "'.$assertCall['function'].'" failed! '.$info['message'], $debugMessage);
         $exception->setFile($assertCall['file']);
         $exception->setLine($assertCall['line']);
+        if ($info['permanent']) {
+        	$exception->setPermanent();
+        }
         throw $exception;
     }
 
