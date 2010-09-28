@@ -862,6 +862,22 @@ class tx_pttools_assert {
     public static function loggedIn(array $info = array()) {
         return self::test($GLOBALS['TSFE']->loginUser, true, $info, false);
     }
+    
+    
+    
+    /**
+     * Test if a variable is the name of a table defined in TCA
+     *  
+     * @param $val
+     * @param $info   (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
+     * @return  void
+     * @author  Fabrizio Branca <mail@fabrizio-branca.de>
+     * @since   2010-07-07 (<- Worldcup semi final germany vs. spain)
+     */
+    public static function isTcaTable($val, array $info = array()) {
+    	self::isNotEmptyString($val, $info);
+    	return self::isArrayKey($val, $GLOBALS['TCA'], $info);
+    }
 
 
 
