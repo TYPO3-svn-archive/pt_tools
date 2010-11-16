@@ -274,40 +274,47 @@ class tx_pttools_div  {
      * @since   2008-06-03
      */
     public static function getPid($pidOrAlias, $allowZeroAsPid=false) {
+    	
+    	static $cache = array();
+    	$cacheKey = $pidOrAlias . _ . ($allowZeroAsPid ? '1' : '0');
+    	
+    	if (!isset($cache[$cacheKey])) {
 
-        $select  = 'uid';
-        $from    = 'pages';
-        if (!ctype_digit(strval($pidOrAlias))) {
-            // cannot be a pid, check if there is a page with this alias and get its pid
-            $where = 'alias = '.$GLOBALS['TYPO3_DB']->fullQuoteStr(trim(strval($pidOrAlias)), $from);
-        } else {
-            // might be a pid, check if the page exists
-            if (!$allowZeroAsPid && intval($pidOrAlias) == 0) {
-                throw new tx_pttools_exception('PID "0" is not allowed here');
-            }
-            $where = 'uid = '.intval($pidOrAlias);
-        }
-        $where .= self::enableFields($from);
-        $groupBy = '';
-        $orderBy = '';
-        $limit   = '1';
-
-        // exec query using TYPO3 DB API
-        $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
-        trace(tx_pttools_div::returnLastBuiltSelectQuery($GLOBALS['TYPO3_DB'], $select, $from, $where, $groupBy, $orderBy, $limit));
-        if ($res == false) {
-            throw new tx_pttools_exception('Query failed', 1, $GLOBALS['TYPO3_DB']->sql_error());
-        }
-        $a_row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
-        $GLOBALS['TYPO3_DB']->sql_free_result($res);
-
-        if ($a_row == false) {
-            throw new tx_pttools_exception('PID "'.$pidOrAlias.'" not found');
-        }
-
-        trace($a_row);
-        return $a_row['uid'];
-
+	        $select  = 'uid';
+	        $from    = 'pages';
+	        if (!ctype_digit(strval($pidOrAlias))) {
+	            // cannot be a pid, check if there is a page with this alias and get its pid
+	            $where = 'alias = '.$GLOBALS['TYPO3_DB']->fullQuoteStr(trim(strval($pidOrAlias)), $from);
+	        } else {
+	            // might be a pid, check if the page exists
+	            if (!$allowZeroAsPid && intval($pidOrAlias) == 0) {
+	                throw new tx_pttools_exception('PID "0" is not allowed here');
+	            }
+	            $where = 'uid = '.intval($pidOrAlias);
+	        }
+	        $where .= self::enableFields($from);
+	        $groupBy = '';
+	        $orderBy = '';
+	        $limit   = '1';
+	
+	        // exec query using TYPO3 DB API
+	        $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
+	        trace(tx_pttools_div::returnLastBuiltSelectQuery($GLOBALS['TYPO3_DB'], $select, $from, $where, $groupBy, $orderBy, $limit));
+	        if ($res == false) {
+	            throw new tx_pttools_exception('Query failed', 1, $GLOBALS['TYPO3_DB']->sql_error());
+	        }
+	        $a_row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+	        $GLOBALS['TYPO3_DB']->sql_free_result($res);
+	
+	        if ($a_row == false) {
+	            throw new tx_pttools_exception('PID "'.$pidOrAlias.'" not found');
+	        }
+	
+	        trace($a_row);
+	        $cache[$cacheKey] = $a_row['uid'];
+    	}
+    	
+    	return $cache[$cacheKey];
     }
 
     /**
