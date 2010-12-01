@@ -686,7 +686,9 @@ class tx_pttools_div  {
                 $llArray = $GLOBALS['TSFE']->readLLfile($llFile);
             // TYPO3 Backend mode
             } elseif (is_object($GLOBALS['LANG'])) {
-                $llArray = $GLOBALS['LANG']->readLLfile($llFile);
+				// $llArray = $GLOBALS['LANG']->readLLfile($llFile);
+            	// as the function readLLfile is protected in the latest TYPO3 version we read the ll file directly
+				$llArray = t3lib_div::readLLfile($llFile, $GLOBALS['LANG']->lang, $GLOBALS['LANG']->charSet); 
             } else {
                 throw new tx_pttools_exception('No valid TSFE or LANG object found!');
             }
