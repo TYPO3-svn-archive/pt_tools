@@ -236,6 +236,27 @@ c) 'itemstext' - einzeilige Texteingabe:
    <maxlen> (integer) maximale Länge der Eingabe in diesem Feld (default: 80)
    <script> (array) (optional) JavaScript EventHandler
 
+c.2) 'itemstextarray' - array von einzeiligen Texteingaben:
+
+   Eignen sich für Objekteigenschaften vom Typ "array"
+
+   Das sieht dann so aus:
+
+   ...
+   'itemstextarray' => array(
+     'fieldname' => array(<required>, <checktype>, <len>, <maxlen>, <mincount>, <maxcount>, <script>),
+     ...
+   ),
+   ...
+
+   <required> (boolean) Feld ist Pflichtfeld (default: false)
+   <checktype> (string) Feldtyp für Überprüfung im formChecker (default: Text)
+   <len> (integer) Länge eines einzelnen Eingabefeldes (default: 30)
+   <maxlen> (integer) maximale Länge der Eingabe in einem Feld (default: 80)
+   <mincount> (integer) Mindestanzahl der Felder (bei required == true sind soviele der Felder Pflichtfeld)
+   <maxcount> (integer) Maximalzahl der Felder (soviele werden angeboten)
+   <script> (array) (optional) JavaScript EventHandler
+
 d) 'itemspasswd' - Kennworteingabe mit Gegenprüfung:
 
    Eignen sich für Objekteigenschaften vom Typ "string" oder "integer".

@@ -24,7 +24,7 @@
 /** 
  * Web form template handler (part of the library extension 'pt_tools')
  *
- * $Id$
+ * $Id: class.tx_pttools_formTemplateHandler.php 18035 2009-03-19 12:01:51Z sonic $
  *
  * @author  Wolfgang Zenker <zenker@punkt.de>
  * @since   2006-04-20
@@ -1006,6 +1006,34 @@ class tx_pttools_formTemplateHandler {
 			}
 		}
 
+		if (isset($this->formDesc[$formname]['itemstextarray'])) {
+			foreach ($this->formDesc[$formname]['itemstextarray'] as $alabel => $avalues) {
+				if (in_array($alabel, $hideArray)) {
+					$formMarkerArray['###ITEM'.strtoupper($alabel).'###'] = '';
+				}
+				else {
+					$arraySubstString = '';
+					$getter = 'get_'.$alabel;
+					$required = (in_array($alabel, $relaxArray)) ? false : $avalues[0];
+					$checktype = (isset($avalues[1])) ? $avalues[1] : 'Text';
+					$len = (isset($avalues[2])) ? $avalues[2] : 30;
+					$maxlen = (isset($avalues[3])) ? $avalues[3] : 80;
+					$mincount = (isset($avalues[4])) ? $avalues[4] : 1;
+					$maxcount = (isset($avalues[5])) ? $avalues[5] : 1;
+					$script = (isset($avalues[6])) ? $avalues[6] : array();
+					$textvalues = $dataObject->$getter();
+					for ($textnum = 0; $textnum < $maxcount; $textnum++) {
+						if ($textnum == $mincount) {
+							$required = false;
+						}
+						$arraySubstString .= $this->substInText($alabel.'][', $this->plugin->pi_getLL('fl_'.$alabel, '[fl_'.$alabel.']'), $textvalues[$textnum], $len, $maxlen, $required, $checktype, in_array($alabel, $disableArray), $this->plugin->pi_getLL('fh_'.$alabel), $script);
+						$arraySubstString .= '<br />'."\n";
+					}
+					$formMarkerArray['###ITEM'.strtoupper($alabel).'###'] = $arraySubstString;
+				}
+			}
+		}
+
 		if (isset($this->formDesc[$formname]['itemspasswd'])) {
 			foreach ($this->formDesc[$formname]['itemspasswd'] as $ilabel => $ivalues) {
 				if (in_array($ilabel, $hideArray)) {
@@ -1484,6 +1512,32 @@ class tx_pttools_formTemplateHandler {
 			}
 		}
 
+		if (isset($this->formDesc[$formname]['itemstextarray'])) {
+			foreach ($this->formDesc[$formname]['itemstextarray'] as $alabel => $avalues) {
+				if (in_array($alabel, $disableArray) || in_array($alabel, $hideArray)) {
+					continue;
+				}
+				$setter = 'set_'.$alabel;
+				$fvalues = array();
+				if (isset($this->plugin->piVars[$alabel])) {
+					$fvalues = $this->plugin->piVars[$alabel];
+				}
+				$maxlen = (isset($avalues[3])) ? $avalues[3] : 80;
+				$lenOk = true;
+				foreach ($fvalues as $fvalue) {
+					if ($this->strlen($fvalue) > $maxlen) {
+						$lenOk = false;
+						break;
+					}
+				}
+				if ($lenOk) {
+					$dataObject->$setter($fvalues);
+				} else {
+					$failArray[] = $alabel;
+				}
+			}
+		}
+
 		if (isset($this->formDesc[$formname]['itemspasswd'])) {
 			foreach ($this->formDesc[$formname]['itemspasswd'] as $ilabel => $ivalues) {
 				if (in_array($ilabel, $disableArray) || in_array($ilabel, $hideArray)) {
@@ -1761,6 +1815,26 @@ class tx_pttools_formTemplateHandler {
 				$required = (in_array($ilabel, $relaxArray)) ? false : $ivalues[0];
 				$checktype = (isset($ivalues[1])) ? $ivalues[1] : 'Text';
 				$checkArray[] = array($checktype, $dataObject->$getter(), $this->plugin->pi_getLL('el_'.$ilabel, $this->plugin->pi_getLL('fl_'.$ilabel, '[fl_'.$ilabel.']')), $required);
+			}
+		}
+
+		if (isset($this->formDesc[$formname]['itemstextarray'])) {
+			foreach ($this->formDesc[$formname]['itemstextarray'] as $alabel => $avalues) {
+				if (in_array($alabel, $hideArray)) {
+					continue;
+				}
+				$getter = 'get_'.$alabel;
+				$required = (in_array($alabel, $relaxArray)) ? false : $avalues[0];
+				$checktype = (isset($avalues[1])) ? $avalues[1] : 'Text';
+				$mincount = (isset($avalues[4])) ? $avalues[4] : 1;
+				$maxcount = (isset($avalues[5])) ? $avalues[5] : 1;
+				$textvalues = $dataObject->$getter();
+				for ($textnum = 0; $textnum < $maxcount; $textnum++) {
+					if ($textnum == $mincount) {
+						$required = false;
+					}
+					$checkArray[] = array($checktype, $textvalues[$textnum], $this->plugin->pi_getLL('el_'.$alabel, $this->plugin->pi_getLL('fl_'.$alabel, '[fl_'.$alabel.']')), $required);
+				}
 			}
 		}
 
