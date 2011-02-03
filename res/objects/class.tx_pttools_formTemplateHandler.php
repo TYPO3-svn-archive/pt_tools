@@ -102,6 +102,7 @@ class tx_pttools_formTemplateHandler {
 	private $tmplCheckboxOption;	// template for single checkbox input
 	private $tmplSectionStart;	// template for start of labeled fieldset
 	private $tmplSectionEnd;	// template for end of labeled fieldset
+	private $tmplTextArrayWrapper = NULL;	// optional wrapper for textArray element
 
     /**
      * Class Constructor: initializes class properties
@@ -1026,8 +1027,16 @@ class tx_pttools_formTemplateHandler {
 						if ($textnum == $mincount) {
 							$required = false;
 						}
-						$arraySubstString .= $this->substInText($alabel.'][', $this->plugin->pi_getLL('fl_'.$alabel, '[fl_'.$alabel.']'), $textvalues[$textnum], $len, $maxlen, $required, $checktype, in_array($alabel, $disableArray), $this->plugin->pi_getLL('fh_'.$alabel), $script);
-						$arraySubstString .= '<br />'."\n";
+						$fieldSubstString = $this->substInText($alabel.'][', $this->plugin->pi_getLL('fl_'.$alabel, '[fl_'.$alabel.']'), $textvalues[$textnum], $len, $maxlen, $required, $checktype, in_array($alabel, $disableArray), $this->plugin->pi_getLL('fh_'.$alabel), $script);
+						if ($this->tmplTextArrayWrapper) {
+							$wrapSubstArray = array(
+								'###FIELDNAME###' => $alabel,
+								'###CONTENT###' => $fieldSubstString,
+							);
+							$arraySubstString .= $this->plugin->cObj->substituteMarkerArray($this->tmplTextArrayWrapper, $wrapSubstArray);
+						} else {
+							$arraySubstString .= $fieldSubstString.'<br />'."\n";
+						}
 					}
 					$formMarkerArray['###ITEM'.strtoupper($alabel).'###'] = $arraySubstString;
 				}
@@ -2201,6 +2210,17 @@ class tx_pttools_formTemplateHandler {
 	}
 
 	/**
+	 * Returns the property value
+	 *
+	 * @param   void
+	 * @return	string	property value
+	 * @since	2011-01-24
+	*/
+	public function get_tmplTextArrayWrapper() {
+		return $this->tmplTextArrayWrapper;
+	}
+
+	/**
 	 * Set the property value
 	 *
 	 * @param   string
@@ -2473,6 +2493,17 @@ class tx_pttools_formTemplateHandler {
 	*/
 	public function set_tmplCheckboxOption($tmplCheckboxOption) {
 		$this->tmplCheckboxOption = $tmplCheckboxOption;
+	}
+
+	/**
+	 * Set the property value
+	 *
+	 * @param   string
+	 * @return	void
+	 * @since	2011-01-24
+	*/
+	public function set_tmplTextArrayWrapper($tmplTextArrayWrapper) {
+		$this->tmplTextArrayWrapper = $tmplTextArrayWrapper;
 	}
 
 
