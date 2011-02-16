@@ -1,12 +1,11 @@
 <html>
-  <head>
-    <title>Form element templates</title>
-    <!-- $Id$ -->
+<head>
+	<title>Form element templates</title>
+	<!-- $Id$ -->
+</head>
 
-  </head>
+<body>
 
-  <body>
-  
 <form>
 <!-- ###FORMINPUTHIDDEN### begin -->
 	<input type="hidden" name="###FIELDNAME###" value="###FIELDVALUE###" />
@@ -14,94 +13,98 @@
 
 
 <!-- ###FORMINPUTTEXTAREA### begin -->
-        <div class="formRow"><div class="formLabel">###FIELDLABEL###</div>
-		
-         <div class="formField">   <textarea name="###FIELDNAME###" cols="###FIELDCOLS###" rows="###FIELDROWS###" ###FIELDSCRIPT### ###FIELDDISABLED###>###FIELDVALUE###</textarea> </div>
-     </div>
+	<div class="formRow">
+		<div class="formLabel">###FIELDLABEL###</div>
+		<div class="formField"><textarea name="###FIELDNAME###" cols="###FIELDCOLS###" rows="###FIELDROWS###" ###FIELDSCRIPT### ###FIELDDISABLED###>###FIELDVALUE###</textarea></div>
+	</div>
 <!-- ###FORMINPUTTEXTAREA### end -->
 
 <!-- ###FORMDISPLAYTEXTAREA### begin -->
-        <div class="formRow"><div class="formLabel">###FIELDLABEL###</div>
-		
-         <div class="formField">   ###FIELDVALUE###</div>
-     </div>
+	<div class="formRow">
+		<div class="formLabel">###FIELDLABEL###</div>
+		<div class="formField">###FIELDVALUE###</div>
+	</div>
 <!-- ###FORMDISPLAYTEXTAREA### end -->
 
 <!-- ###FORMINPUTTEXT### begin -->
-       <div class="formRow"><div class="formLabel">###FIELDLABEL###</div>
-		
-          <div class="formField">   <input type="text" name="###FIELDNAME###" size="###FIELDSIZE###" maxlength="###FIELDLENGTH###" value="###FIELDVALUE###" ###FIELDSCRIPT### ###FIELDDISABLED### /></div>
-     </div>
+	<div class="formRow">
+		<div class="formLabel">###FIELDLABEL###</div>
+		<div class="formField"><input type="text" name="###FIELDNAME###" size="###FIELDSIZE###" maxlength="###FIELDLENGTH###" value="###FIELDVALUE###" ###FIELDSCRIPT### ###FIELDDISABLED### /></div>
+	</div>
 <!-- ###FORMINPUTTEXT### end -->
 
 <!-- ###FORMDISPLAYTEXT### begin -->
-        <div class="formRow"><div class="formLabel">###FIELDLABEL###</div>
-		
-         <div class="formField">   ###FIELDVALUE###</div>
-     </div>
+	<div class="formRow">
+		<div class="formLabel">###FIELDLABEL###</div>
+		<div class="formField">###FIELDVALUE###</div>
+	</div>
 <!-- ###FORMDISPLAYTEXT### end -->
 
 <!-- ###FORMINPUTPASSWD### begin -->
-        <div class="formRow"><div class="formLabel">###FIELDLABEL###</div>
-		
-         <div class="formField">   <input type="password" name="###FIELDNAME###" size="###FIELDSIZE###" maxlength="###FIELDLENGTH###" value="###FIELDVALUE###" ###FIELDDISABLED### /></div>
-     </div>
-	 <div class="formRow"><div class="formLabel">###CHECKFIELDLABEL###</div>
-		
-         <div class="formField"><input type="password" name="###CHECKFIELDNAME###" size="###FIELDSIZE###" maxlength="###FIELDLENGTH###" value="###FIELDVALUE###" ###FIELDDISABLED### ###FIELDSCRIPT### /></div>
-     </div>
+	<div class="formRow">
+		<div class="formLabel">###FIELDLABEL###</div>
+		<div class="formField"><input type="password" name="###FIELDNAME###" size="###FIELDSIZE###" maxlength="###FIELDLENGTH###" value="###FIELDVALUE###" ###FIELDDISABLED### /></div>
+	</div>
+	<div class="formRow">
+		<div class="formLabel">###CHECKFIELDLABEL###</div>
+		<div class="formField"><input type="password" name="###CHECKFIELDNAME###" size="###FIELDSIZE###" maxlength="###FIELDLENGTH###" value="###FIELDVALUE###" ###FIELDDISABLED### ###FIELDSCRIPT### /></div>
+	</div>
 <!-- ###FORMINPUTPASSWD### end -->
 
 <!-- ###FORMDISPLAYPASSWD### begin -->
-        <div class="formRow"><div class="formLabel">###FIELDLABEL###</div>
-		
-         <div class="formField">   ###FIELDVALUE###</div>
-     </div>
+	<div class="formRow">
+		<div class="formLabel">###FIELDLABEL###</div>
+		<div class="formField">###FIELDVALUE###</div>
+	</div>
 <!-- ###FORMDISPLAYPASSWD### end -->
 
 <!-- ###FORMINPUTCOMBO### begin -->
-	<div class="formRow"><div class="formLabel">###FIELDLABEL###</div>
-         <div class="formField">  <input type="text" id="###FIELDID###" name="###FIELDNAME###" size="###FIELDSIZE###" maxlength="###FIELDLENGTH###" value="###FIELDVALUE###" ###FIELDSCRIPT### />
-            <script type="text/javascript">
-              tx_pttools_formTemplateHandler_chooser("###FIELDID###", ###FIELDEMPTYOK###, "###FIELDVALUE###", ###FIELDCHOICES###);
-            </script>
-            <noscript>###FIELDEXINTRO### ###FIELDCHOICES###</noscript>
-      </div>
-    </div>
+	<div class="formRow">
+		<div class="formLabel">###FIELDLABEL###</div>
+		<div class="formField">
+			<input type="text" id="###FIELDID###" name="###FIELDNAME###" size="###FIELDSIZE###" maxlength="###FIELDLENGTH###" value="###FIELDVALUE###" ###FIELDSCRIPT### />
+			<script type="text/javascript">
+				tx_pttools_formTemplateHandler_chooser("###FIELDID###", ###FIELDEMPTYOK###, "###FIELDVALUE###", ###FIELDCHOICES###);
+			</script>
+			<noscript>###FIELDEXINTRO### ###FIELDCHOICES###</noscript>
+		</div>
+	</div>
 <!-- ###FORMINPUTCOMBO### end -->
 
 <!-- ###FORMINPUTSELECT### begin -->
-	<div class="formRow"><div class="formLabel">###FIELDLABEL###</div>
-		
-         <div class="formField"><select name="###FIELDNAME###" ###FIELDDISABLED### size="###FIELDSSIZE###" ###FIELDSCRIPT###>
-              ###FIELDOPTIONS###
-            </select>
-        </div>
-    </div>
+	<div class="formRow">
+		<div class="formLabel">###FIELDLABEL###</div>
+		<div class="formField">
+			<select name="###FIELDNAME###" ###FIELDDISABLED### size="###FIELDSSIZE###" ###FIELDSCRIPT###>
+			###FIELDOPTIONS###
+			</select>
+		</div>
+	</div>
 <!-- ###FORMINPUTSELECT### end -->
 
 <!-- ###FORMINPUTMULTISELECT### begin -->
-	<div class="formRow"><div class="formLabel">###FIELDLABEL###</div>
-         <div class="formField">
-            <select name="###FIELDNAME###" ###FIELDMULTIOK### ###FIELDDISABLED### size="###FIELDSSIZE###" ###FIELDSCRIPT###>
-              ###FIELDOPTIONS###
-            </select>
-      </div>
-    </div>
+	<div class="formRow">
+		<div class="formLabel">###FIELDLABEL###</div>
+		<div class="formField">
+			<select name="###FIELDNAME###" ###FIELDMULTIOK### ###FIELDDISABLED### size="###FIELDSSIZE###" ###FIELDSCRIPT###>
+				###FIELDOPTIONS###
+			</select>
+		</div>
+	</div>
 <!-- ###FORMINPUTMULTISELECT### end -->
 
 <!-- ###FORMINPUTRADIO### begin -->
-	        <div class="formRow"><div class="formLabel">###FIELDLABEL###</div>
-		
-         <div class="formField">   ###FIELDOPTIONS###</div>
-     </div>
+	<div class="formRow">
+		<div class="formLabel">###FIELDLABEL###</div>
+		<div class="formField">###FIELDOPTIONS###</div>
+	</div>
 <!-- ###FORMINPUTRADIO### end -->
 
 <!-- ###FORMINPUTCHECKBOX### begin -->
-	       <div class="formRow"><div class="formLabel">###FIELDLABEL###</div>
-		
-         <div class="formField">   ###FIELDOPTIONS###</div>
-     </div>
+	<div class="formRow">
+		<div class="formLabel">###FIELDLABEL###</div>
+		<div class="formField">###FIELDOPTIONS###</div>
+	</div>
 <!-- ###FORMINPUTCHECKBOX### end -->
 
 <!-- ###FORMINPUTBUTTON### begin -->
@@ -111,7 +114,6 @@
 <!-- ###FORMINPUTSPLITDATE### begin -->
 	<div class="formRow">
 		<div class="formLabel">###FIELDLABEL###</div>
-		
 		<div class="formField">
 			<input type="text" name="###YEARFIELDNAME###" size="###YEARFIELDSIZE###" maxlength="###YEARFIELDLENGTH###" value="###YEARFIELDVALUE###" ###FIELDDISABLED### ###FIELDSCRIPT### />
 			&ndash;
@@ -149,25 +151,25 @@
 <!-- ###MARKNOTREQUIRED### end -->
 
 <!-- ###MARKHELP### begin -->
-<span style="color:red" onClick="alert('###HELPTEXT###')">?</span>
+<span style="color:red" onclick="alert('###HELPTEXT###')">?</span>
 <!-- ###MARKHELP### end -->
 
 <!-- ###MARKNOHELP### begin -->
 <!-- ###MARKNOHELP### end -->
 
 <form>
-  <select name="bla_select" class="formSelect">
+	<select name="bla_select" class="formSelect">
 <!-- ###SELECTOPTIONEMPTY### begin -->
-<option> </option>
+	<option></option>
 <!-- ###SELECTOPTIONEMPTY### end -->
 
 <!-- ###SELECTOPTION### begin -->
-<option ###SELOPTSELECTED### ###SELOPTDISABLED### value="###SELOPTVALUE###"> ###SELOPTTEXT### </option>
+	<option ###SELOPTSELECTED### ###SELOPTDISABLED### value="###SELOPTVALUE###">###SELOPTTEXT###</option>
 <!-- ###SELECTOPTION### end -->
-  </select>
+	</select>
 
 <!-- ###RADIOOPTION### begin -->
-<input type="radio" name="###FIELDNAME###" value="###RADOPTVALUE###" ###RADOPTSELECTED### ###RADOPTDISABLED### class="formRadio" ###RADOPTSCRIPT### /> ###RADOPTTEXT### <br />
+<input type="radio" name="###FIELDNAME###" value="###RADOPTVALUE###" ###RADOPTSELECTED### ###RADOPTDISABLED### class="formRadio" ###RADOPTSCRIPT### /> ###RADOPTTEXT###<br />
 <!-- ###RADIOOPTION### end -->
 
 <!-- ###CHECKBOXOPTION### begin -->
@@ -176,7 +178,7 @@
 
 <!-- ###SECTIONSTART### begin -->
 <fieldset class="horizontaldel">
-			<legend>###SECTIONLABEL###</legend>
+	<legend>###SECTIONLABEL###</legend>
 <!-- ###SECTIONSTART### end -->
 
 <!-- ###SECTIONEND### begin -->
@@ -185,6 +187,5 @@
 
 </form>
 
-  </body>
+</body>
 </html>
- 
