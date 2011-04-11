@@ -112,6 +112,20 @@ class tx_pttools_assert {
 
 
     /**
+     * Test if value is true
+     *
+     * @param	mixed	value
+     * @return 	void
+     * @throws  tx_pttools_exceptionAssertion   if assertion fails
+     */
+    public static function isNotFalse($val, array $info = array()) {
+
+        return self::test($val, true, $info, false);
+    }
+
+
+
+    /**
      * Test if value if false
      *
      * @param	mixed	value
@@ -206,9 +220,9 @@ class tx_pttools_assert {
         self::isString($val);
         return self::test(preg_match($pattern, $val), true, $info, false);
     }
-        
-    
-    
+
+
+
     /**
      * Test if variable consists only of letters and digits
      *
@@ -219,7 +233,7 @@ class tx_pttools_assert {
      */
     public static function isAlphaNum($val, array $info = array()) {
     	return self::matchesPattern('/^[\w\d]+$/', $val, $info);
-    } 
+    }
 
 
  	/**
@@ -320,13 +334,13 @@ class tx_pttools_assert {
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
     public static function isPositiveInteger($val, $allowZero = false, array $info = array()) {
-        
+
         $info['tested_value'] = $val;
         $info['value_type'] = gettype($val);
         $info['zero_allowed'] = $allowZero ? 'true' : 'false';
-        
+
         return self::test((is_int($val) && (intval($val) >= ($allowZero ? 0 : 1))), true, $info);
-        
+
     }
 
     /**
@@ -476,21 +490,21 @@ class tx_pttools_assert {
 
         return self::test(is_array($val), true, $info);
     }
-    
-    
-    
+
+
+
     /**
      * Test if value is an associative array
-     * 
+     *
      * @param 	mixed	$val	Value to be tested
      * @param 	array	$info	Array of information
      * @return  void
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
     public static function isAssociativeArray($val, array $info = array()) {
-        
+
         return self::test(tx_pttools_div::isAssociativeArray($val), true, $info);
-        
+
     }
 
 
@@ -507,9 +521,9 @@ class tx_pttools_assert {
 
         return self::test(is_array($val), false, $info);
     }
-    
-    
-    
+
+
+
     /**
      * Test if a value is a non-empty array
      *
@@ -519,9 +533,9 @@ class tx_pttools_assert {
      * @since   2008-10-16
      */
     public static function isNotEmptyArray($val, array $info = array()) {
-        
+
         return self::test((is_array($val) && count($val)) > 0, true, $info);
-        
+
     }
 
 
@@ -613,9 +627,9 @@ class tx_pttools_assert {
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
     public static function isValidUid($val, $allowZero = false, array $info = array()) {
-        
+
         // TODO: test if is_string or is_int
-        
+
         // TODO: replace by regex? Test what is faster...
         $str = strval($val);
         return self::test(ctype_digit($str) && (strlen($str) == 1 || $str[0] != '0') && (intval($val) >= ($allowZero ? 0 : 1)), true, $info);
@@ -636,7 +650,7 @@ class tx_pttools_assert {
      */
     public static function isValidUidArray($val, $allowZero = false, array $info = array()) {
     	self::isArray($val, $info);
-    	
+
     	foreach ($val as $uid) {
     		self::isValidUid($uid, $allowZero, $info);
     	}
@@ -660,24 +674,24 @@ class tx_pttools_assert {
             $dbObj = $GLOBALS['TYPO3_DB'];
         }
         self::isInstanceOf($dbObj, 't3lib_DB', $info);
-        
+
         // append sql_error to info array
         $info['sql_error'] = $dbObj->sql_error();
 
         if (empty($info['message'])) {
             $info['message'] = $info['sql_error'];
         }
-        
+
         // append debug_lastBuiltQuery to info array
         if (!empty($dbObj->debug_lastBuiltQuery)) {
-            $info['debug_lastBuiltQuery'] = $dbObj->debug_lastBuiltQuery; 
+            $info['debug_lastBuiltQuery'] = $dbObj->debug_lastBuiltQuery;
         }
-        
+
         return self::test($dbObj->debug_check_recordset($res), true, $info);
     }
-    
-    
-    
+
+
+
     /**
      * Test if an object is instance of a class or interface
      *
@@ -692,12 +706,12 @@ class tx_pttools_assert {
      */
     public static function isType($val, $type, array $info = array()) {
         self::isNotEmptyString($type, $info);
-        
+
         return self::test($val instanceof $type, true, $info, true);
     }
-    
-    
-    
+
+
+
     /**
      * Test if the value is a string that is not empty
      *
@@ -709,12 +723,12 @@ class tx_pttools_assert {
      * @throws  tx_pttools_exceptionAssertion   if assertion fails
      */
     public static function isNotEmptyString($val, array $info = array()) {
-        
+
         return self::test(is_string($val) && (strlen($val)>0), true, $info);
     }
-    
-    
-    
+
+
+
     /**
      * Test if a value is a valid and existing file
      *
@@ -727,17 +741,17 @@ class tx_pttools_assert {
      */
     public static function isFilePath($val, array $info = array()) {
         self::isNotEmptyString($val, $info);
-        
+
     	if ($info['message']) {
 			$info['message'] = sprintf($info['message'], $val);
 		}
-        
+
         $filePath = t3lib_div::getFileAbsFileName($val);
-        return self::test(t3lib_div::validPathStr($filePath) && is_file($filePath), true, $info);        
+        return self::test(t3lib_div::validPathStr($filePath) && is_file($filePath), true, $info);
     }
-    
-    
-    
+
+
+
     /**
      * Test if a value is a valid and existing directory
      *
@@ -750,12 +764,12 @@ class tx_pttools_assert {
      */
     public static function isDir($val, array $info = array()) {
         self::isNotEmptyString($val, $info);
-        
+
         $filePath = t3lib_div::getFileAbsFileName($val, false);
-        return self::test(t3lib_div::validPathStr($filePath) && is_dir($filePath), true, $info);        
+        return self::test(t3lib_div::validPathStr($filePath) && is_dir($filePath), true, $info);
     }
 
-    
+
 
     /**
      * Test for two variables being references to each other
@@ -767,7 +781,7 @@ class tx_pttools_assert {
      * @since    2008-06-21
      */
     public static function isReference(&$a, &$b, array $info = array()) {
-        
+
         if (is_object($a)) {
             $is_ref = ($a === $b);
         } else {
@@ -778,9 +792,9 @@ class tx_pttools_assert {
         }
         return self::test($is_ref, true, $info);
     }
-    
-    
-    
+
+
+
     /**
      * Test if an object is instance of a given class/interface
      *
@@ -793,16 +807,16 @@ class tx_pttools_assert {
     public static function isInstanceOf($object, $class, array $info = array()) {
         self::isObject($object, $info);
         self::isNotEmptyString($class, $info);
-        
+
         $info['class'] = $class;
         if (empty($info['message'])) {
             $info['message'] = sprintf('Object is not an instance of class "%s"!', $class);
         }
         return self::test($object instanceof $class, true, $info);
     }
-    
-    
-    
+
+
+
     /**
      * Test if an object is a non-empty object collection of type tx_pttools_objectCollection
      *
@@ -812,19 +826,19 @@ class tx_pttools_assert {
      * @since   2008-10-01
      */
     public static function isNotEmptyObjectCollection($object, array $info = array()) {
-        
+
         self::isInstanceOf($object, 'tx_pttools_objectCollection');
-        
+
         return self::test(count($object) > 0, true, $info);
-        
+
     }
-    
-    
-    
+
+
+
     /**
      * Test if a variable is not null
      *
-     * @param    mixed    value 
+     * @param    mixed    value
      * @param    array    (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
      * @return   void
      * @author   Fabrizio Branca <mail@fabrizio-branca.de>
@@ -833,13 +847,13 @@ class tx_pttools_assert {
     public static function isNotNull($val, array $info = array()) {
         return self::test(is_null($val), false, $info);
     }
-    
-    
-    
+
+
+
     /**
      * Test if a variable is null
      *
-     * @param   mixed   value 
+     * @param   mixed   value
      * @param   array   (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
      * @return  void
      * @author  Fabrizio Branca <mail@fabrizio-branca.de>
@@ -848,9 +862,9 @@ class tx_pttools_assert {
     public static function isNull($val, array $info = array()) {
         return self::test(is_null($val), true, $info);
     }
-    
-    
-    
+
+
+
     /**
      * Test if a fe_user is logged in
      *
@@ -862,12 +876,12 @@ class tx_pttools_assert {
     public static function loggedIn(array $info = array()) {
         return self::test($GLOBALS['TSFE']->loginUser, true, $info, false);
     }
-    
-    
-    
+
+
+
     /**
      * Test if a variable is the name of a table defined in TCA
-     *  
+     *
      * @param $val
      * @param $info   (optional) additional info, will be displayed as debug message, if a key "message" exists this will be appended to the error message
      * @return  void
