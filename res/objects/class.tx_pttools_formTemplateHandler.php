@@ -24,8 +24,6 @@
 /** 
  * Web form template handler (part of the library extension 'pt_tools')
  *
- * $Id: class.tx_pttools_formTemplateHandler.php 18035 2009-03-19 12:01:51Z sonic $
- *
  * @author  Wolfgang Zenker <zenker@punkt.de>
  * @since   2006-04-20
  */ 
