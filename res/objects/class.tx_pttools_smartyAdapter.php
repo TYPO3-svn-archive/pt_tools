@@ -273,6 +273,13 @@ class tx_pttools_smartyAdapter extends tx_smarty_wrapper {
         if (empty($this->t3_charSet)) {
         	$this->t3_charSet = tx_pttools_div::getSiteCharsetEncoding();
         }
+        
+        if (!is_dir($this->compile_dir)) {
+        	t3lib_div::mkdir($this->compile_dir);
+        }
+        if (!is_dir($this->cache_dir)) {
+        	t3lib_div::mkdir($this->cache_dir);
+        }
 
         tx_pttools_assert::isDir($this->compile_dir, array('message' => 'No valid compile directory: "'.$this->compile_dir.'"'));
         tx_pttools_assert::isDir($this->cache_dir, array('message' => 'No valid cache directory: "'.$this->cache_dir.'"'));
