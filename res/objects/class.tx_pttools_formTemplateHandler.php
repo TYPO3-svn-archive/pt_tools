@@ -205,7 +205,7 @@ class tx_pttools_formTemplateHandler {
 	 * @return	array	choices for use in select etc.
 	 * @since	2007-03-08
 	*/
-	private function ll_choices($ilabel, $usekeys = true) {
+	public function ll_choices($ilabel, $usekeys = true) {
 		trace('[CMD] '.__METHOD__);
 
 		$cnt = intval($this->plugin->pi_getLL('fc_'.$ilabel.'_count'));
@@ -236,7 +236,7 @@ class tx_pttools_formTemplateHandler {
      * @since   2006-10-10
      */
 
-    private function labelField($fname, $flabel, $frequired = false, $fhelp = '') {
+    public function labelField($fname, $flabel, $frequired = false, $fhelp = '') {
 		$fieldMarkerArray['###FIELDNAME###'] = $this->prefixId.'['.$fname.']';
         $fieldMarkerArray['###FIELDLABELTEXT###'] = tx_pttools_div::htmlOutput($flabel);
         $fieldMarkerArray['###REQUIREDMARKER###'] = $frequired ? $this->tmplMarkRequired : $this->tmplMarkNotRequired;
@@ -271,7 +271,7 @@ class tx_pttools_formTemplateHandler {
      * @since   2006-10-12
      */
 
-    private function selectOption($optvalue, $opttext, $optSelected = false, $optDisabled = false) {
+    public function selectOption($optvalue, $opttext, $optSelected = false, $optDisabled = false) {
 		$fieldMarkerArray['###SELOPTVALUE###'] = tx_pttools_div::htmlOutput($optvalue);
 		$fieldMarkerArray['###SELOPTTEXT###'] = tx_pttools_div::htmlOutput($opttext);
 		$fieldMarkerArray['###SELOPTSELECTED###'] = $optSelected ? 'selected="selected"' : '';
@@ -1021,15 +1021,19 @@ class tx_pttools_formTemplateHandler {
 					$maxcount = (isset($avalues[5])) ? $avalues[5] : 1;
 					$script = (isset($avalues[6])) ? $avalues[6] : array();
 					$textvalues = $dataObject->$getter();
+					$flabel = $this->plugin->pi_getLL('fl_'.$alabel, '[fl_'.$alabel.']');
+					$fhelp = $this->plugin->pi_getLL('fh_'.$alabel);
 					for ($textnum = 0; $textnum < $maxcount; $textnum++) {
 						if ($textnum == $mincount) {
 							$required = false;
 						}
-						$fieldSubstString = $this->substInText($alabel.'][', $this->plugin->pi_getLL('fl_'.$alabel, '[fl_'.$alabel.']'), $textvalues[$textnum], $len, $maxlen, $required, $checktype, in_array($alabel, $disableArray), $this->plugin->pi_getLL('fh_'.$alabel), $script);
+						$fieldSubstString = $this->substInText($alabel.'][', $flabel, $textvalues[$textnum], $len, $maxlen, $required, $checktype, in_array($alabel, $disableArray), $fhelp, $script);
+						$flabel = ''; $fhelp = '';	// only label first field
 						if ($this->tmplTextArrayWrapper) {
 							$wrapSubstArray = array(
 								'###FIELDNAME###' => $alabel,
 								'###CONTENT###' => $fieldSubstString,
+								'###FIELDINDEX###' => $textnum,
 							);
 							$arraySubstString .= $this->plugin->cObj->substituteMarkerArray($this->tmplTextArrayWrapper, $wrapSubstArray);
 						} else {
