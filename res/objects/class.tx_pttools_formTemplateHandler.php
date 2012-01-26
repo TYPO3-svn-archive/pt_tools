@@ -353,6 +353,51 @@ class tx_pttools_formTemplateHandler {
         return $this->plugin->cObj->substituteMarkerArray($fhelp == '' ? $this->tmplMarkNoHelp : $this->tmplMarkHelp, $fieldMarkerArray);
 	}
 
+    /**
+     * hackLogLen: log message for impossible length input
+     * 
+     * @param   string	field name
+     * @param   integer	max. allowed input length
+     * @param   integer	received input length
+     * @return  void
+     * @author  Wolfgang Zenker <zenker@punkt.de>
+     * @since   2012-01-26
+     */
+
+    private function hackLogLen($fname, $maxlen, $actlen) {
+		$msg = "possible hacking attempt: input for $fname had len $actlen, allowed $maxlen";
+		$this->sysLog($msg, 2);
+	}
+
+    /**
+     * hackLogChoice: log message for impossible selection input
+     * 
+     * @param   string	field name
+     * @param   string	field value
+     * @return  void
+     * @author  Wolfgang Zenker <zenker@punkt.de>
+     * @since   2012-01-26
+     */
+
+    private function hackLogChoice($fname, $fvalue) {
+		$msg = "possible hacking attempt: input for $fname had impossible value $fvalue";
+		$this->sysLog($msg, 2);
+	}
+
+    /**
+     * sysLog: register log message with TYPO3 system log
+     * 
+     * @param   string	message text
+     * @param   integer	severity level
+     * @return  void
+     * @author  Wolfgang Zenker <zenker@punkt.de>
+     * @since   2012-01-26
+     */
+
+    private function sysLog($msg, $level) {
+		t3lib_div::sysLog($msg, 'pt_tools', $level);
+	}
+
     /***************************************************************************
        low level functions: build a single form element
     ***************************************************************************/
@@ -1514,10 +1559,12 @@ class tx_pttools_formTemplateHandler {
 					$fvalue = $this->plugin->piVars[$ilabel];
 				}
 				$maxlen = (isset($ivalues[3])) ? $ivalues[3] : 80;
-				if ($this->strlen($fvalue) <= $maxlen) {
+				$actlen = $this->strlen($fvalue);
+				if ($actlen <= $maxlen) {
 					$dataObject->$setter($fvalue);
 				}
 				else {
+					$this->hackLogLen($ilabel, $maxlen, $actlen);
 					$failArray[] = $ilabel;
 				}
 			}
@@ -1536,7 +1583,8 @@ class tx_pttools_formTemplateHandler {
 				$maxlen = (isset($avalues[3])) ? $avalues[3] : 80;
 				$lenOk = true;
 				foreach ($fvalues as $fvalue) {
-					if ($this->strlen($fvalue) > $maxlen) {
+					$actlen = $this->strlen($fvalue);
+					if ($actlen > $maxlen) {
 						$lenOk = false;
 						break;
 					}
@@ -1544,6 +1592,7 @@ class tx_pttools_formTemplateHandler {
 				if ($lenOk) {
 					$dataObject->$setter($fvalues);
 				} else {
+					$this->hackLogLen($alabel, $maxlen, $actlen);
 					$failArray[] = $alabel;
 				}
 			}
@@ -1565,10 +1614,14 @@ class tx_pttools_formTemplateHandler {
 					$checkvalue = $this->plugin->piVars[$checklabel];
 				}
 				$maxlen = (isset($ivalues[3])) ? $ivalues[3] : 80;
-				if (($fvalue === $checkvalue) && ($this->strlen($fvalue) <= $maxlen)) {
+				$actlen = $this->strlen($fvalue);
+				if (($fvalue === $checkvalue) && ($actlen <= $maxlen)) {
 					$dataObject->$setter($fvalue);
 				}
 				else {
+					if ($actlen > $maxlen) {
+						$this->hackLogLen($ilabel, $maxlen, $actlen);
+					}
 					$failArray[] = $ilabel;
 				}
 			}
@@ -1628,6 +1681,7 @@ class tx_pttools_formTemplateHandler {
 					$dataObject->$setter($fvalue);
 				}
 				else {
+					$this->hackLogChoice($ilabel, $fvalue);
 					$failArray[] = $ilabel;
 				}
 			}
@@ -1643,10 +1697,12 @@ class tx_pttools_formTemplateHandler {
 				if (isset($this->plugin->piVars[$ilabel]))
 					$fvalue = $this->plugin->piVars[$ilabel];
 				$maxlen = (isset($ivalues[3])) ? $ivalues[3] : 80;
-				if ($this->strlen($fvalue) <= $maxlen) {
+				$actlen = $this->strlen($fvalue);
+				if ($actlen <= $maxlen) {
 					$dataObject->$setter($fvalue);
 				}
 				else {
+					$this->hackLogLen($ilabel, $maxlen, $actlen);
 					$failArray[] = $ilabel;
 				}
 			}
@@ -1686,6 +1742,7 @@ class tx_pttools_formTemplateHandler {
 					$dataObject->$setter($fvalue);
 				}
 				else {
+					$this->hackLogChoice($ilabel, $fvalue);
 					$failArray[] = $ilabel;
 				}
 			}
@@ -1742,6 +1799,7 @@ class tx_pttools_formTemplateHandler {
 					$dataObject->$setter($fvalue);
 				}
 				else {
+					$this->hackLogChoice($ilabel, $fvalue);
 					$failArray[] = $ilabel;
 				}
 			}
@@ -1771,10 +1829,12 @@ class tx_pttools_formTemplateHandler {
 					}
 				}
 				$maxlen = (isset($ivalues[3])) ? $ivalues[3] : 80;
-				if ($this->strlen($fvalue) <= $maxlen) {
+				$actlen = $this->strlen($fvalue);
+				if ($actlen <= $maxlen) {
 					$dataObject->$setter($fvalue);
 				}
 				else {
+					$this->hackLogLen($ilabel, $maxlen, $actlen);
 					$failArray[] = $ilabel;
 				}
 			}
